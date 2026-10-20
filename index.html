@@ -124,6 +124,19 @@ button{cursor:pointer}
 body[data-busy="1"] .status::before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--jade);animation:spin .8s linear infinite}
 body[data-rec="1"] .status{color:var(--rec);font-weight:600}
 .dock-row{display:flex;align-items:center;justify-content:center;gap:34px}
+.mode{display:flex;gap:3px;padding:3px;border-radius:99px;background:var(--surface);border:1px solid var(--line)}
+.mode label{position:relative}
+.mode input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.mode span{display:block;padding:5px 14px;border-radius:99px;font-size:13px;color:var(--ink-2);white-space:nowrap}
+.mode input:checked+span{background:var(--ink);color:var(--porcelain);font-weight:600}
+.mode input:focus-visible+span{outline:2px solid var(--cobalt)}
+body[data-rec="1"] .mode{opacity:.5;pointer-events:none}
+.usage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.usage div{background:var(--porcelain);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.usage b{font-size:18px;font-variant-numeric:tabular-nums;font-weight:600}
+.usage small{font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.usage span{font-size:12px;color:var(--ink-2);font-weight:600}
+.tok{font-variant-numeric:tabular-nums;opacity:.75}
 .side{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink)}
 .side[aria-pressed="true"]{background:var(--ink);color:var(--porcelain);border-color:var(--ink)}
 
@@ -153,7 +166,7 @@ body[data-rec="1"] .mic .glass{animation:turn 7s linear infinite}
 [dir="rtl"] .send .ic{transform:scaleX(-1)}
 
 /* Toast */
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(190px + env(safe-area-inset-bottom,0px));z-index:70;width:min(92vw,520px);background:var(--ink);color:var(--porcelain);padding:12px 16px;border-radius:14px;font-size:14px;box-shadow:var(--shadow);text-align:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(230px + env(safe-area-inset-bottom,0px));z-index:70;width:min(92vw,520px);background:var(--ink);color:var(--porcelain);padding:12px 16px;border-radius:14px;font-size:14px;box-shadow:var(--shadow);text-align:center}
 .toast[data-tone="err"]{background:var(--ruby);color:#fff}
 .toast[data-tone="warn"]{background:var(--amber);color:#1b1408}
 
@@ -265,6 +278,10 @@ select.inp{appearance:auto}
   <main class="feed" id="feed" aria-live="polite"></main>
 
   <footer class="dock">
+    <div class="mode" role="radiogroup" aria-label="طريقة إيقاف التسجيل">
+      <label><input type="radio" name="recMode" value="manual" id="rm-manual"><span>إيقاف يدوي</span></label>
+      <label><input type="radio" name="recMode" value="auto" id="rm-auto"><span>يتوقف عند الصمت</span></label>
+    </div>
     <div class="status" id="status">اضغط وتكلّم</div>
     <div class="dock-row">
       <button class="side" id="kbBtn" type="button" aria-label="كتابة نص" aria-pressed="false"><svg class="ic"><use href="#i-kb"/></svg></button>
@@ -369,7 +386,6 @@ select.inp{appearance:auto}
       <p class="note" id="voiceInfo"></p>
     </div>
 
-    <label class="switch" for="autoStop"><span>إيقاف التسجيل تلقائياً عند الصمت</span><input type="checkbox" id="autoStop"></label>
     <label class="switch" for="romanize"><span>إظهار طريقة النطق بالحروف اللاتينية</span><input type="checkbox" id="romanize"></label>
 
     <div class="field">
@@ -377,7 +393,12 @@ select.inp{appearance:auto}
       <textarea class="inp" id="ctxInput" rows="5" spellcheck="false"></textarea>
       <div class="row"><p class="note" style="flex:1">يساعد الترجمة تفهم موضوعك. أضف أسماء منتجاتك ومصطلحاتك بالإنجليزي.</p><button class="btn sm ghost" id="ctxReset" type="button">الافتراضي</button></div>
     </div>
-    <p class="foot">粤桥 · الإصدار 1.0</p>
+    <div class="field">
+      <span class="lbl">استهلاك التوكنز</span>
+      <div class="usage" id="usageBox"></div>
+      <div class="row"><p class="note" style="flex:1">يُحسب من رد Gemini نفسه، ويشمل المحاولات التي لم يُلتقط فيها كلام. ثانية الصوت ≈ 32 توكن.</p><button class="btn sm ghost danger" id="usageReset" type="button"><span>تصفير</span></button></div>
+    </div>
+    <p class="foot">粤桥 · الإصدار 1.1</p>
   </div>
 </section>
 
@@ -452,6 +473,11 @@ function fillTurn(el, t) {
   el.className = 'turn ' + (t.dir === 'in' ? 'theirs' : 'mine') + (t.pending ? ' pending' : '');
   $('.chip', el).textContent = chipText(t);
   $('time', el).textContent = fmtTime(t.t);
+  let tok = $('.tok', el);
+  if (t.usage) {
+    if (!tok) { tok = document.createElement('span'); tok.className = 'tok'; $('time', el).after(tok); }
+    tok.textContent = fmtN(t.usage.total) + ' توكن';
+  } else if (tok) tok.remove();
   const src = $('.src', el), tgt = $('.tgt', el), jp = $('.jp', el);
   src.textContent = t.src || '';
   src.hidden = !t.src;
@@ -540,7 +566,8 @@ function buildPrompt(history) {
     '- Chinese prices are in yuan (RMB) unless the speaker says otherwise. Cantonese 蚊 means yuan.',
     '- Translate the meaning naturally, the way a skilled human interpreter would, keeping the speaker\'s tone and politeness.',
     '- Never answer the speaker, comment, explain, or add anything that was not said.',
-    '- If the audio has no clear speech, output LANG: none and leave SRC and TGT empty.',
+    '- Transcribe only words that are clearly audible in this audio. Never guess, never fill gaps, and never take words from the Background or the recent turns unless they are actually spoken in this audio.',
+    '- Background noise, music, breathing, clicks or unclear sounds are not speech. If you are not sure that real words were spoken, output LANG: none and leave SRC and TGT empty.',
     '',
     'Output exactly these lines and nothing else:',
     'LANG: <code>',
@@ -552,7 +579,7 @@ function buildPrompt(history) {
       ? 'JP: <Hanyu Pinyin with tone marks of the Chinese line (TGT when translating into Chinese, otherwise SRC)>'
       : 'JP: <Jyutping with tone numbers of the Cantonese line (TGT when translating into Cantonese, otherwise SRC)>');
   }
-  lines.push('', 'Background: ' + (S.context || DEFAULT_CONTEXT).trim());
+  lines.push('', 'Background (helps with meaning and terms only; it is NOT part of the audio): ' + (S.context || DEFAULT_CONTEXT).trim());
   if (history.length) {
     lines.push('', 'Recent turns, for context only. Do not translate them again:');
     history.forEach(t => lines.push((t.dir === 'out' ? 'A: ' : 'B: ') + t.src + ' => ' + t.tgt));
@@ -589,6 +616,40 @@ function thinkVariants(model) {
   return [{ thinkingLevel: 'minimal' }, { thinkingLevel: 'low' }, null];
 }
 
+/* ---------- token usage ---------- */
+let lastUsage = null;
+const dayKey = () => new Date().toLocaleDateString('en-CA');
+function emptyU() { return { in: 0, out: 0, n: 0 }; }
+function addUsage(u) {
+  if (!u) return null;
+  const t = {
+    in: u.promptTokenCount || 0,
+    out: (u.candidatesTokenCount || 0) + (u.thoughtsTokenCount || 0),
+  };
+  t.total = u.totalTokenCount || (t.in + t.out);
+  const U = store.get('usage', { total: emptyU(), days: {} });
+  const d = dayKey();
+  U.days[d] = U.days[d] || emptyU();
+  for (const b of [U.total, U.days[d]]) { b.in += t.in; b.out += t.out; b.n += 1; }
+  const keys = Object.keys(U.days).sort();
+  while (keys.length > 60) delete U.days[keys.shift()];
+  store.set('usage', U);
+  renderUsage();
+  return t;
+}
+const fmtN = n => new Intl.NumberFormat('en-US').format(n || 0);
+function renderUsage() {
+  const box = $('#usageBox');
+  if (!box) return;
+  const U = store.get('usage', { total: emptyU(), days: {} });
+  const today = U.days[dayKey()] || emptyU();
+  const c = current();
+  const conv = emptyU();
+  if (c) c.turns.forEach(t => { if (t.usage) { conv.in += t.usage.in; conv.out += t.usage.out; conv.n++; } });
+  const cell = (label, b) => '<div><span>' + label + '</span><b>' + fmtN(b.in + b.out) + '</b><small>دخل ' + fmtN(b.in) + ' · خرج ' + fmtN(b.out) + '</small><small>' + fmtN(b.n) + ' طلب</small></div>';
+  box.innerHTML = cell('اليوم', today) + cell('هذه المحادثة', conv) + cell('الإجمالي', U.total);
+}
+
 async function callGemini(input, history, onText) {
   if (!S.key) throw { code: 'nokey' };
   const model = (S.model || 'gemini-flash-latest').replace(/^models\//, '');
@@ -606,9 +667,9 @@ async function callGemini(input, history, onText) {
     const body = JSON.parse(JSON.stringify(base));
     if (tc) body.generationConfig.thinkingConfig = tc;
     try {
-      const out = await streamRequest(model, body, onText);
+      const text = await streamRequest(model, body, onText);
       store.set('think.' + model, tc);
-      return out;
+      return { text, usage: addUsage(lastUsage) };
     } catch (e) {
       lastErr = e;
       if (!(e && e.status === 400 && /think/i.test(e.message || ''))) throw e;
@@ -637,6 +698,7 @@ async function streamRequest(model, body, onText) {
   const reader = res.body.getReader();
   const dec = new TextDecoder();
   let buf = '', full = '';
+  lastUsage = null;
   try {
     for (;;) {
       const { done, value } = await reader.read();
@@ -652,6 +714,7 @@ async function streamRequest(model, body, onText) {
         let j;
         try { j = JSON.parse(data); } catch (e) { continue; }
         if (j.error) throw { status: j.error.code, message: j.error.message };
+        if (j.usageMetadata) lastUsage = j.usageMetadata;
         const cand = j.candidates && j.candidates[0];
         const ps = (cand && cand.content && cand.content.parts) || [];
         let added = false;
@@ -709,14 +772,19 @@ async function processTurn(input) {
   scrollEnd();
   busy++; refreshStatus();
   try {
-    const full = await callGemini(input, history, txt => {
-      applyParsed(t, parseOut(txt));
+    const res = await callGemini(input, history, txt => {
+      const p = parseOut(txt);
+      if (p.lang === 'none') return;
+      applyParsed(t, p);
       fillTurn(el, t);
       if (f2fOpen && t.dir) renderF2F(t);
       scrollEnd();
     });
-    applyParsed(t, parseOut(full));
-    if (!t.lang || t.lang === 'none' || !t.tgt) throw { code: 'nospeech' };
+    const p = parseOut(res.text);
+    if (p.lang === 'none') throw { code: 'nospeech' };
+    applyParsed(t, p);
+    if (!t.lang || !t.tgt || (input.audio && !t.src)) throw { code: 'nospeech' };
+    t.usage = res.usage || null;
     t.pending = false;
     t.to = t.dir === 'in' ? S.myLang : S.zhStyle;
     c.updated = Date.now();
@@ -761,7 +829,7 @@ function showError(e) {
 }
 
 /* ---------- recording ---------- */
-const rec = { ctx: null, stream: null, src: null, proc: null, chunks: [], rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
+const rec = { ctx: null, stream: null, src: null, proc: null, chunks: [], levels: [], th: 0, speechRun: 0, rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
 let ttsUnlocked = false;
 
 function unlockAudio() {
@@ -780,7 +848,7 @@ async function startRec() {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
   if (!rec.ctx) { stream.getTracks().forEach(x => x.stop()); throw { name: 'NoAudio' }; }
   if (rec.ctx.state === 'suspended') { try { await rec.ctx.resume(); } catch (e) {} }
-  Object.assign(rec, { stream, chunks: [], rate: rec.ctx.sampleRate, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0, active: true });
+  Object.assign(rec, { stream, chunks: [], levels: [], th: 0, speechRun: 0, rate: rec.ctx.sampleRate, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0, active: true });
   rec.src = rec.ctx.createMediaStreamSource(stream);
   rec.proc = rec.ctx.createScriptProcessor(4096, 1, 1);
   rec.proc.onaudioprocess = onAudio;
@@ -796,15 +864,17 @@ function onAudio(e) {
   let sum = 0;
   for (let i = 0; i < d.length; i++) sum += d[i] * d[i];
   const rms = Math.sqrt(sum / d.length);
+  rec.levels.push(rms);
   const ms = d.length / rec.rate * 1000;
   rec.elapsed += ms;
   setLevel(rms);
   if (rec.elapsed < 350) { rec.noise += rms; rec.noiseN++; return; }
   const floor = rec.noiseN ? rec.noise / rec.noiseN : 0.005;
-  const th = Math.min(0.06, Math.max(0.014, floor * 2.8));
-  if (rms > th) { rec.speech = true; rec.silence = 0; }
-  else if (rec.speech) rec.silence += ms;
-  if (rec.elapsed > 60000) stopRec('max');
+  const th = Math.min(0.06, Math.max(0.012, floor * 2.8));
+  rec.th = th;
+  if (rms > th) { rec.speechRun++; if (rec.speechRun >= 2) rec.speech = true; rec.silence = 0; }
+  else { rec.speechRun = 0; if (rec.speech) rec.silence += ms; }
+  if (rec.elapsed > (S.autoStop ? 60000 : 300000)) stopRec('max');
   else if (S.autoStop && rec.speech && rec.silence > 1100) stopRec('silence');
   else if (S.autoStop && !rec.speech && rec.elapsed > 9000) stopRec('nospeech');
 }
@@ -815,11 +885,24 @@ function stopRec(reason) {
   try { rec.proc.onaudioprocess = null; rec.proc.disconnect(); rec.src.disconnect(); } catch (e) {}
   try { rec.stream.getTracks().forEach(x => x.stop()); } catch (e) {}
   setLevel(0);
-  const chunks = rec.chunks; rec.chunks = [];
+  let chunks = rec.chunks; rec.chunks = [];
+  const levels = rec.levels; rec.levels = [];
   const secs = rec.elapsed / 1000;
   refreshStatus();
-  if (reason === 'nospeech') { toast('لم أسمع كلاماً. اضغط الزر وتكلّم مرة أخرى.', 'warn'); return; }
+  if (reason === 'nospeech' || !rec.speech) {
+    if (secs >= 0.5) toast('لم أسمع كلاماً واضحاً. قرّب الجوال وتكلّم مرة أخرى.', 'warn');
+    return;
+  }
   if (secs < 0.5) return;
+  // Trim silence at both ends (keep ~0.35 s padding) so noise is not sent as speech
+  const th = rec.th || 0.012;
+  let first = levels.findIndex(v => v > th);
+  let last = levels.length - 1;
+  while (last > 0 && levels[last] <= th) last--;
+  if (first >= 0 && last >= first) {
+    const pad = Math.ceil(350 / (4096 / rec.rate * 1000));
+    chunks = chunks.slice(Math.max(0, first - pad), Math.min(chunks.length, last + pad + 1));
+  }
   processTurn({ audio: encodeWavB64(chunks, rec.rate) });
 }
 
@@ -1078,7 +1161,7 @@ function renderSettings() {
   $('#ml-' + S.myLang).checked = true;
   $('#zh-' + S.zhStyle).checked = true;
   $('#sp-' + S.autoSpeak).checked = true;
-  $('#autoStop').checked = !!S.autoStop;
+  renderUsage();
   $('#romanize').checked = !!S.romanize;
   $('#ctxInput').value = S.context;
   renderVoiceInfo();
@@ -1169,7 +1252,12 @@ function bind() {
   $$('input[name="myLang"]').forEach(r => r.addEventListener('change', () => { S.myLang = r.value; saveSettings(); refreshStatus(); renderF2F(); }));
   $$('input[name="zhStyle"]').forEach(r => r.addEventListener('change', () => { S.zhStyle = r.value; saveSettings(); refreshStatus(); renderVoiceInfo(); renderF2F(); }));
   $$('input[name="autoSpeak"]').forEach(r => r.addEventListener('change', () => { S.autoSpeak = r.value; saveSettings(); }));
-  $('#autoStop').addEventListener('change', e => { S.autoStop = e.target.checked; saveSettings(); refreshStatus(); });
+  $$('input[name="recMode"]').forEach(r => r.addEventListener('change', () => { S.autoStop = r.value === 'auto'; saveSettings(); refreshStatus(); }));
+  $('#usageReset').addEventListener('click', e => {
+    const b = e.currentTarget;
+    if (b.dataset.confirm) { store.set('usage', { total: emptyU(), days: {} }); delete b.dataset.confirm; $('span', b).textContent = 'تصفير'; renderUsage(); toast('صُفّر العدّاد.'); }
+    else { b.dataset.confirm = '1'; $('span', b).textContent = 'تأكيد التصفير'; setTimeout(() => { if (b.dataset.confirm) { delete b.dataset.confirm; $('span', b).textContent = 'تصفير'; } }, 3500); }
+  });
   $('#romanize').addEventListener('change', e => { S.romanize = e.target.checked; saveSettings(); });
   $('#ctxInput').addEventListener('change', e => { S.context = e.target.value.trim() || DEFAULT_CONTEXT; saveSettings(); });
   $('#ctxReset').addEventListener('click', () => { S.context = DEFAULT_CONTEXT; $('#ctxInput').value = DEFAULT_CONTEXT; saveSettings(); });
@@ -1183,6 +1271,7 @@ function bind() {
 function init() {
   if (currentId && !current()) currentId = null;
   bind();
+  $('#rm-' + (S.autoStop ? 'auto' : 'manual')).checked = true;
   renderFeed();
   refreshStatus();
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
