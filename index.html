@@ -588,6 +588,18 @@ body[data-hold="locked"] .live #liveText{color:var(--jade);font-weight:600}
 
 [dir="rtl"] .mic .i-send{transform:scaleX(-1)}
 .zone span{white-space:nowrap}
+
+/* ---- v5: one tap, hands-free listening ---- */
+body[data-rec] .mic .i-mic{display:none}
+body[data-rec] .mic .i-stop{display:block}
+body[data-rec="1"] .mic .disc,body[data-rec="hear"] .mic .disc{background:var(--rec);color:#fff}
+body[data-rec="speak"] .mic .disc{background:var(--jade);color:#fff}
+body[data-rec="speak"] .mic .glass{animation:turn 14s linear infinite}
+body[data-rec="1"] .mic::after,body[data-rec="hear"] .mic::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--rec);opacity:.5;animation:ripple 1.8s ease-out infinite;pointer-events:none}
+body[data-rec="hear"] .mic::after{animation-duration:.9s}
+@keyframes ripple{from{transform:scale(.92);opacity:.55}to{transform:scale(1.22);opacity:0}}
+body[data-rec="hear"] .live #liveText{color:var(--rec);font-weight:600}
+body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
 </style>
 </head>
 <body>
@@ -656,19 +668,16 @@ body[data-hold="locked"] .live #liveText{color:var(--jade);font-weight:600}
           <div class="live" id="live" hidden>
             <span class="rdot" id="liveDot"></span>
             <span class="spin" id="liveSpin"></span>
-            <time id="liveTime">0:00</time>
             <span class="wave" id="wave" aria-hidden="true"></span>
             <span id="liveText"></span>
           </div>
           <button class="vchip" id="voiceBtn" type="button" aria-pressed="true"><svg class="ic on"><use href="#i-speak"/></svg><svg class="ic off"><use href="#i-mute"/></svg></button>
         </div>
         <div class="dock-row">
-          <button class="zone z-cancel" type="button" tabindex="-1" data-i18n-aria="z_cancel"><svg class="ic"><use href="#i-trash"/></svg><span data-i18n="z_cancel"></span></button>
-          <span class="zone z-lock" aria-hidden="true"><svg class="ic"><use href="#i-lock"/></svg><span data-i18n="z_lock"></span></span>
           <button class="side" id="kbBtn" type="button" data-i18n-aria="kb_aria" aria-pressed="false"><svg class="ic"><use href="#i-kb"/></svg></button>
           <button class="mic" id="micBtn" type="button">
             <span class="glass" aria-hidden="true"></span>
-            <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-send"><use href="#i-send"/></svg></span>
+            <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-stop"><use href="#i-stop"/></svg></span>
           </button>
           <button class="side" id="f2fBtn" type="button" data-i18n-aria="f2f_aria"><svg class="ic"><use href="#i-f2f"/></svg></button>
         </div>
@@ -863,12 +872,10 @@ body[data-hold="locked"] .live #liveText{color:var(--jade);font-weight:600}
     <p class="half-txt zh" id="f2fZh"></p>
   </section>
   <div class="seam">
-    <button class="zone z-cancel" type="button" tabindex="-1" data-i18n-aria="z_cancel"><svg class="ic"><use href="#i-trash"/></svg><span data-i18n="z_cancel"></span></button>
-    <span class="zone z-lock" aria-hidden="true"><svg class="ic"><use href="#i-lock"/></svg><span data-i18n="z_lock"></span></span>
     <button class="side" id="f2fClose" type="button" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button>
     <button class="mic" id="micBtn2" type="button">
       <span class="glass" aria-hidden="true"></span>
-      <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-send"><use href="#i-send"/></svg></span>
+      <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-stop"><use href="#i-stop"/></svg></span>
     </button>
     <button class="side" id="f2fSpeak" type="button" data-i18n-aria="f2f_respeak"><svg class="ic"><use href="#i-speak"/></svg></button>
   </div>
@@ -1164,7 +1171,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 4.2',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 5.0',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1226,7 +1233,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 4.2',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 5.0',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1331,6 +1338,21 @@ Object.assign(I18N.en, {
   ob_s3: 'Allow the microphone', ob_s3d: 'Only once, so the button works right away.', ob_s3b: 'Allow microphone', ob_s3ok: 'Allowed ✓',
   ready_body2: 'Hold the button and speak {my}, or let the seller speak, then release to translate. The language is detected automatically.',
   f2f_hint_me: 'Hold the middle button while you speak, release to translate.'
+});
+
+Object.assign(I18N.ar, {
+  hold_hint: 'اضغط مرة وتكلّم', mic_speak: 'ابدأ الاستماع', mic_stop: 'إيقاف الاستماع',
+  live_listen: 'أستمع… تكلّم بشكل طبيعي', live_hear: 'أسمعك…', live_trans_listen: 'أترجم وأستمع…', live_speaking: 'أنطق الترجمة… اضغط للتخطي',
+  c_idle: 'أوقفت الاستماع بعد دقيقة بدون كلام. اضغط الزر للمتابعة.',
+  ready_body2: 'اضغط الزر مرة واحدة وتكلّموا بشكل طبيعي، أنت والمورّد. أترجم كل جملة تلقائياً بعد ما تخلص، وأكمل الاستماع حتى تضغط الزر مرة ثانية.',
+  f2f_hint_me: 'اضغط الزر في المنتصف مرة، وتكلّموا بشكل طبيعي.'
+});
+Object.assign(I18N.en, {
+  hold_hint: 'Tap once and talk', mic_speak: 'Start listening', mic_stop: 'Stop listening',
+  live_listen: 'Listening… just talk', live_hear: 'Hearing you…', live_trans_listen: 'Translating, still listening…', live_speaking: 'Speaking the translation… tap to skip',
+  c_idle: 'Stopped listening after a quiet minute. Tap the button to continue.',
+  ready_body2: 'Tap the button once and just talk, you and the seller. Each sentence is translated as soon as it ends, and I keep listening until you tap again.',
+  f2f_hint_me: 'Tap the middle button once, then just talk.'
 });
 
 /* ================= settings ================= */
@@ -1552,7 +1574,7 @@ function toast(msg, tone) {
 /* ================= tabs & header ================= */
 const TABS = ['talk', 'camera', 'phrases', 'tools', 'usage'];
 function setTab(name) {
-  if (rec.active && name !== 'talk') stopRec(rec.locked ? 'send' : 'abort');
+  if (rec.on && name !== 'talk') stopConvo('manual');
   if (cam.on && name !== 'camera') stopCam();
   tab = name;
   $$('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
@@ -1700,7 +1722,7 @@ function ensureConv() {
   return c;
 }
 function newConversation() {
-  if (rec.active) stopRec('abort');
+  if (rec.on) stopConvo('abort');
   closeSheets();
   currentId = null; store.set('current', null);
   cancelEdit();
@@ -1713,19 +1735,21 @@ const WAVE_N = 14;
 let waveVals = new Array(WAVE_N).fill(0);
 let liveTimer = 0;
 function refreshStatus() {
-  document.body.dataset.rec = rec.active ? '1' : '';
+  const on = rec.on || rec.opening;
+  if (on) document.body.dataset.rec = rec.paused ? 'speak' : rec.inSpeech ? 'hear' : '1'; else delete document.body.dataset.rec;
   document.body.dataset.busy = busy ? '1' : '';
-  const live = rec.active || busy > 0;
+  const live = on || busy > 0;
   $('#holdHint').hidden = live;
   $('#live').hidden = !live;
-  $('#liveDot').hidden = !rec.active;
-  $('#liveTime').hidden = !rec.active;
-  $('#wave').hidden = !rec.active;
-  $('#liveSpin').hidden = rec.active;
-  $('#liveText').textContent = rec.active ? t(rec.locked ? 'live_locked' : rec.zone === 'cancel' ? 'live_cancel' : 'live_hold') : t('live_busy');
-  const hv = rec.locked && rec.active ? 'locked' : (rec.active || rec.starting) && hold.down ? (rec.zone || '1') : '';
-  if (hv) document.body.dataset.hold = hv; else delete document.body.dataset.hold;
-  $$('.mic').forEach(b => b.setAttribute('aria-label', t(rec.locked && rec.active ? 'mic_send' : 'hold_hint')));
+  $('#liveDot').hidden = !on || rec.paused;
+  $('#wave').hidden = !on || rec.paused;
+  $('#liveSpin').hidden = !busy || rec.inSpeech;
+  $('#liveText').textContent = !on ? t('live_busy')
+    : rec.paused ? t('live_speaking')
+    : rec.inSpeech ? t('live_hear')
+    : busy ? t('live_trans_listen')
+    : t('live_listen');
+  $$('.mic').forEach(b => { b.setAttribute('aria-label', t(on ? 'mic_stop' : 'mic_speak')); b.setAttribute('aria-pressed', String(!!on)); });
   const vb = $('#voiceBtn');
   vb.setAttribute('aria-pressed', String(!!S.voice));
   vb.setAttribute('aria-label', t(S.voice ? 'voice_on' : 'voice_off'));
@@ -1994,7 +2018,7 @@ async function processTurn(input, opts) {
     else { if (i >= 0) c.turns.splice(i, 1); el.remove(); }
     if (!c.turns.length) { convs = convs.filter(y => y !== c); currentId = null; renderFeed(); }
     renderF2F();
-    showError(e);
+    if (!(opts.quiet && e && e.code === 'nospeech')) showError(e);
   } finally {
     busy--; refreshStatus();
   }
@@ -2025,8 +2049,17 @@ function showError(e) {
   toast(m, e.code === 'nospeech' ? 'warn' : 'err');
 }
 
-/* ================= recording ================= */
-const rec = { hold: false, cancel: false, locked: false, zone: '', ctx: null, stream: null, src: null, proc: null, chunks: [], levels: [], th: 0, speechRun: 0, rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
+/* ================= recording: one tap, hands-free conversation =================
+   Tap once → the app listens continuously. Each sentence is cut automatically at the pause that ends it,
+   translated, and listening goes on. While a translation is spoken aloud the mic is released (no echo, and
+   iOS keeps the speaker at full volume), then listening resumes by itself. Tap again to stop. */
+const FRAME = 4096;
+const rec = {
+  ctx: null, stream: null, src: null, proc: null, rate: 48000,
+  on: false, opening: false, listening: false, paused: false,
+  pre: [], seg: [], inSpeech: false, run: 0, silence: 0, speechMs: 0, segMs: 0,
+  noise: 0.006, lastVoice: 0, startedAt: 0, idleTimer: 0
+};
 let ttsUnlocked = false;
 
 function unlockAudio() {
@@ -2039,78 +2072,123 @@ function unlockAudio() {
     ttsUnlocked = true;
   }
 }
+function setAudioSession(type) { try { if (navigator.audioSession) navigator.audioSession.type = type; } catch (e) {} }
 
-async function startRec() {
+async function openMic() {
+  if (rec.listening || rec.opening) return;
   if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw { name: 'Insecure' };
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
-  if (!rec.ctx) { stream.getTracks().forEach(x => x.stop()); throw { name: 'NoAudio' }; }
-  if (rec.ctx.state === 'suspended') { try { await rec.ctx.resume(); } catch (e) {} }
-  Object.assign(rec, { stream, chunks: [], levels: [], th: 0, speechRun: 0, rate: rec.ctx.sampleRate, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0, active: true });
-  rec.src = rec.ctx.createMediaStreamSource(stream);
-  rec.proc = rec.ctx.createScriptProcessor(4096, 1, 1);
-  rec.proc.onaudioprocess = onAudio;
-  rec.src.connect(rec.proc);
-  rec.proc.connect(rec.ctx.destination);
-  waveVals = new Array(WAVE_N).fill(0); drawWave();
-  $('#liveTime').textContent = '0:00';
-  clearInterval(liveTimer);
-  liveTimer = setInterval(() => { $('#liveTime').textContent = fmtDur(rec.elapsed); }, 250);
-  vib(15);
+  rec.opening = true;
+  try {
+    setAudioSession('play-and-record');
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    if (!rec.on || rec.paused) { stream.getTracks().forEach(x => x.stop()); return; }
+    if (!rec.ctx) { stream.getTracks().forEach(x => x.stop()); throw { name: 'NoAudio' }; }
+    if (rec.ctx.state === 'suspended') { try { await rec.ctx.resume(); } catch (e) {} }
+    rec.stream = stream; rec.rate = rec.ctx.sampleRate;
+    rec.src = rec.ctx.createMediaStreamSource(stream);
+    rec.proc = rec.ctx.createScriptProcessor(FRAME, 1, 1);
+    rec.proc.onaudioprocess = onAudio;
+    rec.src.connect(rec.proc);
+    rec.proc.connect(rec.ctx.destination);
+    resetSegment();
+    rec.listening = true;
+    store.set('micOK', true);
+  } finally { rec.opening = false; refreshStatus(); }
+}
+function closeMic() {
+  rec.listening = false;
+  try { if (rec.proc) { rec.proc.onaudioprocess = null; rec.proc.disconnect(); } if (rec.src) rec.src.disconnect(); } catch (e) {}
+  try { if (rec.stream) rec.stream.getTracks().forEach(x => x.stop()); } catch (e) {}
+  rec.stream = null; rec.src = null; rec.proc = null;
+  setLevel(0);
+}
+function resetSegment() { rec.pre = []; rec.seg = []; rec.inSpeech = false; rec.run = 0; rec.silence = 0; rec.speechMs = 0; rec.segMs = 0; }
+
+async function startConvo() {
+  if (rec.on) return;
+  if (!S.key) { showError({ code: 'nokey' }); return; }
+  unlockAudio();
+  try { speechSynthesis.cancel(); } catch (e) {}
+  requestWake();
+  rec.on = true; rec.paused = false; rec.lastVoice = Date.now(); rec.startedAt = Date.now();
   refreshStatus();
+  try { await openMic(); vib(15); }
+  catch (e) { rec.on = false; closeMic(); refreshStatus(); micError(e); return; }
+  clearInterval(rec.idleTimer);
+  rec.idleTimer = setInterval(() => {
+    if (rec.on && !rec.paused && !rec.inSpeech && busy === 0 && Date.now() - rec.lastVoice > 75000) stopConvo('idle');
+  }, 3000);
+}
+function stopConvo(reason) {
+  if (!rec.on && !rec.listening) return;
+  const flush = reason !== 'abort' && rec.inSpeech && rec.speechMs >= 450;
+  const chunks = flush ? rec.seg.slice() : null;
+  rec.on = false; rec.paused = false;
+  clearInterval(rec.idleTimer);
+  closeMic();
+  resetSegment();
+  vib(10);
+  refreshStatus();
+  if (chunks) processTurn({ audio: encodeWavB64(chunks, rec.rate) }, { quiet: true });
+  if (reason === 'idle') toast(t('c_idle'));
+}
+function toggleConvo() {
+  if (rec.paused) { try { speechSynthesis.cancel(); } catch (e) {} resumeListening(); return; }   // tap while speaking = skip the audio
+  if (rec.on) stopConvo('manual'); else startConvo();
+}
+// release the mic while a translation is spoken, then listen again
+function pauseListening() {
+  if (!rec.on || rec.paused) return;
+  rec.paused = true;
+  if (rec.inSpeech && rec.speechMs >= 450) endSegment(); else resetSegment();
+  closeMic();
+  setAudioSession('playback');
+  refreshStatus();
+}
+function resumeListening() {
+  if (!rec.on || !rec.paused) return;
+  rec.paused = false;
+  rec.lastVoice = Date.now();
+  refreshStatus();
+  openMic().catch(e => { rec.on = false; closeMic(); refreshStatus(); micError(e); });
 }
 
 function onAudio(e) {
-  if (!rec.active) return;
+  if (!rec.listening) return;
   const d = e.inputBuffer.getChannelData(0);
-  rec.chunks.push(new Float32Array(d));
+  const frame = new Float32Array(d);
   let sum = 0;
   for (let i = 0; i < d.length; i++) sum += d[i] * d[i];
   const rms = Math.sqrt(sum / d.length);
-  rec.levels.push(rms);
   const ms = d.length / rec.rate * 1000;
-  rec.elapsed += ms;
   setLevel(rms);
-  if (rec.elapsed < 350) { rec.noise += rms; rec.noiseN++; return; }
-  const floor = rec.noiseN ? rec.noise / rec.noiseN : 0.005;
-  const th = Math.min(0.06, Math.max(0.012, floor * 2.8));
-  rec.th = th;
-  if (rms > th) { rec.speechRun++; rec.speech = true; rec.silence = 0; }
-  else { rec.speechRun = 0; if (rec.speech) rec.silence += ms; }
-  if (rec.elapsed > 300000) stopRec('max');
-}
-
-function stopRec(reason) {
-  if (!rec.active) return;
-  rec.active = false;
-  clearInterval(liveTimer);
-  try { rec.proc.onaudioprocess = null; rec.proc.disconnect(); rec.src.disconnect(); } catch (e) {}
-  try { rec.stream.getTracks().forEach(x => x.stop()); } catch (e) {}
-  setLevel(0);
-  vib(10);
-  let chunks = rec.chunks; rec.chunks = [];
-  const levels = rec.levels; rec.levels = [];
-  const secs = rec.elapsed / 1000;
-  rec.hold = false; rec.cancel = false; rec.locked = false; rec.zone = '';
-  refreshStatus();
-  if (reason === 'cancel') { toast(t('r_cancel')); return; }
-  if (reason === 'abort') return;
-  if (reason === 'short') { toast(t('too_short')); return; }
-  if (reason === 'nospeech' || !rec.speech) {
-    if (secs >= 0.5) toast(t('r_nospeech'), 'warn');
+  const th = Math.min(0.08, Math.max(0.014, rec.noise * 3.2));
+  const loud = rms > th;
+  if (!rec.inSpeech) {
+    rec.pre.push(frame); if (rec.pre.length > 5) rec.pre.shift();          // ~0.4 s pre-roll
+    if (loud) rec.run++; else { rec.run = 0; rec.noise = rec.noise * 0.95 + rms * 0.05; }
+    if (rec.run >= 2) {                                                     // speech started
+      rec.inSpeech = true; rec.seg = rec.pre.slice(); rec.pre = [];
+      rec.speechMs = ms * 2; rec.segMs = ms * rec.seg.length; rec.silence = 0;
+      rec.lastVoice = Date.now();
+      refreshStatus();
+    }
     return;
   }
-  if (secs < 0.5) return;
-  if (reason === 'max') toast(t('r_max'), 'warn');
-  // trim silence at both ends (keep ~0.35 s padding) so noise is never sent as speech
-  const th = rec.th || 0.012;
-  const first = levels.findIndex(v => v > th);
-  let last = levels.length - 1;
-  while (last > 0 && levels[last] <= th) last--;
-  if (first >= 0 && last >= first) {
-    const pad = Math.ceil(350 / (4096 / rec.rate * 1000));
-    chunks = chunks.slice(Math.max(0, first - pad), Math.min(chunks.length, last + pad + 1));
-  }
-  processTurn({ audio: encodeWavB64(chunks, rec.rate) });
+  rec.seg.push(frame); rec.segMs += ms;
+  if (loud) { rec.speechMs += ms; rec.silence = 0; rec.lastVoice = Date.now(); }
+  else rec.silence += ms;
+  if (rec.silence >= 850 || rec.segMs >= 25000) endSegment();
+}
+function endSegment() {
+  const chunks = rec.seg, enough = rec.speechMs >= 450;
+  const keepTail = Math.ceil(250 / (FRAME / rec.rate * 1000));
+  const silentFrames = Math.floor(rec.silence / (FRAME / rec.rate * 1000));
+  const cut = Math.max(0, silentFrames - keepTail);
+  resetSegment();
+  refreshStatus();
+  if (!enough) return;                                                     // a click or a cough, not speech
+  processTurn({ audio: encodeWavB64(cut ? chunks.slice(0, chunks.length - cut) : chunks, rec.rate) }, { quiet: true });
 }
 
 let lvlFrame = 0, lvlVal = 1;
@@ -2120,7 +2198,7 @@ function setLevel(rms) {
   if (!lvlFrame) lvlFrame = requestAnimationFrame(() => {
     lvlFrame = 0;
     document.documentElement.style.setProperty('--lvl', lvlVal.toFixed(3));
-    if (rec.active) drawWave();
+    if (rec.listening) drawWave();
   });
 }
 
@@ -2162,31 +2240,6 @@ function encodeWavB64(chunks, inRate) {
   return btoa(bin);
 }
 
-/* Hold to talk: press = record, release = translate, slide left = cancel, slide right = keep going (hands free, tap ➤ to send).
-   Recording only starts while the finger is still down, so a first-time permission prompt never leaves a stray recording. */
-const HOLD_MS = 350;
-const hold = { id: null, down: false, t0: 0, x: 0, y: 0, lastPtr: 0 };
-async function beginRec(how) {
-  if (rec.active || rec.starting) return;
-  if (!S.key) { showError({ code: 'nokey' }); return; }
-  unlockAudio();
-  try { speechSynthesis.cancel(); } catch (e) {}
-  requestWake();
-  rec.starting = true; rec.locked = false; rec.zone = '';
-  refreshStatus();
-  const t0 = Date.now();
-  try { await startRec(); }
-  catch (e) { rec.starting = false; hold.down = false; refreshStatus(); micError(e); return; }
-  rec.starting = false;
-  store.set('micOK', true);
-  if (how === 'hold' && !hold.down && !rec.locked) {
-    stopRec('abort');                       // finger lifted while the mic was opening
-    toast(Date.now() - t0 > 600 ? t('mic_ready') : t('too_short'));
-    return;
-  }
-  if (how === 'key') rec.locked = true;
-  refreshStatus();
-}
 async function prepareMic() {
   if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { micError({ name: 'Insecure' }); return; }
   try {
@@ -2196,47 +2249,6 @@ async function prepareMic() {
     toast(t('mic_ready'));
     if (!current()) renderFeed();
   } catch (e) { micError(e); }
-}
-function lockRec() {
-  rec.locked = true; rec.zone = '';
-  hold.down = false; hold.id = null;
-  vib(15); refreshStatus();
-}
-function micDown(e) {
-  if (e.button != null && e.button > 0) return;
-  e.preventDefault();
-  hold.lastPtr = Date.now();
-  if (rec.active && rec.locked) { stopRec('send'); return; }   // hands-free recording: tap ➤ to send
-  if (rec.active || rec.starting) return;
-  hold.id = e.pointerId; hold.down = true; hold.t0 = Date.now(); hold.x = e.clientX; hold.y = e.clientY;
-  try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {}
-  beginRec('hold');
-}
-function micMove(e) {
-  if (e.pointerId !== hold.id || !hold.down) return;
-  const dx = e.clientX - hold.x;
-  const z = dx < -60 ? 'cancel' : dx > 60 ? 'lock' : '';
-  if (z === 'lock' && rec.active) { lockRec(); return; }
-  if (z !== rec.zone) { rec.zone = z; if (z) vib(8); refreshStatus(); }
-}
-function micUp(e) {
-  hold.lastPtr = Date.now();
-  if (e.pointerId !== hold.id) return;
-  hold.id = null; hold.down = false;
-  if (rec.locked) return;
-  const zone = rec.zone; rec.zone = '';
-  if (!rec.active) { refreshStatus(); return; }   // still opening the mic; beginRec handles it
-  if (zone === 'cancel' || e.type === 'pointercancel') stopRec('cancel');
-  else if (Date.now() - hold.t0 < HOLD_MS) stopRec('short');
-  else stopRec('send');
-}
-function micToggle() {                                     // keyboard / Space bar
-  if (rec.active) stopRec('send');
-  else beginRec('key');
-}
-function micClick() {
-  if (Date.now() - hold.lastPtr < 400) return;           // already handled by pointer events
-  micToggle();                                           // keyboard activation
 }
 function micError(e) {
   const n = e && e.name;
@@ -2260,16 +2272,25 @@ function pickVoice(kind) {
   for (const re of tests) { const v = voices.find(x => re.test(x.lang)); if (v) return v; }
   return null;
 }
+let speakSeq = 0;
 function speak(text, kind) {
   if (!('speechSynthesis' in window) || !text) return;
+  const seq = ++speakSeq;
+  const listening = rec.on;
+  if (listening) pauseListening();
+  let done = false;
+  const finish = () => { if (done || seq !== speakSeq) return; done = true; clearTimeout(guard); if (listening) setTimeout(resumeListening, 250); };
+  const zh = kind === 'yue' || kind === 'cmn';
+  const guard = setTimeout(finish, Math.min(20000, 1500 + Array.from(text).length * (zh ? 260 : 75) / (+S.vRate || 0.95)));
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     const v = pickVoice(kind);
     if (v) { u.voice = v; u.lang = v.lang; } else u.lang = (LANG[kind] && LANG[kind].tts) || 'en-US';
     u.rate = +S.vRate || 0.95;
+    u.onend = finish; u.onerror = finish;
     speechSynthesis.speak(u);
-  } catch (e) {}
+  } catch (e) { finish(); }
 }
 function speakTurn(x) { if (x) speak(x.tgt, x.to || (x.dir === 'out' ? S.zhStyle : S.myLang)); }
 const voiceFor = dir => S.voice && (dir === 'out' ? S.voiceZh : S.voiceMine);
@@ -2305,7 +2326,7 @@ async function requestWake() {
 }
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && wanted) requestWake();
-  if (document.visibilityState === 'hidden' && rec.active) stopRec(rec.locked ? 'send' : 'abort');
+  if (document.visibilityState === 'hidden' && rec.on) stopConvo('manual');
   if (document.visibilityState === 'hidden' && cam.on) stopCam();
 });
 
@@ -2322,7 +2343,7 @@ function renderF2F(live) {
   const cmn = S.zhStyle === 'cmn';
   let zh, me, zhLbl, meLbl;
   if (!last) {
-    zh = cmn ? '请按住中间的按钮说话，松开就会翻译。' : '撳住中间个掣讲嘢，放手就会翻译。';
+    zh = cmn ? '按一下中间的按钮，然后正常说话就可以。' : '撳一下中间个掣，然后自然讲嘢就得。';
     me = t('f2f_hint_me');
     zhLbl = '翻译'; meLbl = t('f2f_ready');
   } else if (last.dir === 'out') {
@@ -3178,15 +3199,7 @@ function rerenderAll() {
 /* ================= wiring ================= */
 function bind() {
   $$('.tab').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
-  ['#micBtn', '#micBtn2'].forEach(id => {
-    const b = $(id);
-    b.addEventListener('pointerdown', micDown);
-    b.addEventListener('pointermove', micMove);
-    b.addEventListener('pointerup', micUp);
-    b.addEventListener('pointercancel', micUp);
-    b.addEventListener('click', micClick);
-    b.addEventListener('contextmenu', e => e.preventDefault());
-  });
+  ['#micBtn', '#micBtn2'].forEach(id => $(id).addEventListener('click', toggleConvo));
   $('#newBtn').addEventListener('click', newConversation);
   $('#newConv').addEventListener('click', newConversation);
   $('#subTitle').addEventListener('click', () => {
@@ -3204,7 +3217,6 @@ function bind() {
     if (c.turns.length) saveConvs();
     renderHeader(); closeSheets();
   });
-  $$('.z-cancel').forEach(z => z.addEventListener('click', () => { if (rec.active && rec.locked) stopRec('cancel'); }));
 
   $('#voiceBtn').addEventListener('click', () => { unlockAudio(); openSheet('voice'); });
   $('#vMaster').addEventListener('change', e => {
@@ -3397,7 +3409,7 @@ function bind() {
       if (e.key === 'Backspace') { e.preventDefault(); pressKey('del'); return; }
     }
     if (e.code === 'Space' && !e.repeat && tab === 'camera' && cam.on && !typing && $('#scrim').hidden) { e.preventDefault(); toggleFreeze(); return; }
-    if (e.code === 'Space' && !e.repeat && tab === 'talk' && !typing && document.activeElement.tagName !== 'BUTTON' && $('#scrim').hidden && $('#cardOv').hidden) { e.preventDefault(); micToggle(); }
+    if (e.code === 'Space' && !e.repeat && tab === 'talk' && !typing && document.activeElement.tagName !== 'BUTTON' && $('#scrim').hidden && $('#cardOv').hidden) { e.preventDefault(); toggleConvo(); }
   });
   let rz = 0;
   window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (tab === 'usage' && unlocked) drawChart(lastDays(14)); if (cam.on && cam.items.length) renderLabels(); }, 150); });
@@ -3417,7 +3429,7 @@ function init() {
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { rec, hold, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { rec, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
