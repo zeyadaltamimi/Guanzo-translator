@@ -468,7 +468,7 @@ select.inp{appearance:auto}
 .panel.talk{grid-template-columns:minmax(0,1fr)}
 .dock-top{flex-wrap:wrap;row-gap:6px;max-width:100%}
 .mode label>span{padding:5px 11px}
-.mode label>span span{display:inline;padding:0}
+.mode label>span span{display:inline;padding:0;color:inherit;background:none;border-radius:0}
 @media (max-width:380px){.mode label>span .ic{display:none}}
 
 .seg label>span span{display:inline;padding:0;background:none;box-shadow:none;font:inherit;color:inherit}
@@ -546,6 +546,15 @@ input[type=number]{-moz-appearance:textfield}
 .items-row em.caution{background:var(--caution)}
 
 .cam-status{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:3;white-space:nowrap;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis}
+
+/* ---- v4.1: press and hold to talk ---- */
+.mic{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:transform .15s ease}
+body[data-hold="1"] .mic{transform:scale(1.1)}
+body[data-hold="cancel"] .mic{transform:scale(.94)}
+body[data-hold="cancel"] .mic .disc{background:var(--ink-3)}
+body[data-hold="cancel"] .live{color:var(--ruby);font-weight:600}
+.ready-hold{display:flex;align-items:flex-start;gap:8px;margin:6px 0 0;padding:10px 12px;border-radius:14px;background:var(--mine);color:var(--ink);font-size:14px;text-align:start;max-width:40ch}
+.ready-hold .ic{color:var(--jade);width:20px;height:20px;flex:none;margin-top:1px}
 </style>
 </head>
 <body>
@@ -1121,7 +1130,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 4.0',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 4.1',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1183,7 +1192,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 4.0',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 4.1',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1260,6 +1269,17 @@ Object.assign(I18N.en, {
   it_speak: 'Say it in Chinese', it_order: 'Order this', it_ask_pork: 'Ask: any pork?', it_copy: 'Copy',
   h_pork: 'Contains pork', h_alcohol: 'Contains alcohol', h_blood: 'Contains blood', h_meat: 'Meat · check if halal',
   cat_food: 'Restaurant & halal', u_cam: 'Camera', u_cam_reads: '{n} reads'
+});
+
+Object.assign(I18N.ar, {
+  live_hold: 'اتركه للإرسال · اسحب للإلغاء', live_cancel: 'اتركه لإلغاء التسجيل', r_cancel: 'أُلغي التسجيل.',
+  ready_hold: 'اضغط مطولاً على الزر وتكلّم، واتركه للإرسال. أو المس الزر مرة واحدة للتسجيل حسب الوضع المختار.',
+  hold_tip: 'جرّب: اضغط مطولاً على الزر وتكلّم، واتركه للإرسال.'
+});
+Object.assign(I18N.en, {
+  live_hold: 'Release to send · slide to cancel', live_cancel: 'Release to cancel', r_cancel: 'Recording cancelled.',
+  ready_hold: 'Press and hold the button while you speak, then release to send. Or tap once to record using the mode you picked.',
+  hold_tip: 'Try it: press and hold the button while you speak, release to send.'
 });
 
 /* ================= settings ================= */
@@ -1581,7 +1601,7 @@ function emptyState() {
     const ready = document.createElement('div');
     ready.className = 'ready';
     ready.innerHTML = '<span class="glass-sq" aria-hidden="true"></span><h2>' + esc(t('ready_title')) + '</h2><p>' +
-      esc(t('ready_body', { my: LANG[S.myLang].label, zh: t(S.zhStyle === 'cmn' ? 'zh_in_cmn' : 'zh_in_yue') })) + '</p>';
+      esc(t('ready_body', { my: LANG[S.myLang].label, zh: t(S.zhStyle === 'cmn' ? 'zh_in_cmn' : 'zh_in_yue') })) + '</p><p class="ready-hold"><svg class="ic"><use href="#i-hand"/></svg><span>' + esc(t('ready_hold')) + '</span></p>';
     wrap.append(ready);
   }
   const l1 = document.createElement('p');
@@ -1650,7 +1670,8 @@ function refreshStatus() {
   $('#liveTime').hidden = !rec.active;
   $('#wave').hidden = !rec.active;
   $('#liveSpin').hidden = rec.active;
-  $('#liveText').textContent = rec.active ? t(S.autoStop ? 'live_auto' : 'live_manual') : t('live_busy');
+  $('#liveText').textContent = rec.active ? (rec.hold ? t(rec.cancel ? 'live_cancel' : 'live_hold') : t(S.autoStop ? 'live_auto' : 'live_manual')) : t('live_busy');
+  document.body.dataset.hold = rec.active && rec.hold ? (rec.cancel ? 'cancel' : '1') : '';
   $$('.mic').forEach(b => b.setAttribute('aria-label', t(rec.active ? 'mic_stop' : 'mic_speak')));
   const vb = $('#voiceBtn');
   vb.setAttribute('aria-pressed', String(!!S.voice));
@@ -1951,7 +1972,7 @@ function showError(e) {
 }
 
 /* ================= recording ================= */
-const rec = { ctx: null, stream: null, src: null, proc: null, chunks: [], levels: [], th: 0, speechRun: 0, rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
+const rec = { hold: false, cancel: false, ctx: null, stream: null, src: null, proc: null, chunks: [], levels: [], th: 0, speechRun: 0, rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
 let ttsUnlocked = false;
 
 function unlockAudio() {
@@ -1999,11 +2020,12 @@ function onAudio(e) {
   const floor = rec.noiseN ? rec.noise / rec.noiseN : 0.005;
   const th = Math.min(0.06, Math.max(0.012, floor * 2.8));
   rec.th = th;
-  if (rms > th) { rec.speechRun++; if (rec.speechRun >= 2) rec.speech = true; rec.silence = 0; }
+  if (rms > th) { rec.speechRun++; if (rec.speechRun >= (rec.hold ? 1 : 2)) rec.speech = true; rec.silence = 0; }
   else { rec.speechRun = 0; if (rec.speech) rec.silence += ms; }
-  if (rec.elapsed > (S.autoStop ? 60000 : 300000)) stopRec('max');
-  else if (S.autoStop && rec.speech && rec.silence > 1100) stopRec('silence');
-  else if (S.autoStop && !rec.speech && rec.elapsed > 9000) stopRec('nospeech');
+  const auto = S.autoStop && !rec.hold;
+  if (rec.elapsed > (auto ? 60000 : 300000)) stopRec('max');
+  else if (auto && rec.speech && rec.silence > 1100) stopRec('silence');
+  else if (auto && !rec.speech && rec.elapsed > 9000) stopRec('nospeech');
 }
 
 function stopRec(reason) {
@@ -2017,7 +2039,10 @@ function stopRec(reason) {
   let chunks = rec.chunks; rec.chunks = [];
   const levels = rec.levels; rec.levels = [];
   const secs = rec.elapsed / 1000;
+  rec.hold = false; rec.cancel = false;
   refreshStatus();
+  if (reason === 'cancel') { toast(t('r_cancel')); return; }
+  if (reason === 'abort') return;
   if (reason === 'nospeech' || !rec.speech) {
     if (secs >= 0.5) toast(t('r_nospeech'), 'warn');
     return;
@@ -2096,6 +2121,50 @@ async function onMic() {
   try { await startRec(); }
   catch (e) { micError(e); }
   finally { rec.starting = false; refreshStatus(); }
+  if (rec.active && hold.releasedAt && Date.now() - hold.releasedAt < 1500) stopRec('abort');
+  hold.releasedAt = 0;
+}
+
+/* press-and-hold to talk: hold = record while pressed, release = send, slide away = cancel; a short tap keeps the chosen mode */
+const HOLD_MS = 350;
+const hold = { id: null, t0: 0, x: 0, y: 0, timer: 0, handled: false, releasedAt: 0, tipShown: false };
+function micDown(e) {
+  if (e.button != null && e.button > 0) return;
+  e.preventDefault();
+  hold.handled = true;
+  if (rec.active) { if (!rec.hold) stopRec('manual'); hold.id = null; return; }
+  if (rec.starting) return;
+  hold.id = e.pointerId; hold.t0 = Date.now(); hold.x = e.clientX; hold.y = e.clientY; hold.releasedAt = 0;
+  try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {}
+  rec.hold = false; rec.cancel = false;
+  clearTimeout(hold.timer);
+  hold.timer = setTimeout(() => { if (hold.id != null) { rec.hold = true; vib(12); refreshStatus(); } }, HOLD_MS);
+  onMic();
+}
+function micMove(e) {
+  if (e.pointerId !== hold.id || !rec.hold) return;
+  const far = Math.hypot(e.clientX - hold.x, e.clientY - hold.y) > 90;
+  if (far !== rec.cancel) { rec.cancel = far; if (far) vib(8); refreshStatus(); }
+}
+function micUp(e) {
+  setTimeout(() => { hold.handled = false; }, 350);
+  if (e.pointerId !== hold.id) return;
+  clearTimeout(hold.timer);
+  hold.id = null;
+  const held = Date.now() - hold.t0 >= HOLD_MS;
+  if (!held) {
+    rec.hold = false; refreshStatus();
+    if (!hold.tipShown && !store.get('holdTip', false)) { hold.tipShown = true; store.set('holdTip', true); setTimeout(() => toast(t('hold_tip')), 400); }
+    return;
+  }
+  const cancel = rec.cancel || e.type === 'pointercancel';
+  if (rec.active) stopRec(cancel ? 'cancel' : 'release');
+  else hold.releasedAt = Date.now();
+  rec.hold = false; rec.cancel = false; refreshStatus();
+}
+function micClick(e) {
+  if (hold.handled) { hold.handled = false; return; }   // already handled by pointer events
+  onMic();                                              // keyboard activation
 }
 function micError(e) {
   const n = e && e.name;
@@ -3037,8 +3106,15 @@ function rerenderAll() {
 /* ================= wiring ================= */
 function bind() {
   $$('.tab').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
-  $('#micBtn').addEventListener('click', onMic);
-  $('#micBtn2').addEventListener('click', onMic);
+  ['#micBtn', '#micBtn2'].forEach(id => {
+    const b = $(id);
+    b.addEventListener('pointerdown', micDown);
+    b.addEventListener('pointermove', micMove);
+    b.addEventListener('pointerup', micUp);
+    b.addEventListener('pointercancel', micUp);
+    b.addEventListener('click', micClick);
+    b.addEventListener('contextmenu', e => e.preventDefault());
+  });
   $('#newBtn').addEventListener('click', newConversation);
   $('#newConv').addEventListener('click', newConversation);
   $('#subTitle').addEventListener('click', () => {
@@ -3271,7 +3347,7 @@ function init() {
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { rec, hold, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
