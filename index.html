@@ -555,6 +555,39 @@ body[data-hold="cancel"] .mic .disc{background:var(--ink-3)}
 body[data-hold="cancel"] .live{color:var(--ruby);font-weight:600}
 .ready-hold{display:flex;align-items:flex-start;gap:8px;margin:6px 0 0;padding:10px 12px;border-radius:14px;background:var(--mine);color:var(--ink);font-size:14px;text-align:start;max-width:40ch}
 .ready-hold .ic{color:var(--jade);width:20px;height:20px;flex:none;margin-top:1px}
+
+/* ---- v4.2: hold to talk with cancel / keep-going zones ---- */
+.hold-hint{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);font-weight:600}
+.hold-hint .ic{width:18px;height:18px;color:var(--jade)}
+.dock-row,.seam{position:relative}
+.mic .i-send{display:none}
+body[data-rec="1"] .mic .i-mic{display:block}
+body[data-rec="1"] .mic .i-stop{display:none}
+body[data-hold="locked"] .mic .i-mic{display:none}
+body[data-hold="locked"] .mic .i-send{display:block}
+body[data-hold="locked"] .mic .disc{background:var(--jade);color:#fff}
+body[data-hold="locked"] .mic .glass{animation:none}
+.zone{position:absolute;top:50%;transform:translateY(-50%);display:none;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:76px;height:76px;border-radius:22px;border:1.5px dashed var(--ink-3);background:var(--surface);color:var(--ink-2);font-size:12px;font-weight:700;pointer-events:none;transition:transform .12s ease,background .12s ease}
+.zone .ic{width:22px;height:22px}
+.z-cancel{left:-12px}
+.z-lock{right:-12px}
+body[data-hold] .dock-row>.side,body[data-hold] .seam>.side{visibility:hidden}
+body[data-hold] .zone{display:flex}
+body[data-hold="locked"] .z-lock{display:none}
+body[data-hold="cancel"] .z-cancel{background:var(--ruby);border:1.5px solid var(--ruby);color:#fff;transform:translateY(-50%) scale(1.1)}
+body[data-hold="lock"] .z-lock{background:var(--jade);border:1.5px solid var(--jade);color:#fff;transform:translateY(-50%) scale(1.1)}
+body[data-hold="locked"] .z-cancel{pointer-events:auto;border-style:solid;border-color:var(--line);cursor:pointer}
+body[data-hold="cancel"] .mic{transform:scale(.92)}
+body[data-hold="cancel"] .mic .disc{background:var(--ink-3)}
+body[data-hold="cancel"] .live{color:var(--ruby);font-weight:600}
+body[data-hold="locked"] .live #liveText{color:var(--jade);font-weight:600}
+.chips.scroll-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));padding-block:2px}
+.chips.scroll-row::-webkit-scrollbar{display:none}
+.chips.scroll-row .qchip{flex:none}
+.steps li .btn{margin-top:4px}
+
+[dir="rtl"] .mic .i-send{transform:scaleX(-1)}
+.zone span{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -619,10 +652,7 @@ body[data-hold="cancel"] .live{color:var(--ruby);font-weight:600}
       <div class="feed gut" id="feed" aria-live="polite"></div>
       <footer class="dock gut">
         <div class="dock-top">
-          <div class="mode" id="modeBar" role="radiogroup" data-i18n-aria="mode_aria">
-            <label><input type="radio" name="recMode" value="manual" id="rm-manual"><span><svg class="ic"><use href="#i-hand"/></svg><span data-i18n="mode_manual"></span></span></label>
-            <label><input type="radio" name="recMode" value="auto" id="rm-auto"><span><svg class="ic"><use href="#i-wave"/></svg><span data-i18n="mode_auto"></span></span></label>
-          </div>
+          <span class="hold-hint" id="holdHint"><svg class="ic"><use href="#i-hand"/></svg><span data-i18n="hold_hint"></span></span>
           <div class="live" id="live" hidden>
             <span class="rdot" id="liveDot"></span>
             <span class="spin" id="liveSpin"></span>
@@ -633,10 +663,12 @@ body[data-hold="cancel"] .live{color:var(--ruby);font-weight:600}
           <button class="vchip" id="voiceBtn" type="button" aria-pressed="true"><svg class="ic on"><use href="#i-speak"/></svg><svg class="ic off"><use href="#i-mute"/></svg></button>
         </div>
         <div class="dock-row">
+          <button class="zone z-cancel" type="button" tabindex="-1" data-i18n-aria="z_cancel"><svg class="ic"><use href="#i-trash"/></svg><span data-i18n="z_cancel"></span></button>
+          <span class="zone z-lock" aria-hidden="true"><svg class="ic"><use href="#i-lock"/></svg><span data-i18n="z_lock"></span></span>
           <button class="side" id="kbBtn" type="button" data-i18n-aria="kb_aria" aria-pressed="false"><svg class="ic"><use href="#i-kb"/></svg></button>
           <button class="mic" id="micBtn" type="button">
             <span class="glass" aria-hidden="true"></span>
-            <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-stop"><use href="#i-stop"/></svg></span>
+            <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-send"><use href="#i-send"/></svg></span>
           </button>
           <button class="side" id="f2fBtn" type="button" data-i18n-aria="f2f_aria"><svg class="ic"><use href="#i-f2f"/></svg></button>
         </div>
@@ -831,10 +863,12 @@ body[data-hold="cancel"] .live{color:var(--ruby);font-weight:600}
     <p class="half-txt zh" id="f2fZh"></p>
   </section>
   <div class="seam">
+    <button class="zone z-cancel" type="button" tabindex="-1" data-i18n-aria="z_cancel"><svg class="ic"><use href="#i-trash"/></svg><span data-i18n="z_cancel"></span></button>
+    <span class="zone z-lock" aria-hidden="true"><svg class="ic"><use href="#i-lock"/></svg><span data-i18n="z_lock"></span></span>
     <button class="side" id="f2fClose" type="button" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button>
     <button class="mic" id="micBtn2" type="button">
       <span class="glass" aria-hidden="true"></span>
-      <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-stop"><use href="#i-stop"/></svg></span>
+      <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-send"><use href="#i-send"/></svg></span>
     </button>
     <button class="side" id="f2fSpeak" type="button" data-i18n-aria="f2f_respeak"><svg class="ic"><use href="#i-speak"/></svg></button>
   </div>
@@ -1130,7 +1164,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 4.1',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 4.2',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1192,7 +1226,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 4.1',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 4.2',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1280,6 +1314,23 @@ Object.assign(I18N.en, {
   live_hold: 'Release to send · slide to cancel', live_cancel: 'Release to cancel', r_cancel: 'Recording cancelled.',
   ready_hold: 'Press and hold the button while you speak, then release to send. Or tap once to record using the mode you picked.',
   hold_tip: 'Try it: press and hold the button while you speak, release to send.'
+});
+
+Object.assign(I18N.ar, {
+  hold_hint: 'اضغط مطولاً وتكلّم', live_hold: 'اتركه للإرسال', live_cancel: 'اتركه لإلغاء التسجيل', live_locked: 'مستمر · اضغط الزر الأخضر للإرسال',
+  z_cancel: '← إلغاء', z_lock: 'استمر →', mic_send: 'إرسال', mic_ready: 'جاهز ✓ اضغط مطولاً على الزر وتكلّم',
+  too_short: 'اضغط مطولاً على الزر وتكلّم، واتركه للإرسال.',
+  ob_s3: 'اسمح بالميكروفون', ob_s3d: 'مرة واحدة فقط، حتى يشتغل الزر مباشرة.', ob_s3b: 'السماح بالميكروفون', ob_s3ok: 'تم السماح ✓',
+  ready_body2: 'اضغط مطولاً على الزر وتكلّم بـ{my}، أو دع المورّد يتكلم، ثم اتركه للترجمة. اللغة تُكتشف تلقائياً.',
+  f2f_hint_me: 'اضغط مطولاً على الزر في المنتصف وتكلّم، واتركه للترجمة.'
+});
+Object.assign(I18N.en, {
+  hold_hint: 'Hold to talk', live_hold: 'Release to send', live_cancel: 'Release to cancel', live_locked: 'Recording · tap the green button to send',
+  z_cancel: '← Cancel', z_lock: 'Keep going →', mic_send: 'Send', mic_ready: 'Ready ✓ Hold the button and speak',
+  too_short: 'Hold the button while you speak, then release to send.',
+  ob_s3: 'Allow the microphone', ob_s3d: 'Only once, so the button works right away.', ob_s3b: 'Allow microphone', ob_s3ok: 'Allowed ✓',
+  ready_body2: 'Hold the button and speak {my}, or let the seller speak, then release to translate. The language is detected automatically.',
+  f2f_hint_me: 'Hold the middle button while you speak, release to translate.'
 });
 
 /* ================= settings ================= */
@@ -1501,7 +1552,7 @@ function toast(msg, tone) {
 /* ================= tabs & header ================= */
 const TABS = ['talk', 'camera', 'phrases', 'tools', 'usage'];
 function setTab(name) {
-  if (rec.active && name !== 'talk') stopRec('manual');
+  if (rec.active && name !== 'talk') stopRec(rec.locked ? 'send' : 'abort');
   if (cam.on && name !== 'camera') stopCam();
   tab = name;
   $$('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
@@ -1593,7 +1644,7 @@ function emptyState() {
       '<ol class="steps">' +
       '<li><b>' + esc(t('ob_s1')) + '</b><span>' + esc(t('ob_s1d')) + '</span><div class="row"><a class="btn sm ghost" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">' + esc(t('ob_s1b')) + '</a></div></li>' +
       '<li><b>' + esc(t('ob_s2')) + '</b><span>' + esc(t('ob_s2d')) + '</span><div class="row"><input class="inp ltr" id="obKey" type="password" autocomplete="off" spellcheck="false" placeholder="AIza…" aria-label="' + esc(t('key_lbl')) + '"><button class="btn" type="button" data-act="ob-connect">' + esc(t('connect')) + '</button></div><p class="state" id="obState"></p></li>' +
-      '<li><b>' + esc(t('ob_s3')) + '</b><span>' + esc(t('ob_s3d')) + '</span></li>' +
+      '<li' + (store.get('micOK', false) ? ' class="done"' : '') + '><b>' + esc(t('ob_s3')) + '</b><span>' + esc(t('ob_s3d')) + '</span><div class="row">' + (store.get('micOK', false) ? '<span class="state" data-tone="ok">' + esc(t('ob_s3ok')) + '</span>' : '<button class="btn sm ghost" type="button" data-act="ob-mic"><svg class="ic"><use href="#i-mic"/></svg>' + esc(t('ob_s3b')) + '</button>') + '</div></li>' +
       '</ol>' +
       '<button class="linkbtn" type="button" data-act="go-phrases">' + esc(t('ob_more')) + '</button>';
     wrap.append(card);
@@ -1601,15 +1652,15 @@ function emptyState() {
     const ready = document.createElement('div');
     ready.className = 'ready';
     ready.innerHTML = '<span class="glass-sq" aria-hidden="true"></span><h2>' + esc(t('ready_title')) + '</h2><p>' +
-      esc(t('ready_body', { my: LANG[S.myLang].label, zh: t(S.zhStyle === 'cmn' ? 'zh_in_cmn' : 'zh_in_yue') })) + '</p><p class="ready-hold"><svg class="ic"><use href="#i-hand"/></svg><span>' + esc(t('ready_hold')) + '</span></p>';
+      esc(t('ready_body2', { my: LANG[S.myLang].label })) + '</p>';
     wrap.append(ready);
   }
   const l1 = document.createElement('p');
   l1.className = 'label'; l1.textContent = t('quick_label');
   wrap.append(l1);
   const chips = document.createElement('div');
-  chips.className = 'chips';
-  quickChips(6).forEach(p => {
+  chips.className = 'chips scroll-row';
+  quickChips(8).forEach(p => {
     const z = builtinZh(p);
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'qchip';
@@ -1618,6 +1669,7 @@ function emptyState() {
     chips.append(b);
   });
   wrap.append(chips);
+  if (store.get('used', false)) return wrap;
   const l2 = document.createElement('p');
   l2.className = 'label'; l2.textContent = t('example_label');
   wrap.append(l2);
@@ -1648,7 +1700,7 @@ function ensureConv() {
   return c;
 }
 function newConversation() {
-  if (rec.active) stopRec('manual');
+  if (rec.active) stopRec('abort');
   closeSheets();
   currentId = null; store.set('current', null);
   cancelEdit();
@@ -1664,15 +1716,16 @@ function refreshStatus() {
   document.body.dataset.rec = rec.active ? '1' : '';
   document.body.dataset.busy = busy ? '1' : '';
   const live = rec.active || busy > 0;
-  $('#modeBar').hidden = live;
+  $('#holdHint').hidden = live;
   $('#live').hidden = !live;
   $('#liveDot').hidden = !rec.active;
   $('#liveTime').hidden = !rec.active;
   $('#wave').hidden = !rec.active;
   $('#liveSpin').hidden = rec.active;
-  $('#liveText').textContent = rec.active ? (rec.hold ? t(rec.cancel ? 'live_cancel' : 'live_hold') : t(S.autoStop ? 'live_auto' : 'live_manual')) : t('live_busy');
-  document.body.dataset.hold = rec.active && rec.hold ? (rec.cancel ? 'cancel' : '1') : '';
-  $$('.mic').forEach(b => b.setAttribute('aria-label', t(rec.active ? 'mic_stop' : 'mic_speak')));
+  $('#liveText').textContent = rec.active ? t(rec.locked ? 'live_locked' : rec.zone === 'cancel' ? 'live_cancel' : 'live_hold') : t('live_busy');
+  const hv = rec.locked && rec.active ? 'locked' : (rec.active || rec.starting) && hold.down ? (rec.zone || '1') : '';
+  if (hv) document.body.dataset.hold = hv; else delete document.body.dataset.hold;
+  $$('.mic').forEach(b => b.setAttribute('aria-label', t(rec.locked && rec.active ? 'mic_send' : 'hold_hint')));
   const vb = $('#voiceBtn');
   vb.setAttribute('aria-pressed', String(!!S.voice));
   vb.setAttribute('aria-label', t(S.voice ? 'voice_on' : 'voice_off'));
@@ -1928,6 +1981,7 @@ async function processTurn(input, opts) {
     if (!x.lang || !x.tgt || (input.audio && !x.src)) throw { code: 'nospeech' };
     x.usage = res.usage || null;
     x.pending = false;
+    store.set('used', true);
     x.to = x.dir === 'in' ? S.myLang : S.zhStyle;
     c.updated = Date.now();
     saveConvs();
@@ -1972,7 +2026,7 @@ function showError(e) {
 }
 
 /* ================= recording ================= */
-const rec = { hold: false, cancel: false, ctx: null, stream: null, src: null, proc: null, chunks: [], levels: [], th: 0, speechRun: 0, rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
+const rec = { hold: false, cancel: false, locked: false, zone: '', ctx: null, stream: null, src: null, proc: null, chunks: [], levels: [], th: 0, speechRun: 0, rate: 48000, active: false, starting: false, speech: false, silence: 0, elapsed: 0, noise: 0, noiseN: 0 };
 let ttsUnlocked = false;
 
 function unlockAudio() {
@@ -2020,12 +2074,9 @@ function onAudio(e) {
   const floor = rec.noiseN ? rec.noise / rec.noiseN : 0.005;
   const th = Math.min(0.06, Math.max(0.012, floor * 2.8));
   rec.th = th;
-  if (rms > th) { rec.speechRun++; if (rec.speechRun >= (rec.hold ? 1 : 2)) rec.speech = true; rec.silence = 0; }
+  if (rms > th) { rec.speechRun++; rec.speech = true; rec.silence = 0; }
   else { rec.speechRun = 0; if (rec.speech) rec.silence += ms; }
-  const auto = S.autoStop && !rec.hold;
-  if (rec.elapsed > (auto ? 60000 : 300000)) stopRec('max');
-  else if (auto && rec.speech && rec.silence > 1100) stopRec('silence');
-  else if (auto && !rec.speech && rec.elapsed > 9000) stopRec('nospeech');
+  if (rec.elapsed > 300000) stopRec('max');
 }
 
 function stopRec(reason) {
@@ -2039,10 +2090,11 @@ function stopRec(reason) {
   let chunks = rec.chunks; rec.chunks = [];
   const levels = rec.levels; rec.levels = [];
   const secs = rec.elapsed / 1000;
-  rec.hold = false; rec.cancel = false;
+  rec.hold = false; rec.cancel = false; rec.locked = false; rec.zone = '';
   refreshStatus();
   if (reason === 'cancel') { toast(t('r_cancel')); return; }
   if (reason === 'abort') return;
+  if (reason === 'short') { toast(t('too_short')); return; }
   if (reason === 'nospeech' || !rec.speech) {
     if (secs >= 0.5) toast(t('r_nospeech'), 'warn');
     return;
@@ -2110,61 +2162,81 @@ function encodeWavB64(chunks, inRate) {
   return btoa(bin);
 }
 
-async function onMic() {
-  if (rec.active) { stopRec('manual'); return; }
-  if (rec.starting) return;
+/* Hold to talk: press = record, release = translate, slide left = cancel, slide right = keep going (hands free, tap ➤ to send).
+   Recording only starts while the finger is still down, so a first-time permission prompt never leaves a stray recording. */
+const HOLD_MS = 350;
+const hold = { id: null, down: false, t0: 0, x: 0, y: 0, lastPtr: 0 };
+async function beginRec(how) {
+  if (rec.active || rec.starting) return;
   if (!S.key) { showError({ code: 'nokey' }); return; }
   unlockAudio();
   try { speechSynthesis.cancel(); } catch (e) {}
   requestWake();
-  rec.starting = true;
+  rec.starting = true; rec.locked = false; rec.zone = '';
+  refreshStatus();
+  const t0 = Date.now();
   try { await startRec(); }
-  catch (e) { micError(e); }
-  finally { rec.starting = false; refreshStatus(); }
-  if (rec.active && hold.releasedAt && Date.now() - hold.releasedAt < 1500) stopRec('abort');
-  hold.releasedAt = 0;
+  catch (e) { rec.starting = false; hold.down = false; refreshStatus(); micError(e); return; }
+  rec.starting = false;
+  store.set('micOK', true);
+  if (how === 'hold' && !hold.down && !rec.locked) {
+    stopRec('abort');                       // finger lifted while the mic was opening
+    toast(Date.now() - t0 > 600 ? t('mic_ready') : t('too_short'));
+    return;
+  }
+  if (how === 'key') rec.locked = true;
+  refreshStatus();
 }
-
-/* press-and-hold to talk: hold = record while pressed, release = send, slide away = cancel; a short tap keeps the chosen mode */
-const HOLD_MS = 350;
-const hold = { id: null, t0: 0, x: 0, y: 0, timer: 0, handled: false, releasedAt: 0, tipShown: false };
+async function prepareMic() {
+  if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { micError({ name: 'Insecure' }); return; }
+  try {
+    const st = await navigator.mediaDevices.getUserMedia({ audio: true });
+    st.getTracks().forEach(x => x.stop());
+    store.set('micOK', true);
+    toast(t('mic_ready'));
+    if (!current()) renderFeed();
+  } catch (e) { micError(e); }
+}
+function lockRec() {
+  rec.locked = true; rec.zone = '';
+  hold.down = false; hold.id = null;
+  vib(15); refreshStatus();
+}
 function micDown(e) {
   if (e.button != null && e.button > 0) return;
   e.preventDefault();
-  hold.handled = true;
-  if (rec.active) { if (!rec.hold) stopRec('manual'); hold.id = null; return; }
-  if (rec.starting) return;
-  hold.id = e.pointerId; hold.t0 = Date.now(); hold.x = e.clientX; hold.y = e.clientY; hold.releasedAt = 0;
+  hold.lastPtr = Date.now();
+  if (rec.active && rec.locked) { stopRec('send'); return; }   // hands-free recording: tap ➤ to send
+  if (rec.active || rec.starting) return;
+  hold.id = e.pointerId; hold.down = true; hold.t0 = Date.now(); hold.x = e.clientX; hold.y = e.clientY;
   try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {}
-  rec.hold = false; rec.cancel = false;
-  clearTimeout(hold.timer);
-  hold.timer = setTimeout(() => { if (hold.id != null) { rec.hold = true; vib(12); refreshStatus(); } }, HOLD_MS);
-  onMic();
+  beginRec('hold');
 }
 function micMove(e) {
-  if (e.pointerId !== hold.id || !rec.hold) return;
-  const far = Math.hypot(e.clientX - hold.x, e.clientY - hold.y) > 90;
-  if (far !== rec.cancel) { rec.cancel = far; if (far) vib(8); refreshStatus(); }
+  if (e.pointerId !== hold.id || !hold.down) return;
+  const dx = e.clientX - hold.x;
+  const z = dx < -60 ? 'cancel' : dx > 60 ? 'lock' : '';
+  if (z === 'lock' && rec.active) { lockRec(); return; }
+  if (z !== rec.zone) { rec.zone = z; if (z) vib(8); refreshStatus(); }
 }
 function micUp(e) {
-  setTimeout(() => { hold.handled = false; }, 350);
+  hold.lastPtr = Date.now();
   if (e.pointerId !== hold.id) return;
-  clearTimeout(hold.timer);
-  hold.id = null;
-  const held = Date.now() - hold.t0 >= HOLD_MS;
-  if (!held) {
-    rec.hold = false; refreshStatus();
-    if (!hold.tipShown && !store.get('holdTip', false)) { hold.tipShown = true; store.set('holdTip', true); setTimeout(() => toast(t('hold_tip')), 400); }
-    return;
-  }
-  const cancel = rec.cancel || e.type === 'pointercancel';
-  if (rec.active) stopRec(cancel ? 'cancel' : 'release');
-  else hold.releasedAt = Date.now();
-  rec.hold = false; rec.cancel = false; refreshStatus();
+  hold.id = null; hold.down = false;
+  if (rec.locked) return;
+  const zone = rec.zone; rec.zone = '';
+  if (!rec.active) { refreshStatus(); return; }   // still opening the mic; beginRec handles it
+  if (zone === 'cancel' || e.type === 'pointercancel') stopRec('cancel');
+  else if (Date.now() - hold.t0 < HOLD_MS) stopRec('short');
+  else stopRec('send');
 }
-function micClick(e) {
-  if (hold.handled) { hold.handled = false; return; }   // already handled by pointer events
-  onMic();                                              // keyboard activation
+function micToggle() {                                     // keyboard / Space bar
+  if (rec.active) stopRec('send');
+  else beginRec('key');
+}
+function micClick() {
+  if (Date.now() - hold.lastPtr < 400) return;           // already handled by pointer events
+  micToggle();                                           // keyboard activation
 }
 function micError(e) {
   const n = e && e.name;
@@ -2233,7 +2305,7 @@ async function requestWake() {
 }
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && wanted) requestWake();
-  if (document.visibilityState === 'hidden' && rec.active) stopRec('manual');
+  if (document.visibilityState === 'hidden' && rec.active) stopRec(rec.locked ? 'send' : 'abort');
   if (document.visibilityState === 'hidden' && cam.on) stopCam();
 });
 
@@ -2250,7 +2322,7 @@ function renderF2F(live) {
   const cmn = S.zhStyle === 'cmn';
   let zh, me, zhLbl, meLbl;
   if (!last) {
-    zh = cmn ? '请按中间的按钮说话，我会帮你翻译。' : '撳中间个掣讲嘢，我帮你翻译。';
+    zh = cmn ? '请按住中间的按钮说话，松开就会翻译。' : '撳住中间个掣讲嘢，放手就会翻译。';
     me = t('f2f_hint_me');
     zhLbl = '翻译'; meLbl = t('f2f_ready');
   } else if (last.dir === 'out') {
@@ -3132,10 +3204,8 @@ function bind() {
     if (c.turns.length) saveConvs();
     renderHeader(); closeSheets();
   });
-  $$('input[name="recMode"]').forEach(r => r.addEventListener('change', () => {
-    S.autoStop = r.value === 'auto'; saveSettings(); refreshStatus();
-    toast(t(S.autoStop ? 't_mode_auto' : 't_mode_manual'));
-  }));
+  $$('.z-cancel').forEach(z => z.addEventListener('click', () => { if (rec.active && rec.locked) stopRec('cancel'); }));
+
   $('#voiceBtn').addEventListener('click', () => { unlockAudio(); openSheet('voice'); });
   $('#vMaster').addEventListener('change', e => {
     S.voice = e.target.checked; saveSettings();
@@ -3192,6 +3262,7 @@ function bind() {
       return;
     }
     if (act === 'go-phrases') { setTab('phrases'); return; }
+    if (act === 'ob-mic') { prepareMic(); return; }
     const art = b.closest('.turn');
     const c = current();
     const x = c && art && c.turns.find(y => y.id === art.dataset.id);
@@ -3326,7 +3397,7 @@ function bind() {
       if (e.key === 'Backspace') { e.preventDefault(); pressKey('del'); return; }
     }
     if (e.code === 'Space' && !e.repeat && tab === 'camera' && cam.on && !typing && $('#scrim').hidden) { e.preventDefault(); toggleFreeze(); return; }
-    if (e.code === 'Space' && !e.repeat && tab === 'talk' && !typing && document.activeElement.tagName !== 'BUTTON' && $('#scrim').hidden && $('#cardOv').hidden) { e.preventDefault(); onMic(); }
+    if (e.code === 'Space' && !e.repeat && tab === 'talk' && !typing && document.activeElement.tagName !== 'BUTTON' && $('#scrim').hidden && $('#cardOv').hidden) { e.preventDefault(); micToggle(); }
   });
   let rz = 0;
   window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (tab === 'usage' && unlocked) drawChart(lastDays(14)); if (cam.on && cam.items.length) renderLabels(); }, 150); });
@@ -3338,7 +3409,6 @@ function init() {
   applyI18n();
   buildWave();
   bind();
-  $('#rm-' + (S.autoStop ? 'auto' : 'manual')).checked = true;
   if (S.calc) { $('#cPrice').value = S.calc.p || ''; $('#cQty').value = S.calc.q || ''; }
   renderFeed();
   refreshStatus();
