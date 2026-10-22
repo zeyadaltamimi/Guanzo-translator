@@ -663,6 +663,15 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
 .sp-fx{position:absolute;transform:translateY(1px);font:700 10.5px/1.4 var(--font-ui);padding:0 6px;border-radius:99px;background:#FBF1DC;color:#7A5410;white-space:nowrap;pointer-events:none;box-shadow:0 1px 3px rgb(0 0 0 / .18);direction:ltr;z-index:3}
 #shotGo{margin-top:0}
 .brand-text h1{font:700 13px/1.25 var(--font-ui);letter-spacing:0}
+.state[data-tone="warn"]{color:var(--amber)}
+
+/* v6.4 review fixes */
+.vh-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+.brand-text h1,.sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.sub span{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:359px){.top .glass-sq{display:none}.top .icon-btn{width:36px}}
+.cam-start{justify-content:flex-start}
+.cam-start-in{margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
 </style>
 </head>
 <body>
@@ -768,7 +777,7 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
         <video id="camVideo" playsinline muted autoplay></video>
         <div class="cam-reticle" id="camReticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <div class="cam-labels" id="camLabels"></div>
-        <div class="cam-start gut" id="camStart">
+        <div class="cam-start gut" id="camStart"><div class="cam-start-in">
           <span class="glass-sq cam-mark"><span><svg class="ic"><use href="#i-camera"/></svg></span></span>
           <h2 data-i18n="cam_title"></h2>
           <p class="cam-lead" id="camLead"></p>
@@ -779,11 +788,11 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
           </ul>
           <button class="btn cam-go" id="camGo" type="button"><svg class="ic"><use href="#i-camera"/></svg><span data-i18n="cam_start"></span></button>
           <button class="btn ghost cam-go" id="shotGo" type="button"><svg class="ic"><use href="#i-image"/></svg><span data-i18n="shot_btn"></span></button>
-          <input type="file" id="shotFile" accept="image/*" hidden>
+          <input type="file" id="shotFile" class="vh-file" accept="image/*" tabindex="-1" aria-hidden="true">
           <p class="note cam-note" id="camCost"></p>
           <p class="note cam-note" id="shotCost"></p>
           <p class="note cam-note" id="camHalalNote" data-i18n="cam_halal_note"></p>
-        </div>
+        </div></div>
         <div class="cam-top">
           <div class="cam-mode" role="radiogroup" data-i18n-aria="cam_title">
             <label><input type="radio" name="camMode" value="signs" id="cm-signs"><span data-i18n="cam_mode_signs"></span></label>
@@ -1145,13 +1154,23 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
           <button class="btn" id="connectBtn" type="button" data-i18n="connect"></button>
         </div>
         <p class="state" id="connectState"></p>
-        <p class="note"><span data-i18n="key_note"></span> <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></p>
+        <p class="note"><span data-i18n="key_note"></span> <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> <span data-i18n="key_backup"></span></p>
+      </div>
+      <div class="field">
+        <label class="lbl" for="freeKeyInput" data-i18n="fk_lbl"></label>
+        <div class="row">
+          <input class="inp ltr" id="freeKeyInput" type="password" autocomplete="off" spellcheck="false" placeholder="AQ.… / AIza…">
+          <button class="btn ghost" id="freeKeyShow" type="button" data-i18n-aria="key_show"><svg class="ic"><use href="#i-eye"/></svg></button>
+        </div>
+        <p class="state" id="freeState"></p>
+        <p class="note" data-i18n="fk_note"></p>
       </div>
     </div>
 
     <div class="group">
       <h3 data-i18n="g_quality"></h3>
       <div class="tiers" id="tiers"></div>
+      <label class="switch" for="saver"><span><b data-i18n="saver"></b><small data-i18n="saver_note"></small></span><input type="checkbox" id="saver"></label>
       <details>
         <summary data-i18n="model_pick"></summary>
         <div class="field" style="margin-top:10px">
@@ -1278,7 +1297,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 6.2',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 6.4',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1340,7 +1359,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 6.2',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 6.4',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1475,6 +1494,10 @@ Object.assign(I18N.ar, {
   cat_go: 'التاكسي والفندق', cat_help: 'مساعدة وطوارئ',
   shot_btn: 'ترجم لقطة شاشة أو صورة', shot_cost: 'لقطات الشاشة (Taobao وغيره): تقريباً {v} لكل 100 لقطة، ومجانية على الخطة المجانية. نفس الصورة لا تُدفع مرتين.',
   shot_reading: 'أقرأ وأترجم…', shot_done: '{n} ترجمة · اضغط أي ترجمة لرؤية الأصل', shot_none: 'ما لقيت نص صيني واضح في الصورة.', shot_err: 'تعذّرت الترجمة.',
+  fk_lbl: 'المفتاح المجاني · يُستخدم أولاً', fk_note: 'من مشروع بدون بطاقة دفع. أستخدمه أولاً، وإذا وصل حده اليومي أنتقل للمفتاح المدفوع تلقائياً، وأرجع له في اليوم التالي. تنبيه: Google قد تستخدم بيانات الخطة المجانية لتحسين خدماتها، فلا تستخدمه لمعلومات سرية.',
+  fk_ok: 'المفتاح المجاني يعمل ✓ الترجمة مجانية ضمن حده اليومي.', fk_limit: 'المفتاح المجاني وصل لحده الآن، أستخدم المدفوع مؤقتاً حتى يتجدد.', fk_limit_nopaid: 'المفتاح المجاني وصل لحده. انتظر قليلاً أو أضف مفتاحاً مدفوعاً كاحتياط.',
+  fk_bad: 'المفتاح المجاني غير صحيح أو غير مفعّل.', fk_checking: 'أتحقق من المفتاح المجاني…', key_backup: 'إذا أضفت مفتاحاً مجانياً، يصير هذا احتياطياً فقط.',
+  saver: 'وضع التوفير', saver_note: 'الصور والكاميرا والملخصات بنموذج أرخص بثلاث مرات (2.5 Flash-Lite) إذا كان متاحاً لمفتاحك. الصوت يبقى بالنموذج الأدق.', u_free: ' · منها {n} مجاناً',
   shot_retry: 'أعد المحاولة', shot_orig: 'الأصل', shot_new: 'صورة أخرى', shot_bad: 'تعذّر فتح الصورة.', shot_title: 'ترجمة الصورة'
 });
 Object.assign(I18N.en, {
@@ -1490,6 +1513,10 @@ Object.assign(I18N.en, {
   cat_go: 'Taxi & hotel', cat_help: 'Help & emergency',
   shot_btn: 'Translate a screenshot or photo', shot_cost: 'Screenshots (Taobao and others): about {v} per 100, free on the free tier. The same image is never paid for twice.',
   shot_reading: 'Reading and translating…', shot_done: '{n} translated · tap one to see the original', shot_none: 'No clear Chinese text in this image.', shot_err: 'Couldn\'t translate it.',
+  fk_lbl: 'Free key · used first', fk_note: 'From a project with no billing. I use it first; when its daily limit is reached I switch to the paid key automatically and come back to it the next day. Note: Google may use free-tier data to improve its services, so avoid confidential details.',
+  fk_ok: 'Free key works ✓ Translations are free within its daily limit.', fk_limit: 'The free key hit its limit for now. Using the paid key until it renews.', fk_limit_nopaid: 'The free key hit its limit. Wait a little or add a paid key as backup.',
+  fk_bad: 'The free key is wrong or not enabled.', fk_checking: 'Checking the free key…', key_backup: 'If you add a free key, this one becomes a backup only.',
+  saver: 'Saver mode', saver_note: 'Photos, camera and summaries use a 3× cheaper model (2.5 Flash-Lite) when your key has it. Voice keeps the most accurate model.', u_free: ' · {n} of them free',
   shot_retry: 'Try again', shot_orig: 'Original', shot_new: 'Another image', shot_bad: 'Couldn\'t open that image.', shot_title: 'Image translation'
 });
 
@@ -1503,7 +1530,7 @@ const DEFAULTS = {
   voice: true, voiceZh: true, voiceMine: true, vRate: 0.95,
   autoStop: true, context: DEFAULT_CONTEXT,
   showFx: true, cur: 'SAR', rates: {}, ratesAt: 0, rateSrc: 'default',
-  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4
+  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true
 };
 const S = Object.assign({}, DEFAULTS, old);
 if (S.v !== 3 && S.v !== 4) {
@@ -1837,7 +1864,7 @@ function emptyState() {
   wrap.className = 'empty';
   const inst = installCard();
   if (inst) wrap.append(inst);
-  if (!S.key) {
+  if (!hasKey()) {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML =
@@ -1967,7 +1994,7 @@ function buildPrompt(history) {
   L.push('Background (meaning only, never part of the audio): ' + (S.context || DEFAULT_CONTEXT).trim());
   if (history.length) {
     L.push('Earlier turns (context only, do not translate):');
-    history.forEach(x => L.push((x.dir === 'out' ? 'A: ' : 'B: ') + String(x.src).slice(0, 140) + ' => ' + String(x.tgt).slice(0, 140)));
+    history.forEach(x => L.push((x.dir === 'out' ? 'A: ' : 'B: ') + String(x.src).slice(0, 100) + ' => ' + String(x.tgt).slice(0, 100)));
   }
   return L.join('\n');
 }
@@ -1986,7 +2013,8 @@ function parseOut(raw) {
     const key = map[mk.k];
     if (!out[key]) out[key] = v;
   });
-  out.lang = (out.lang.toLowerCase().match(/[a-z]+/) || [''])[0];
+  const l0 = out.lang.toLowerCase().trim();
+  out.lang = /yue|canton|zh[-_ ]?(hk|yue)|粤/.test(l0) ? 'yue' : /cmn|mandarin|putonghua|普通|zh[-_ ]?(cn|hans)/.test(l0) ? 'cmn' : (l0.match(/[a-z]+/) || [''])[0];
   const alias = { zh: 'cmn', mandarin: 'cmn', cantonese: 'yue', english: 'en', arabic: 'ar' };
   if (alias[out.lang]) out.lang = alias[out.lang];
   return out;
@@ -2002,12 +2030,12 @@ function thinkVariants(model) {
 let lastUsage = null;
 let lastNet = 0;
 function warmUp() {                                       // free request that opens the HTTPS connection ahead of time
-  if (!S.key || Date.now() - lastNet < 40000) return;
+  if (!hasKey() || Date.now() - lastNet < 40000) return;
   lastNet = Date.now();
-  fetch(API + '/models?pageSize=1', { headers: { 'x-goog-api-key': S.key } }).catch(() => {});
+  fetch(API + '/models?pageSize=1', { headers: { 'x-goog-api-key': S.freeKey || S.key } }).catch(() => {});
 }
 async function callGemini(input, history, onText, retried) {
-  if (!S.key) throw { code: 'nokey' };
+  if (!hasKey()) throw { code: 'nokey' };
   const model = (S.model || resolveTier(S.tier, S.models)).replace(/^models\//, '');
   const parts = [];
   const fmt = store.get('audfmt', 'mulaw') === 'pcm' ? 'pcm' : 'mulaw';
@@ -2025,9 +2053,9 @@ async function callGemini(input, history, onText, retried) {
       const body = JSON.parse(JSON.stringify(base));
       if (tc) body.generationConfig.thinkingConfig = tc;
       try {
-        const text = await streamRequest(model, body, onText);
+        const { r: text, free } = await withKey(model, k => streamRequest(model, body, onText, k));
         store.set('think.' + model, tc);
-        return { text, usage: addUsage(lastUsage, model) };
+        return { text, usage: addUsage(lastUsage, model, null, free) };
       } catch (e) {
         lastErr = e;
         if (!(e && e.status === 400 && /think/i.test(e.message || ''))) throw e;
@@ -2048,13 +2076,13 @@ async function callGemini(input, history, onText, retried) {
   }
 }
 
-async function streamRequest(model, body, onText) {
+async function streamRequest(model, body, onText, key) {
   const url = API + '/models/' + encodeURIComponent(model) + ':streamGenerateContent?alt=sse';
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 60000);
   let res;
   try {
-    res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': S.key }, body: JSON.stringify(body), signal: ctrl.signal });
+    res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key || S.key }, body: JSON.stringify(body), signal: ctrl.signal });
   } catch (e) {
     clearTimeout(timer);
     throw { code: e && e.name === 'AbortError' ? 'timeout' : 'network' };
@@ -2062,8 +2090,9 @@ async function streamRequest(model, body, onText) {
   if (!res.ok) {
     clearTimeout(timer);
     let msg = '';
-    try { const j = await res.json(); msg = (j.error && j.error.message) || ''; } catch (e) {}
-    throw { status: res.status, message: msg };
+    let detail = '';
+    try { const j = await res.json(); msg = (j.error && j.error.message) || ''; detail = JSON.stringify((j.error && j.error.details) || ''); } catch (e) {}
+    throw { status: res.status, message: msg, detail };
   }
   const reader = res.body.getReader();
   const dec = new TextDecoder();
@@ -2084,7 +2113,7 @@ async function streamRequest(model, body, onText) {
         if (!data) continue;
         let j;
         try { j = JSON.parse(data); } catch (e) { continue; }
-        if (j.error) throw { status: j.error.code, message: j.error.message };
+        if (j.error) throw { status: j.error.code, message: j.error.message, detail: JSON.stringify(j.error.details || '') };
         if (j.usageMetadata) lastUsage = j.usageMetadata;
         const cand = j.candidates && j.candidates[0];
         const ps = (cand && cand.content && cand.content.parts) || [];
@@ -2121,12 +2150,80 @@ async function listModels(key) {
   return Array.from(new Set(names)).sort(cmpVer);
 }
 async function refreshModels() {
-  const names = await listModels(S.key);
+  const names = await listModels(S.key || S.freeKey);
   if (!names.length) throw { message: 'no models' };
   S.models = names;
   if (!S.modelManual || !names.includes(S.model)) { S.modelManual = false; S.model = resolveTier(S.tier, names); }
   saveSettings();
   return names;
+}
+
+/* ================= two keys: the free one first, the paid one only when the free day is used up ================= */
+const hasKey = () => !!(S.key || S.freeKey);
+const laDay = () => { try { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); } catch (e) { return new Date().toISOString().slice(0, 10); } };   // free quotas renew at midnight Pacific time
+const freeMarks = () => { const v = store.get('freeOff', {}); return v && typeof v === 'object' ? v : {}; };
+function freeUsable(model) {
+  if (!S.freeKey) return false;
+  const st = freeMarks(), d = laDay(), now = Date.now();
+  return !['*', model].some(k => st[k] && (st[k].day === d || st[k].until > now));
+}
+function markFree(model, kind) {
+  const st = freeMarks();
+  st[kind === 'bad' ? '*' : model] = kind === 'min' ? { until: Date.now() + 60000 } : { day: laDay() };
+  store.set('freeOff', st);
+  renderFreeState();
+}
+function freeFailKind(e) {
+  if (!e || !e.status) return null;
+  const m = (e.message || '') + ' ' + (e.detail || '');
+  if (e.status === 429) return /per ?day|PerDay|daily|limit: ?0\b/i.test(m) ? 'day' : 'min';
+  if (e.status === 401 || (e.status === 400 && /api key|API_KEY/i.test(m))) return 'bad';
+  if (e.status === 403) return 'bad';
+  if (e.status === 404 || (e.status === 400 && /free tier|billing/i.test(m))) return 'day';
+  return null;
+}
+async function withKey(model, run) {
+  const plan = [];
+  if (freeUsable(model)) plan.push({ k: S.freeKey, free: true });
+  if (S.key) plan.push({ k: S.key, free: false });
+  if (!plan.length) { if (S.freeKey) plan.push({ k: S.freeKey, free: true }); else throw { code: 'nokey' }; }
+  for (let i = 0; i < plan.length; i++) {
+    try { return { r: await run(plan[i].k), free: plan[i].free }; }
+    catch (e) {
+      const kind = plan[i].free ? freeFailKind(e) : null;
+      if (kind) markFree(model, kind);
+      if (kind && i + 1 < plan.length) continue;
+      throw e;
+    }
+  }
+}
+// pictures, summaries and helpers use the cheapest capable model when Economy + Saver are on; voice keeps the main model
+function taskModel(main) {
+  const m = (S.model || resolveTier(S.tier, S.models)).replace(/^models\//, '');
+  if (main || !S.saver || S.modelManual || S.tier !== 'eco') return m;
+  return (S.models || []).includes('gemini-2.5-flash-lite') ? 'gemini-2.5-flash-lite' : m;
+}
+function renderFreeState() {
+  const el = $('#freeState');
+  if (!el) return;
+  if (!S.freeKey) { el.textContent = ''; el.dataset.tone = ''; return; }
+  const st = freeMarks(), d = laDay(), now = Date.now();
+  if (st['*'] && st['*'].day === d) { el.textContent = t('fk_bad'); el.dataset.tone = 'err'; return; }
+  const off = Object.keys(st).some(k => k !== '*' && st[k] && (st[k].day === d || st[k].until > now));
+  el.textContent = off ? t(S.key ? 'fk_limit' : 'fk_limit_nopaid') : t('fk_ok');
+  el.dataset.tone = off ? 'warn' : 'ok';
+}
+async function checkFreeKey() {
+  const el = $('#freeState');
+  if (!S.freeKey) { renderFreeState(); return; }
+  el.textContent = t('fk_checking'); el.dataset.tone = '';
+  try {
+    const names = await listModels(S.freeKey);
+    if (!S.key) { S.models = names; if (!S.modelManual || !names.includes(S.model)) { S.modelManual = false; S.model = resolveTier(S.tier, names); } saveSettings(); }
+    renderFreeState();
+  } catch (e) {
+    el.textContent = e && e.code === 'network' ? t('c_net') : t('fk_bad'); el.dataset.tone = 'err';
+  }
 }
 
 /* ================= token usage ================= */
@@ -2139,20 +2236,21 @@ function loadU() {
   for (const b of [U.total].concat(Object.values(U.days))) { b.in = b.in || 0; b.out = b.out || 0; b.n = b.n || 0; b.cost = b.cost || 0; }
   return U;
 }
-function addUsage(u, model, kind) {
+function addUsage(u, model, kind, free) {
   if (!u) return null;
   const inT = u.promptTokenCount || 0;
   const aud = (u.promptTokensDetails || []).filter(d => /AUDIO/i.test(d.modality || '')).reduce((s, d) => s + (d.tokenCount || 0), 0);
   const out = (u.candidatesTokenCount || 0) + (u.thoughtsTokenCount || 0);
   const p = priceOf(model);
-  const cost = (Math.max(0, inT - aud) * p.t + aud * p.a + out * p.o) / 1e6;
+  const cost = free ? 0 : (Math.max(0, inT - aud) * p.t + aud * p.a + out * p.o) / 1e6;
   const r = { in: inT, out, total: u.totalTokenCount || (inT + out), cost, model };
   const U = loadU();
   const d = dayKey();
   U.days[d] = U.days[d] || emptyU();
   const buckets = [U.total, U.days[d]];
   if (kind === 'cam') { U.cam = U.cam || emptyU(); buckets.push(U.cam); }
-  for (const b of buckets) { b.in = (b.in || 0) + r.in; b.out = (b.out || 0) + r.out; b.n = (b.n || 0) + 1; b.cost = (b.cost || 0) + cost; }
+  for (const b of buckets) { b.in = (b.in || 0) + r.in; b.out = (b.out || 0) + r.out; b.n = (b.n || 0) + 1; b.cost = (b.cost || 0) + cost; if (free) b.fr = (b.fr || 0) + 1; }
+  r.free = !!free;
   const keys = Object.keys(U.days).sort();
   while (keys.length > 90) delete U.days[keys.shift()];
   store.set('usage', U);
@@ -2173,7 +2271,7 @@ async function processTurn(input, opts) {
   const x = { id: uid(), t: Date.now(), lang: '', src: input.text || '', tgt: '', jp: '', dir: '', to: '', pending: true };
   let idx = c.turns.length, prev = null;
   if (opts.replaceId) { const i = c.turns.findIndex(y => y.id === opts.replaceId); if (i >= 0) { idx = i; prev = c.turns[i]; } }
-  const history = c.turns.slice(0, idx).filter(y => !y.pending).slice(-4);
+  const history = c.turns.slice(0, idx).filter(y => !y.pending).slice(-3);
   if (prev) c.turns.splice(idx, 1, x); else c.turns.push(x);
   const feed = $('#feed');
   if ($('.empty', feed)) feed.textContent = '';
@@ -2307,7 +2405,7 @@ function resetSegment() { rec.pre = []; rec.seg = []; rec.inSpeech = false; rec.
 
 async function startConvo() {
   if (rec.on) return;
-  if (!S.key) { showError({ code: 'nokey' }); return; }
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
   unlockAudio();
   try { speechSynthesis.cancel(); } catch (e) {}
   requestWake();
@@ -2335,7 +2433,7 @@ function stopConvo(reason) {
   if (reason === 'idle') toast(t('c_idle'));
 }
 function toggleConvo() {
-  if (rec.paused) { try { speechSynthesis.cancel(); } catch (e) {} resumeListening(); return; }   // tap while speaking = skip the audio
+  if (rec.paused) { clearSpeakQ(); speakSeq++; try { speechSynthesis.cancel(); } catch (e) {} resumeListening(); return; }   // tap while speaking = skip the audio
   if (rec.on) stopConvo('manual'); else startConvo();
 }
 // release the mic while a translation is spoken, then listen again
@@ -2524,13 +2622,25 @@ function pickVoice(kind) {
   return null;
 }
 let speakSeq = 0;
-function speak(text, kind, rate) {
-  if (!('speechSynthesis' in window) || !text) return;
+const speakQ = [];
+let speakQOn = false;
+function queueSpeak(text, kind) { speakQ.push([text, kind]); if (!speakQOn) nextSpeak(); }
+function nextSpeak() { const it = speakQ.shift(); if (!it) { speakQOn = false; return; } speakQOn = true; speak(it[0], it[1], null, true); }
+function clearSpeakQ() { speakQ.length = 0; speakQOn = false; }
+function speak(text, kind, rate, queued) {
+  if (!('speechSynthesis' in window) || !text) { if (queued) setTimeout(nextSpeak, 0); return; }
+  if (!queued) clearSpeakQ();
   const seq = ++speakSeq;
   const listening = rec.on;
   if (listening) pauseListening();
   let done = false;
-  const finish = () => { if (done || seq !== speakSeq) return; done = true; clearTimeout(guard); if (listening) setTimeout(resumeListening, 250); };
+  const finish = () => {
+    if (done || seq !== speakSeq) return;
+    done = true; clearTimeout(guard);
+    if (queued && speakQ.length) { setTimeout(nextSpeak, 150); return; }
+    if (queued) speakQOn = false;
+    if (listening) setTimeout(() => { if (!speakQOn) resumeListening(); }, 250);
+  };
   const zh = kind === 'yue' || kind === 'cmn';
   const r = rate || +S.vRate || 0.95;
   const guard = setTimeout(finish, Math.min(25000, 1500 + Array.from(text).length * (zh ? 260 : 75) / r));
@@ -2546,7 +2656,7 @@ function speak(text, kind, rate) {
 }
 function speakTurn(x) { if (x) speak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang)); }
 const voiceFor = dir => S.voice && (dir === 'out' ? S.voiceZh : S.voiceMine);
-function autoSpeakTurn(x) { if (voiceFor(x.dir)) speakTurn(x); }
+function autoSpeakTurn(x) { if (x && voiceFor(x.dir)) queueSpeak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang)); }
 function renderVoiceInfo() {
   const el = $('#voiceInfo');
   if (!el) return;
@@ -2700,7 +2810,7 @@ function deleteTurn(id) {
   const el = $('#feed').querySelector('[data-id="' + id + '"]');
   if (el) el.remove();
   if (!c.turns.length) { convs = convs.filter(x => x !== c); currentId = null; renderFeed(); }
-  saveConvs(); renderF2F();
+  saveConvs(); renderF2F(); renderHeader();
   toast(t('t_deleted'));
 }
 
@@ -2976,8 +3086,8 @@ function renderCamUI() {
   $('#camStatus').hidden = !cam.on;
   $('#cm-' + (S.camMode === 'menu' ? 'menu' : 'signs')).checked = true;
   $('#camLead').textContent = t('cam_lead', { my: LANG[S.myLang].label });
-  $('#camCost').textContent = t('cam_cost', { v: per100Cam(S.model) });
-  $('#shotCost').textContent = t('shot_cost', { v: per100Shot(S.model) });
+  $('#camCost').textContent = t('cam_cost', { v: per100Cam(taskModel()) });
+  $('#shotCost').textContent = t('shot_cost', { v: per100Shot(taskModel()) });
   $('#camHalalNote').hidden = S.camMode !== 'menu';
   const sh = $('#camShutter');
   sh.setAttribute('aria-pressed', String(cam.frozen));
@@ -2985,7 +3095,7 @@ function renderCamUI() {
   $('#camStage').dataset.has = cam.items.length ? '1' : '';
 }
 async function startCam() {
-  if (!S.key) { showError({ code: 'nokey' }); return; }
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
   if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { toast(t('cam_insecure'), 'err'); return; }
   let stream;
   try {
@@ -3075,23 +3185,23 @@ function visionPrompt() {
   );
   return L.join('\n');
 }
-async function postJSON(model, body) {
+async function postJSON(model, body, key) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 30000);
   let res;
   try {
-    res = await fetch(API + '/models/' + encodeURIComponent(model) + ':generateContent', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': S.key }, body: JSON.stringify(body), signal: ctrl.signal });
+    res = await fetch(API + '/models/' + encodeURIComponent(model) + ':generateContent', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key || S.key }, body: JSON.stringify(body), signal: ctrl.signal });
   } catch (e) { clearTimeout(timer); throw { code: e && e.name === 'AbortError' ? 'timeout' : 'network' }; }
   clearTimeout(timer);
   let j = null;
   try { j = await res.json(); } catch (e) {}
-  if (!res.ok) throw { status: res.status, message: (j && j.error && j.error.message) || '' };
+  if (!res.ok) throw { status: res.status, message: (j && j.error && j.error.message) || '', detail: JSON.stringify((j && j.error && j.error.details) || '') };
   return j || {};
 }
 async function callVision(b64, o) {
   o = o || {};
-  if (!S.key) throw { code: 'nokey' };
-  const model = (S.model || resolveTier(S.tier, S.models)).replace(/^models\//, '');
+  if (!hasKey()) throw { code: 'nokey' };
+  const model = taskModel(o.main);
   const base = {
     systemInstruction: { parts: [{ text: o.prompt || visionPrompt() }] },
     contents: [{ role: 'user', parts: [{ inlineData: { mimeType: 'image/jpeg', data: b64 } }, { text: o.ask || 'Read and translate the Chinese text in this view.' }] }],
@@ -3106,9 +3216,9 @@ async function callVision(b64, o) {
       if (tc) body.generationConfig.thinkingConfig = tc;
       if (useMR) body.generationConfig.mediaResolution = o.mr || 'MEDIA_RESOLUTION_MEDIUM';
       try {
-        const j = await postJSON(model, body);
+        const { r: j, free } = await withKey(model, k => postJSON(model, body, k));
         store.set('think.' + model, tc); store.set('mr.' + model, useMR);
-        addUsage(j.usageMetadata, model, 'cam');
+        addUsage(j.usageMetadata, model, 'cam', free);
         const cand = (j.candidates || [])[0];
         const text = ((cand && cand.content && cand.content.parts) || []).filter(x => x.text && !x.thought).map(x => x.text).join('');
         return (o.parse || parseItems)(text);
@@ -3116,6 +3226,7 @@ async function callVision(b64, o) {
         lastErr = e;
         if (e && e.status === 400 && useMR && /resolution/i.test(e.message || '')) { useMR = false; continue; }
         if (e && e.status === 400 && /think/i.test(e.message || '')) break;
+        if (e && e.status === 404 && !o.main && model !== taskModel(true)) return callVision(b64, Object.assign({}, o, { main: true }));   // cheaper model missing: use the main one
         if (e && e.status === 404 && !S.modelManual) { try { await refreshModels(); } catch (x) {} }
         throw e;
       }
@@ -3301,12 +3412,12 @@ function setShotStatus(kind, vars) {
   $('#shotWrap').dataset.reading = kind === 'reading' ? '1' : '';
 }
 function pickShot() {
-  if (!S.key) { showError({ code: 'nokey' }); return; }
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
   const f = $('#shotFile'); f.value = ''; f.click();
 }
 async function openShotFile(file) {
   if (!file || (file.type && !/^image\//.test(file.type))) return;
-  if (!S.key) { showError({ code: 'nokey' }); return; }
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
   if (cam.on) stopCam();
   let img;
   try { img = await loadImage(file); } catch (e) { toast(t('shot_bad'), 'err'); return; }
@@ -3510,7 +3621,7 @@ function renderUsage() {
   const cu = convUsage(current());
   $('#uTodayTok').innerHTML = fmtN(sumBucket(today)) + '<small>' + esc(t('u_tok')) + ' · ' + fmtN(today.n) + ' ' + esc(t('u_req')) + '</small>';
   const h = S.cur === 'USD' ? null : usdToHome(today.cost);
-  $('#uTodayCost').textContent = t('u_cost_line', { u: fmtUSD(today.cost), h: h != null ? ' ≈ ' + money(h, S.cur) : '' });
+  $('#uTodayCost').textContent = t('u_cost_line', { u: fmtUSD(today.cost), h: h != null ? ' ≈ ' + money(h, S.cur) : '' }) + (today.fr ? t('u_free', { n: fmtN(today.fr) }) : '');
   const cell = (label, tok, n, cost) => '<div class="u-cell"><span>' + esc(label) + '</span><b>' + fmtK(tok) + '</b><small>' + fmtN(n) + ' ' + esc(t('u_req')) + '</small><small>' + esc(fmtUSD(cost)) + '</small></div>';
   $('#uCells').innerHTML = cell(t('u_conv'), sumBucket(cu), cu.n, cu.cost) + cell(t('u_7'), d7.t, d7.n, d7.c) + cell(t('u_total'), sumBucket(U.total), U.total.n, U.total.cost);
   const d14 = lastDays(14);
@@ -3609,6 +3720,9 @@ function setConnectState(text, tone) {
 }
 function renderSettings() {
   $('#keyInput').value = S.key;
+  $('#freeKeyInput').value = S.freeKey || '';
+  $('#saver').checked = !!S.saver;
+  renderFreeState();
   renderTiers();
   fillModelSelect();
   $('#ui-' + S.ui).checked = true;
@@ -3620,7 +3734,7 @@ function renderSettings() {
   $('#ctxInput').value = S.context;
 }
 async function connect() {
-  if (!S.key) { setConnectState(t('c_need_key'), 'err'); return false; }
+  if (!hasKey()) { setConnectState(t('c_need_key'), 'err'); return false; }
   setConnectState(t('c_checking'), '');
   $$('#connectBtn, [data-act="ob-connect"]').forEach(b => { b.disabled = true; });
   try {
@@ -3659,9 +3773,9 @@ function parseKeys(raw, keys) {
   });
   return out;
 }
-async function callText(sys, user, maxOut) {
-  if (!S.key) throw { code: 'nokey' };
-  const model = (S.model || resolveTier(S.tier, S.models)).replace(/^models\//, '');
+async function callText(sys, user, maxOut, main) {
+  if (!hasKey()) throw { code: 'nokey' };
+  const model = taskModel(main);
   const base = { systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: 'user', parts: [{ text: user }] }], generationConfig: { maxOutputTokens: maxOut || 400 } };
   if (/gemini-2\./.test(model)) base.generationConfig.temperature = 0.3;
   let lastErr;
@@ -3669,14 +3783,15 @@ async function callText(sys, user, maxOut) {
     const body = JSON.parse(JSON.stringify(base));
     if (tc) body.generationConfig.thinkingConfig = tc;
     try {
-      const j = await postJSON(model, body);
+      const { r: j, free } = await withKey(model, k => postJSON(model, body, k));
       store.set('think.' + model, tc);
-      addUsage(j.usageMetadata, model);
+      addUsage(j.usageMetadata, model, null, free);
       const cand = (j.candidates || [])[0];
       return ((cand && cand.content && cand.content.parts) || []).filter(p => p.text && !p.thought).map(p => p.text).join('').trim();
     } catch (e) {
       lastErr = e;
       if (e && e.status === 400 && /think/i.test(e.message || '')) continue;
+      if (e && e.status === 404 && !main && model !== taskModel(true)) return callText(sys, user, maxOut, true);
       if (e && e.status === 404 && !S.modelManual) { try { await refreshModels(); } catch (x) {} }
       throw e;
     }
@@ -3719,7 +3834,7 @@ async function aiPolite(x) {
       'Rewrite the Chinese line so it sounds more polite, warm and respectful, the way a friendly regular customer would say it, in ' + dialectText(kind) + '.',
       'Keep exactly the same meaning, numbers, prices and requests. Keep it short and natural to say aloud.',
       'Output only these lines:', 'ZH: <the polite Chinese line>', 'MY: <its meaning in ' + LANG[S.myLang].en + '>'].join('\n');
-    const txt = await callText(sys, 'Chinese line: ' + x.tgt + '\nWhat the buyer said: ' + x.src, 300);
+    const txt = await callText(sys, 'Chinese line: ' + x.tgt + '\nWhat the buyer said: ' + x.src, 300, true);
     const r = parseKeys(txt, ['ZH', 'MY']);
     if (!r.ZH) throw { code: 'empty' };
     x.polite = { zh: r.ZH, my: r.MY || '' }; saveConvs();
@@ -3746,7 +3861,7 @@ async function aiExplain(x) {
       'Then suggest one short, polite reply the buyer could say next.',
       'Output only these lines:', 'EXPLAIN: <text>', 'REPLY: <the reply in ' + dialectText(kind) + '>', 'REPLY_MY: <the reply in ' + LANG[S.myLang].en + '>'].join('\n');
     const h = historyLines(x, 4);
-    const txt = await callText(sys, (h ? 'Earlier in the chat:\n' + h + '\n\n' : '') + 'The merchant said: ' + x.src + '\nTranslation: ' + x.tgt, 450);
+    const txt = await callText(sys, (h ? 'Earlier in the chat:\n' + h + '\n\n' : '') + 'The merchant said: ' + x.src + '\nTranslation: ' + x.tgt, 450, true);
     const r = parseKeys(txt, ['EXPLAIN', 'REPLY', 'REPLY_MY']);
     if (!r.EXPLAIN) throw { code: 'empty' };
     x.explain = { text: r.EXPLAIN, reply: r.REPLY || '', replyMy: r.REPLY_MY || '', ui: S.ui }; saveConvs();
@@ -3784,7 +3899,8 @@ async function openSummary(force) {
     $('#aiActs').innerHTML = aiBtn('sum-copy', 'i-copy', t('sum_copy')) + aiBtn('sum-share', 'i-share', t('sum_share'), true);
     $('#aiNote').textContent = t('sum_note');
   };
-  if (!force && c.summary && c.summary.n === turns.length && c.summary.ui === S.ui) { show(c.summary); return; }
+  const sig = fnv(turns.map(x => x.id + ':' + String(x.tgt || '').length).join(','));
+  if (!force && c.summary && c.summary.sig === sig && c.summary.ui === S.ui) { show(c.summary); return; }
   try {
     const lang = uiLangName();
     const sys = ['Summarize a conversation between a foreign buyer (A) and a merchant in Guangzhou (B), for the buyer, in ' + lang + '.',
@@ -3794,7 +3910,7 @@ async function openSummary(force) {
     const lines = turns.slice(-60).map(x => (x.dir === 'out' ? 'A: ' : 'B: ') + String(x.dir === 'out' ? x.src : x.tgt).slice(0, 220)).join('\n');
     const txt = await callText(sys, lines, 500);
     if (!txt) throw { code: 'empty' };
-    c.summary = { text: txt, n: turns.length, ui: S.ui }; saveConvs();
+    c.summary = { text: txt, n: turns.length, sig, ui: S.ui }; saveConvs();
     show(c.summary);
   } catch (e) { aiFail(seq, e); }
 }
@@ -3928,7 +4044,7 @@ function bind() {
     e.preventDefault();
     const v = $('#typeInput').value.trim();
     if (!v) return;
-    if (!S.key) { showError({ code: 'nokey' }); return; }
+    if (!hasKey()) { showError({ code: 'nokey' }); return; }
     unlockAudio();
     $('#typeInput').value = '';
     const rid = editId; cancelEdit();
@@ -3992,7 +4108,7 @@ function bind() {
     else if (m === 'edit') startEdit(x);
     else if (m === 'del') deleteTurn(x.id);
     else if (m === 'slow') { unlockAudio(); speak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang), 0.62); }
-    else if (m === 'retry') { if (!S.key) { showError({ code: 'nokey' }); return; } unlockAudio(); processTurn({ text: x.src }, { replaceId: x.id }); }
+    else if (m === 'retry') { if (!hasKey()) { showError({ code: 'nokey' }); return; } unlockAudio(); processTurn({ text: x.src }, { replaceId: x.id }); }
     else if (m === 'polite') aiPolite(x);
     else if (m === 'explain') aiExplain(x);
   });
@@ -4094,6 +4210,15 @@ function bind() {
     if (!current()) renderFeed();
   });
   $('#keyShow').addEventListener('click', () => { const i = $('#keyInput'); i.type = i.type === 'password' ? 'text' : 'password'; });
+  $('#freeKeyShow').addEventListener('click', () => { const i = $('#freeKeyInput'); i.type = i.type === 'password' ? 'text' : 'password'; });
+  $('#freeKeyInput').addEventListener('change', () => {
+    const v = $('#freeKeyInput').value.trim();
+    if (v === (S.freeKey || '')) return;
+    S.freeKey = v; store.set('freeOff', {}); saveSettings(); refreshStatus();
+    checkFreeKey();
+    if (!current()) renderFeed();
+  });
+  $('#saver').addEventListener('change', e => { S.saver = e.target.checked; saveSettings(); if (tab === 'camera') renderCamUI(); });
   $('#connectBtn').addEventListener('click', async () => { S.key = $('#keyInput').value.trim(); saveSettings(); await connect(); if (!current()) renderFeed(); });
   $('#modelSelect').addEventListener('change', e => { S.model = e.target.value; S.modelManual = true; saveSettings(); renderTiers(); setConnectState(t('c_manual', { m: S.model }), 'ok'); });
   $$('input[name="uiLang"]').forEach(r => r.addEventListener('change', () => {
@@ -4152,7 +4277,7 @@ function init() {
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
