@@ -1171,7 +1171,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 5.0',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: '粤桥 · الإصدار 5.1',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1233,7 +1233,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 5.0',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: '粤桥 · version 5.1',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1771,8 +1771,8 @@ function buildPrompt(history) {
     'A = a foreign visitor who speaks ' + my + (S.myLang !== 'en' ? ' or English' : '') + '. B = a local merchant who speaks Guangzhou Cantonese (sometimes Mandarin).',
     'For each turn (audio or typed):',
     'LANG = language actually spoken, as an ISO 639-1 code (en, ar, fr, ru…), or yue for Cantonese, cmn for Mandarin, none for no clear speech.',
-    'SRC = faithful one-line transcription. Chinese in Simplified characters; Cantonese with its colloquial characters.',
     'TGT = if yue or cmn, translate into ' + my + '; otherwise translate into ' + zh + '.',
+    'SRC = faithful one-line transcription. Chinese in Simplified characters; Cantonese with its colloquial characters.',
     'Rules:',
     '- Transcribe only words clearly audible in THIS audio. Never guess, never complete sentences, never reuse words from Background or earlier turns.',
     '- Noise, music, breathing or unclear sound is not speech: output LANG: none with empty SRC and TGT.',
@@ -1780,8 +1780,8 @@ function buildPrompt(history) {
     '- Translate the meaning naturally with the same tone. No answers, notes or added words.',
     'Output only these lines:',
     'LANG: <code>',
-    'SRC: <text>',
-    'TGT: <text>'
+    'TGT: <text>',
+    'SRC: <text>'
   ];
   if (S.romanize) L.push(S.zhStyle === 'cmn' ? 'JP: <Hanyu Pinyin with tone marks of the Chinese line>' : 'JP: <Jyutping with tone numbers of the Cantonese line>');
   L.push('Background (meaning only, never part of the audio): ' + (S.context || DEFAULT_CONTEXT).trim());
@@ -1820,12 +1820,19 @@ function thinkVariants(model) {
 }
 
 let lastUsage = null;
+let lastNet = 0;
+function warmUp() {                                       // free request that opens the HTTPS connection ahead of time
+  if (!S.key || Date.now() - lastNet < 40000) return;
+  lastNet = Date.now();
+  fetch(API + '/models?pageSize=1', { headers: { 'x-goog-api-key': S.key } }).catch(() => {});
+}
 async function callGemini(input, history, onText, retried) {
   if (!S.key) throw { code: 'nokey' };
   const model = (S.model || resolveTier(S.tier, S.models)).replace(/^models\//, '');
   const parts = [];
-  if (input.audio) parts.push({ inlineData: { mimeType: 'audio/wav', data: input.audio } });
-  parts.push({ text: input.audio ? 'Interpret this spoken turn.' : 'Interpret this typed turn:\n' + input.text });
+  const fmt = store.get('audfmt', 'mulaw') === 'pcm' ? 'pcm' : 'mulaw';
+  if (input.pcm) parts.push({ inlineData: { mimeType: 'audio/wav', data: fmt === 'mulaw' ? encodeMulawWavB64(input.pcm.chunks, input.pcm.rate) : encodeWavB64(input.pcm.chunks, input.pcm.rate) } });
+  parts.push({ text: input.pcm ? 'Interpret this spoken turn.' : 'Interpret this typed turn:\n' + input.text });
   const base = {
     systemInstruction: { parts: [{ text: buildPrompt(history) }] },
     contents: [{ role: 'user', parts }],
@@ -1848,6 +1855,10 @@ async function callGemini(input, history, onText, retried) {
     }
     throw lastErr;
   } catch (e) {
+    if (!retried && e && e.status === 400 && input.pcm && fmt === 'mulaw' && !/think/i.test(e.message || '')) {
+      store.set('audfmt', 'pcm');                         // compressed audio refused: fall back to plain PCM for good
+      return callGemini(input, history, onText, true);
+    }
     if (!retried && e && e.status === 404 && !S.modelManual) {
       const before = S.model;
       try { await refreshModels(); } catch (x) {}
@@ -1878,6 +1889,7 @@ async function streamRequest(model, body, onText) {
   const dec = new TextDecoder();
   let buf = '', full = '';
   lastUsage = null;
+  lastNet = Date.now();
   try {
     for (;;) {
       const { done, value } = await reader.read();
@@ -1998,20 +2010,24 @@ async function processTurn(input, opts) {
       fillTurn(el, x);
       if (f2fOpen && x.dir) renderF2F(x);
       if (!prevEl) scrollEnd();
+      if (!x.spoke && x.tgt && x.dir && /\n[ \t>*_-]*SRC[ \t*_]*[:：]/i.test(txt)) {   // translation line finished: speak now
+        x.spoke = true; x.to = x.dir === 'in' ? S.myLang : S.zhStyle; autoSpeakTurn(x);
+      }
     });
     const p = parseOut(res.text);
     if (p.lang === 'none') throw { code: 'nospeech' };
     applyParsed(x, p);
-    if (!x.lang || !x.tgt || (input.audio && !x.src)) throw { code: 'nospeech' };
+    if (!x.lang || !x.tgt || (input.pcm && !x.src)) throw { code: 'nospeech' };
     x.usage = res.usage || null;
     x.pending = false;
     store.set('used', true);
     x.to = x.dir === 'in' ? S.myLang : S.zhStyle;
+    const spoke = x.spoke; delete x.spoke;
     c.updated = Date.now();
     saveConvs();
     fillTurn(el, x);
     renderF2F();
-    autoSpeakTurn(x);
+    if (!spoke) autoSpeakTurn(x);
   } catch (e) {
     const i = c.turns.indexOf(x);
     if (prev) { if (i >= 0) c.turns.splice(i, 1, prev); el.replaceWith(turnEl(prev)); }
@@ -2111,6 +2127,7 @@ async function startConvo() {
   try { speechSynthesis.cancel(); } catch (e) {}
   requestWake();
   rec.on = true; rec.paused = false; rec.lastVoice = Date.now(); rec.startedAt = Date.now();
+  warmUp();
   refreshStatus();
   try { await openMic(); vib(15); }
   catch (e) { rec.on = false; closeMic(); refreshStatus(); micError(e); return; }
@@ -2129,7 +2146,7 @@ function stopConvo(reason) {
   resetSegment();
   vib(10);
   refreshStatus();
-  if (chunks) processTurn({ audio: encodeWavB64(chunks, rec.rate) }, { quiet: true });
+  if (chunks) processTurn({ pcm: { chunks, rate: rec.rate } }, { quiet: true });
   if (reason === 'idle') toast(t('c_idle'));
 }
 function toggleConvo() {
@@ -2169,6 +2186,7 @@ function onAudio(e) {
     if (loud) rec.run++; else { rec.run = 0; rec.noise = rec.noise * 0.95 + rms * 0.05; }
     if (rec.run >= 2) {                                                     // speech started
       rec.inSpeech = true; rec.seg = rec.pre.slice(); rec.pre = [];
+      warmUp();
       rec.speechMs = ms * 2; rec.segMs = ms * rec.seg.length; rec.silence = 0;
       rec.lastVoice = Date.now();
       refreshStatus();
@@ -2178,7 +2196,7 @@ function onAudio(e) {
   rec.seg.push(frame); rec.segMs += ms;
   if (loud) { rec.speechMs += ms; rec.silence = 0; rec.lastVoice = Date.now(); }
   else rec.silence += ms;
-  if (rec.silence >= 850 || rec.segMs >= 25000) endSegment();
+  if (rec.silence >= 600 || rec.segMs >= 25000) endSegment();
 }
 function endSegment() {
   const chunks = rec.seg, enough = rec.speechMs >= 450;
@@ -2188,7 +2206,7 @@ function endSegment() {
   resetSegment();
   refreshStatus();
   if (!enough) return;                                                     // a click or a cough, not speech
-  processTurn({ audio: encodeWavB64(cut ? chunks.slice(0, chunks.length - cut) : chunks, rec.rate) }, { quiet: true });
+  processTurn({ pcm: { chunks: cut ? chunks.slice(0, chunks.length - cut) : chunks, rate: rec.rate } }, { quiet: true });
 }
 
 let lvlFrame = 0, lvlVal = 1;
@@ -2202,6 +2220,54 @@ function setLevel(rms) {
   });
 }
 
+function resampleTo(chunks, inRate, outRate) {
+  let len = 0;
+  for (const c of chunks) len += c.length;
+  const ratio = inRate / outRate, outLen = Math.max(0, Math.floor(len / ratio));
+  const out = new Float32Array(outLen);
+  let ci = 0, co = 0, peak = 0;
+  for (let i = 0; i < outLen; i++) {                     // box filter: average the samples that fall in each output slot
+    const a = Math.floor(i * ratio), b = Math.max(a + 1, Math.floor((i + 1) * ratio));
+    let s = 0;
+    for (let j = a; j < b; j++) {
+      while (ci < chunks.length && j - co >= chunks[ci].length) { co += chunks[ci].length; ci++; }
+      if (ci >= chunks.length) break;
+      s += chunks[ci][j - co];
+    }
+    const v = s / (b - a);
+    out[i] = v;
+    if (Math.abs(v) > peak) peak = Math.abs(v);
+  }
+  const g = peak > 0.001 ? Math.max(1, Math.min(4, 0.9 / peak)) : 1;
+  if (g > 1) for (let i = 0; i < outLen; i++) out[i] *= g;
+  return out;
+}
+const MULAW_EXP = new Uint8Array(256).map((_, i) => i < 2 ? 0 : Math.floor(Math.log2(i)));
+function linToMulaw(v) {
+  let x = Math.max(-1, Math.min(1, v)) * 32767 | 0;
+  const sign = x < 0 ? 0x80 : 0;
+  if (sign) x = -x;
+  if (x > 32635) x = 32635;
+  x += 0x84;
+  const e = MULAW_EXP[(x >> 7) & 0xFF];
+  const m = (x >> (e + 3)) & 0x0F;
+  return ~(sign | (e << 4) | m) & 0xFF;
+}
+function encodeMulawWavB64(chunks, inRate) {           // G.711 μ-law, 8 kHz mono: 8 KB per second of speech
+  const rate = 8000, f = resampleTo(chunks, inRate, rate), n = f.length;
+  const buf = new ArrayBuffer(58 + n), dv = new DataView(buf);
+  const ws = (off, str) => { for (let i = 0; i < str.length; i++) dv.setUint8(off + i, str.charCodeAt(i)); };
+  ws(0, 'RIFF'); dv.setUint32(4, 50 + n, true); ws(8, 'WAVE');
+  ws(12, 'fmt '); dv.setUint32(16, 18, true); dv.setUint16(20, 7, true); dv.setUint16(22, 1, true);
+  dv.setUint32(24, rate, true); dv.setUint32(28, rate, true); dv.setUint16(32, 1, true); dv.setUint16(34, 8, true); dv.setUint16(36, 0, true);
+  ws(38, 'fact'); dv.setUint32(42, 4, true); dv.setUint32(46, n, true);
+  ws(50, 'data'); dv.setUint32(54, n, true);
+  for (let i = 0; i < n; i++) dv.setUint8(58 + i, linToMulaw(f[i]));
+  const bytes = new Uint8Array(buf);
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
 function encodeWavB64(chunks, inRate) {
   let len = 0;
   for (const c of chunks) len += c.length;
@@ -3429,7 +3495,7 @@ function init() {
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { rec, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
