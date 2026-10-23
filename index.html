@@ -672,6 +672,70 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
 @media (max-width:359px){.top .glass-sq{display:none}.top .icon-btn{width:36px}}
 .cam-start{justify-content:flex-start}
 .cam-start-in{margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
+
+/* v7 two buttons */
+body[data-recmode="ptt"] #micBtn,body[data-recmode="ptt"] #micBtn2{display:none}
+body:not([data-recmode="ptt"]) .talk2{display:none}
+body[data-recmode="ptt"] .dock-row{gap:10px;width:100%;max-width:560px}
+body[data-recmode="ptt"] .seam{gap:10px}
+.talk2{display:flex;gap:10px;flex:1;min-width:0}
+.tbtn{flex:1;min-width:0;height:80px;border-radius:24px;border:0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0 6px;box-shadow:0 6px 16px rgb(0 0 0 / .14);touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:transform .12s;font-family:inherit}
+.tbtn.me{background:var(--jade)}
+.tbtn.them{background:var(--cobalt)}
+.tbtn:active{transform:scale(.96)}
+.tbtn .ic{width:24px;height:24px;stroke-width:2.2}
+.tbtn b{font-size:17px;line-height:1.15}
+.tbtn small{font-size:11.5px;font-weight:600;opacity:.92;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.seam .tbtn{height:66px}
+.rec-bar{display:none;align-items:center;justify-content:center;gap:24px;width:100%}
+body[data-ptt] .dock-row{display:none}
+body[data-ptt] .seam>:not(.rec-bar){display:none}
+body[data-ptt] .rec-bar{display:flex}
+.rb-side{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink-2);min-width:64px}
+.rb-send{position:relative;width:104px;height:104px;border-radius:50%;border:0;background:var(--jade);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font:700 14px/1.2 var(--font-ui);touch-action:manipulation;flex:none;box-shadow:0 8px 20px rgb(0 0 0 / .18)}
+body[data-ptt^="them"] .rb-send{background:var(--cobalt)}
+.rb-send::before{content:"";position:absolute;inset:-8px;border-radius:50%;border:3px solid var(--rec);transform:scale(var(--lvl,1));transition:transform .08s;pointer-events:none}
+body[data-ptt$="-held"] .rb-send::before{border-color:var(--amber);transform:none}
+.rb-send .ic{width:34px;height:34px;stroke-width:2.6}
+.pttTime{font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:600;opacity:.92;direction:ltr}
+.rb-cancel{color:var(--ruby)}
+.rb-hold .i-play{display:none}
+.rb-hold[aria-pressed="true"] .i-play{display:block}
+.rb-hold[aria-pressed="true"] .i-pause{display:none}
+.rb-hold[aria-pressed="true"]{background:var(--amber);color:#fff;border-color:transparent}
+.seam .rb-send{width:90px;height:90px}
+body[data-ptt$="-held"] #liveText{color:var(--amber);font-weight:600}
+body[data-ptt]:not([data-ptt$="-held"]) #liveText{color:var(--rec);font-weight:600}
+
+/* v7.1 UX */
+.howto{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;text-align:start;max-width:330px;width:100%}
+.howto li{display:flex;align-items:center;gap:10px;font-size:15px;line-height:1.5;color:var(--ink)}
+.howto .hn{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--porcelain);display:grid;place-items:center;font-size:13px;font-weight:700;flex:none}
+.pill{display:inline-block;padding:1px 9px;border-radius:99px;color:#fff;font-size:13.5px;line-height:1.6;white-space:nowrap}
+.pill.me{background:var(--jade)}.pill.them{background:var(--cobalt)}.pill.ok{background:var(--ink);color:var(--porcelain)}
+.ready .linkbtn{font-size:13.5px;padding:2px 0}
+body[data-recmode="ptt"][data-used="1"] #holdHint{display:none !important}
+.zchip .ic{width:15px;height:15px}
+#voiceLbl{font-size:12.5px}
+.side-w{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
+.side-w>span{font-size:11px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.turn.theirs{background:color-mix(in srgb,var(--cobalt) 7%,var(--surface));border-color:color-mix(in srgb,var(--cobalt) 22%,var(--line))}
+.turn.theirs .chip{background:color-mix(in srgb,var(--cobalt) 14%,var(--surface));color:var(--cobalt)}
+.turn.mine .chip{color:var(--jade)}
+.meta .chip{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:359px){.turn .mini{width:30px}.meta{gap:5px}}
+.toast-act{border:0;background:rgb(255 255 255 / .18);color:inherit;font:700 13.5px/1 var(--font-ui);padding:7px 12px;border-radius:99px;margin-inline-start:8px}
+.guide-btn{justify-content:center;gap:8px}
+.guide{list-style:none;margin:0;padding:0 0 8px;display:flex;flex-direction:column}
+.guide li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.guide li:last-child{border-bottom:0}
+.g-ic{width:40px;height:40px;border-radius:12px;background:var(--mine);color:var(--jade);display:grid;place-items:center;flex:none}
+.guide li div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.guide b{font-size:15px}
+.guide li div span{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+:root{--btn-me:#1E7A5B;--btn-them:#2F5FAE}
+.tbtn.me,.pill.me,.rb-send{background:var(--btn-me)}
+.tbtn.them,.pill.them,body[data-ptt^="them"] .rb-send{background:var(--btn-them)}
 </style>
 </head>
 <body>
@@ -680,7 +744,8 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
   <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2.5" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-kb" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M7 10h.01M10.5 10h.01M14 10h.01M17 10h.01M8 14h8"/></symbol>
   <symbol id="i-f2f" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M5 12h14M9.5 7.5h5M9.5 16.5h5"/></symbol>
-  <symbol id="i-gear" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8l1.6 1.9 2.5-.5.9 2.4 2.4.9-.5 2.5 1.9 1.6-1.9 1.6.5 2.5-2.4.9-.9 2.4-2.5-.5L12 21.2l-1.6-1.9-2.5.5-.9-2.4-2.4-.9.5-2.5L3.2 12l1.9-1.6-.5-2.5 2.4-.9.9-2.4 2.5.5z"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 8h12l-3.5-3.5M17 16H5l3.5 3.5"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-speak" viewBox="0 0 24 24"><path d="M4.5 9.5v5h3.5l4.5 3.5v-12L8 9.5H4.5z"/><path d="M16 9a4.2 4.2 0 0 1 0 6M18.5 6.5a7.8 7.8 0 0 1 0 11"/></symbol>
   <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4.5 9.5v5h3.5l4.5 3.5v-12L8 9.5H4.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
@@ -720,6 +785,7 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1 5.1 1.9-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5v5M16 18h5"/></symbol>
   <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.7 10.7c.8.7 1.2 1.5 1.2 2.3h5c0-.8.4-1.6 1.2-2.3A6 6 0 0 0 12 3z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M10 7h10M10 12h10M10 17h10"/><path d="M4 7l1.2 1.2L7.5 6M4 12l1.2 1.2L7.5 11M4 17l1.2 1.2L7.5 16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 15.5l-5-5-9 9"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M12 7v6.5M9.5 11l2.5 2.5 2.5-2.5M10.5 18.5h3"/></symbol>
 </svg>
@@ -750,16 +816,26 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
             <span class="wave" id="wave" aria-hidden="true"></span>
             <span id="liveText"></span>
           </div>
-          <button class="vchip zchip" id="zhBtn" type="button"><span class="zh" id="zhBtnTxt" dir="ltr">粤语</span></button>
-          <button class="vchip" id="voiceBtn" type="button" aria-pressed="true"><svg class="ic on"><use href="#i-speak"/></svg><svg class="ic off"><use href="#i-mute"/></svg></button>
+          <button class="vchip zchip" id="zhBtn" type="button"><svg class="ic"><use href="#i-swap"/></svg><span class="zh" id="zhBtnTxt" dir="ltr">粤语</span></button>
+          <button class="vchip" id="voiceBtn" type="button" aria-pressed="true"><svg class="ic on"><use href="#i-speak"/></svg><svg class="ic off"><use href="#i-mute"/></svg><span id="voiceLbl"></span></button>
         </div>
         <div class="dock-row">
-          <button class="side" id="kbBtn" type="button" data-i18n-aria="kb_aria" aria-pressed="false"><svg class="ic"><use href="#i-kb"/></svg></button>
+          <div class="side-w"><button class="side" id="kbBtn" type="button" data-i18n-aria="kb_aria" aria-pressed="false"><svg class="ic"><use href="#i-kb"/></svg></button><span data-i18n="cap_kb"></span></div>
           <button class="mic" id="micBtn" type="button">
             <span class="glass" aria-hidden="true"></span>
             <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-stop"><use href="#i-stop"/></svg></span>
           </button>
-          <button class="side" id="f2fBtn" type="button" data-i18n-aria="f2f_aria"><svg class="ic"><use href="#i-f2f"/></svg></button>
+
+          <div class="talk2">
+            <button class="tbtn me" type="button" data-ptt="me"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_me"></b><small class="tb-my"></small></button>
+            <button class="tbtn them" type="button" data-ptt="them"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_them"></b><small><span class="zh">卖家</span> · <span class="tb-zh zh"></span></small></button>
+          </div>
+          <div class="side-w"><button class="side" id="f2fBtn" type="button" data-i18n-aria="f2f_aria"><svg class="ic"><use href="#i-f2f"/></svg></button><span data-i18n="cap_f2f"></span></div>
+        </div>
+        <div class="rec-bar">
+          <div class="rb-side"><button class="side rb-cancel" type="button" data-ptt="cancel" data-i18n-aria="p_cancel"><svg class="ic"><use href="#i-x"/></svg></button><span data-i18n="p_cancel"></span></div>
+          <button class="rb-send" type="button" data-ptt="send" data-i18n-aria="p_send"><svg class="ic"><use href="#i-tick"/></svg><span data-i18n="p_send"></span><span class="pttTime">0:00</span></button>
+          <div class="rb-side"><button class="side rb-hold" type="button" data-ptt="hold" aria-pressed="false" data-i18n-aria="p_hold"><svg class="ic i-pause"><use href="#i-pause"/></svg><svg class="ic i-play"><use href="#i-play"/></svg></button><span class="rb-hold-cap" data-i18n="p_hold"></span></div>
         </div>
         <form class="type-row" id="typeForm" hidden>
           <div class="edit-note" id="editNote" hidden><svg class="ic"><use href="#i-edit"/></svg><span data-i18n="edit_note"></span><button type="button" id="editCancel" data-i18n="cancel"></button></div>
@@ -960,7 +1036,17 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
       <span class="glass" aria-hidden="true"></span>
       <span class="disc" aria-hidden="true"><svg class="ic i-mic"><use href="#i-mic"/></svg><svg class="ic i-stop"><use href="#i-stop"/></svg></span>
     </button>
+
+    <div class="talk2">
+      <button class="tbtn me" type="button" data-ptt="me"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_me"></b><small class="tb-my"></small></button>
+      <button class="tbtn them" type="button" data-ptt="them"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_them"></b><small><span class="zh">卖家</span> · <span class="tb-zh zh"></span></small></button>
+    </div>
     <button class="side" id="f2fSpeak" type="button" data-i18n-aria="f2f_respeak"><svg class="ic"><use href="#i-speak"/></svg></button>
+    <div class="rec-bar">
+      <div class="rb-side"><button class="side rb-cancel" type="button" data-ptt="cancel" data-i18n-aria="p_cancel"><svg class="ic"><use href="#i-x"/></svg></button><span data-i18n="p_cancel"></span></div>
+      <button class="rb-send" type="button" data-ptt="send" data-i18n-aria="p_send"><svg class="ic"><use href="#i-tick"/></svg><span data-i18n="p_send"></span><span class="pttTime">0:00</span></button>
+      <div class="rb-side"><button class="side rb-hold" type="button" data-ptt="hold" aria-pressed="false" data-i18n-aria="p_hold"><svg class="ic i-pause"><use href="#i-pause"/></svg><svg class="ic i-play"><use href="#i-play"/></svg></button><span class="rb-hold-cap" data-i18n="p_hold"></span></div>
+    </div>
   </div>
   <section class="half me" data-i18n-aria="f2f_me">
     <div class="half-lbl" id="f2fMeLbl"></div>
@@ -1014,6 +1100,13 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
     <div class="ai-acts" id="aiActs"></div>
     <p class="note" id="aiNote"></p>
   </div>
+</section>
+
+<!-- Quick guide -->
+<section class="sheet" id="sheet-guide" hidden role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+  <div class="grab"></div>
+  <div class="sheet-head"><h2 id="guideTitle" data-i18n="guide_t"></h2><button class="icon-btn" data-close type="button" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <ol class="guide" id="guideList"></ol>
 </section>
 
 <!-- History -->
@@ -1119,6 +1212,7 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
     <button class="icon-btn" data-close type="button" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button>
   </div>
   <div class="stack">
+    <button class="btn ghost guide-btn" id="guideBtn" type="button"><svg class="ic"><use href="#i-bulb"/></svg><span data-i18n="guide_btn"></span></button>
     <div class="group">
       <h3 data-i18n="g_lang"></h3>
       <div class="field">
@@ -1164,6 +1258,7 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
         </div>
         <p class="state" id="freeState"></p>
         <p class="note" data-i18n="fk_note"></p>
+        <p class="note" data-i18n="vpn_tip"></p>
       </div>
     </div>
 
@@ -1183,6 +1278,14 @@ body[data-rec="speak"] .live #liveText{color:var(--jade);font-weight:600}
     <div class="group">
       <h3 data-i18n="g_view"></h3>
       <button class="btn ghost" id="openVoice" type="button"><svg class="ic"><use href="#i-speak"/></svg><span data-i18n="voice_open"></span></button>
+      <div class="field">
+        <span class="lbl" id="rmLbl" data-i18n="rm_lbl"></span>
+        <div class="seg" role="radiogroup" aria-labelledby="rmLbl">
+          <label><input type="radio" name="recMode" value="ptt" id="rm-ptt"><span data-i18n="rm_ptt"></span></label>
+          <label><input type="radio" name="recMode" value="auto" id="rm-auto"><span data-i18n="rm_auto"></span></label>
+        </div>
+        <p class="note" data-i18n="rm_note"></p>
+      </div>
       <label class="switch" for="romanize"><span data-i18n="romanize"></span><input type="checkbox" id="romanize"></label>
     </div>
 
@@ -1297,7 +1400,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 6.4',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 7.1',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1359,7 +1462,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 6.4',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 7.1',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1498,6 +1601,24 @@ Object.assign(I18N.ar, {
   fk_ok: 'المفتاح المجاني يعمل ✓ الترجمة مجانية ضمن حده اليومي.', fk_limit: 'المفتاح المجاني وصل لحده الآن، أستخدم المدفوع مؤقتاً حتى يتجدد.', fk_limit_nopaid: 'المفتاح المجاني وصل لحده. انتظر قليلاً أو أضف مفتاحاً مدفوعاً كاحتياط.',
   fk_bad: 'المفتاح المجاني غير صحيح أو غير مفعّل.', fk_checking: 'أتحقق من المفتاح المجاني…', key_backup: 'إذا أضفت مفتاحاً مجانياً، يصير هذا احتياطياً فقط.',
   saver: 'وضع التوفير', saver_note: 'الصور والكاميرا والملخصات بنموذج أرخص بثلاث مرات (2.5 Flash-Lite) إذا كان متاحاً لمفتاحك. الصوت يبقى بالنموذج الأدق.', u_free: ' · منها {n} مجاناً',
+  who_me: 'أنا', who_them: 'البائع', p_hint: 'اضغط زرّك وتكلّم', p_opening: 'لحظة… جهّز كلامك',
+  p_rec_me: 'أسمعك…', p_rec_them: 'أسمع البائع…', p_held: 'متوقف مؤقتاً',
+  p_send: 'إرسال', p_hold: 'إيقاف مؤقت', p_resume: 'متابعة', p_cancel: 'إلغاء',
+  rm_lbl: 'طريقة التسجيل', rm_ptt: 'زرّان: أنا / البائع', rm_auto: 'استماع تلقائي', rm_note: 'الزرّان أسرع وأدق في الأماكن المزدحمة. الاستماع التلقائي يناسب الأماكن الهادئة.',
+  ready_ptt: 'اضغط «أنا» وتكلّم بـ{my}، أو «البائع» ليتكلم هو، ثم اضغط ✓ للإرسال. وتقدر توقف مؤقتاً ⏸ أو تلغي ✕ قبل الإرسال.',
+  f2f_hint_ptt: 'اضغط «أنا» وتكلّم، ثم ✓ للإرسال.', vpn_tip: 'للسرعة: اختر سيرفر VPN في اليابان أو سنغافورة أو تايوان. هونغ كونغ لا يدعم Gemini.',
+  how1: 'اضغط {me} إذا بتتكلم أنت، أو {them} إذا بيتكلم البائع', how2: 'تكلّم بشكل طبيعي', how3: 'اضغط {ok} وتطلع الترجمة وتنطق',
+  guide_open: 'دليل سريع: كل ميزات التطبيق ←', guide_t: 'كيف أستخدم التطبيق؟', guide_btn: 'دليل الاستخدام', undo: 'تراجع',
+  v_on_s: 'الصوت', v_off_s: 'صامت', cap_kb: 'كتابة', cap_f2f: 'مواجهة', p_allow: 'اسمح بالميكروفون من النافذة اللي تطلع ☝',
+  g1t: 'الترجمة بالصوت', g1d: 'اضغط «أنا» أو «البائع» وتكلّم، ثم ✓ إرسال. ⏸ يوقف مؤقتاً، و✕ يلغي.',
+  g2t: 'اضغط أي ترجمة', g2d: 'نطق أبطأ، صياغة أكثر أدباً، «وش يقصد؟» مع رد مقترح، أو إعادة الترجمة.',
+  g3t: 'وضع المواجهة', g3d: 'حط الجوال بينكم: البائع يقرأ الصيني من جهته، وأنت تقرأ من جهتك.',
+  g4t: 'لغة البائع', g4d: 'زر 粤语 يبدّل بين الكانتوني والماندرين. وفي الوضع التلقائي يتحول لحاله لو تكلم البائع ماندرين.',
+  g5t: 'الكاميرا', g5d: 'وجّهها للوحات والمحلات وقوائم الطعام، وتظهر الترجمة فوق النص مع تنبيهات الحلال.',
+  g6t: 'لقطة شاشة', g6d: 'صوّر شاشة Taobao أو WeChat، ومن تبويب الكاميرا اختر «ترجم لقطة شاشة».',
+  g7t: 'العبارات الجاهزة', g7d: 'أكثر من 50 جملة للسوق والتاكسي والمطعم، تعمل بدون إنترنت وبدون تكلفة.',
+  g8t: 'الأدوات', g8d: 'حاسبة للسعر والكمية، تحويل العملة، وبطاقات التاكسي بالصيني للسائق.',
+  g9t: 'ملخص الاتفاق', g9d: 'بعد جملتين يظهر زر ☑ فوق: يلخص السعر والكمية والتسليم.',
   shot_retry: 'أعد المحاولة', shot_orig: 'الأصل', shot_new: 'صورة أخرى', shot_bad: 'تعذّر فتح الصورة.', shot_title: 'ترجمة الصورة'
 });
 Object.assign(I18N.en, {
@@ -1517,6 +1638,24 @@ Object.assign(I18N.en, {
   fk_ok: 'Free key works ✓ Translations are free within its daily limit.', fk_limit: 'The free key hit its limit for now. Using the paid key until it renews.', fk_limit_nopaid: 'The free key hit its limit. Wait a little or add a paid key as backup.',
   fk_bad: 'The free key is wrong or not enabled.', fk_checking: 'Checking the free key…', key_backup: 'If you add a free key, this one becomes a backup only.',
   saver: 'Saver mode', saver_note: 'Photos, camera and summaries use a 3× cheaper model (2.5 Flash-Lite) when your key has it. Voice keeps the most accurate model.', u_free: ' · {n} of them free',
+  who_me: 'Me', who_them: 'Seller', p_hint: 'Tap your button and talk', p_opening: 'One moment… get ready',
+  p_rec_me: 'Listening…', p_rec_them: 'Listening to the seller…', p_held: 'Paused',
+  p_send: 'Send', p_hold: 'Pause', p_resume: 'Continue', p_cancel: 'Cancel',
+  rm_lbl: 'Recording', rm_ptt: 'Two buttons: Me / Seller', rm_auto: 'Hands-free', rm_note: 'Two buttons are faster and more accurate in busy places. Hands-free suits quiet places.',
+  ready_ptt: 'Tap Me and speak {my}, or Seller for the seller, then ✓ to send. You can pause ⏸ or cancel ✕ before sending.',
+  f2f_hint_ptt: 'Tap Me and talk, then ✓ to send.', vpn_tip: 'For speed: pick a VPN server in Japan, Singapore or Taiwan. Hong Kong doesn\'t support Gemini.',
+  how1: 'Tap {me} when you speak, or {them} when the seller speaks', how2: 'Talk normally', how3: 'Tap {ok}: the translation appears and is spoken',
+  guide_open: 'Quick guide: everything the app can do →', guide_t: 'How to use the app', guide_btn: 'User guide', undo: 'Undo',
+  v_on_s: 'Sound', v_off_s: 'Muted', cap_kb: 'Type', cap_f2f: 'Face to face', p_allow: 'Allow the microphone in the box that appears ☝',
+  g1t: 'Voice translation', g1d: 'Tap Me or Seller and talk, then ✓ Send. ⏸ pauses, ✕ cancels.',
+  g2t: 'Tap any translation', g2d: 'Slower speech, a more polite version, what they mean with a suggested reply, or retranslate.',
+  g3t: 'Face to face', g3d: 'Put the phone between you: the seller reads Chinese on his side, you read yours.',
+  g4t: 'Seller\'s language', g4d: 'The 粤语 button switches Cantonese and Mandarin. In Auto it switches by itself when the seller speaks Mandarin.',
+  g5t: 'Camera', g5d: 'Point it at signs, shops and menus; translations appear on the text, with halal warnings.',
+  g6t: 'Screenshot', g6d: 'Take a screenshot of Taobao or WeChat, then in Camera choose “Translate a screenshot”.',
+  g7t: 'Ready phrases', g7d: '50+ phrases for the market, taxi and restaurant. Offline and free.',
+  g8t: 'Tools', g8d: 'Price × quantity calculator, currency converter, and taxi cards in Chinese for the driver.',
+  g9t: 'Deal summary', g9d: 'After two lines a ☑ button appears at the top: price, quantity and delivery in one place.',
   shot_retry: 'Try again', shot_orig: 'Original', shot_new: 'Another image', shot_bad: 'Couldn\'t open that image.', shot_title: 'Image translation'
 });
 
@@ -1530,7 +1669,7 @@ const DEFAULTS = {
   voice: true, voiceZh: true, voiceMine: true, vRate: 0.95,
   autoStop: true, context: DEFAULT_CONTEXT,
   showFx: true, cur: 'SAR', rates: {}, ratesAt: 0, rateSrc: 'default',
-  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true
+  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true, recMode: 'ptt'
 };
 const S = Object.assign({}, DEFAULTS, old);
 if (S.v !== 3 && S.v !== 4) {
@@ -1544,6 +1683,7 @@ if (S.v !== 3 && S.v !== 4) {
 }
 if (S.v === 3) { if (S.zhStyle === 'yue') S.zhStyle = 'auto'; S.v = 4; }
 if (!['auto', 'yue', 'cmn'].includes(S.zhStyle)) S.zhStyle = 'auto';
+if (!['ptt', 'auto'].includes(S.recMode)) S.recMode = 'ptt';
 if (!LANG[S.myLang] || isZh(S.myLang)) S.myLang = 'en';
 if (!CUR[S.cur]) S.cur = 'SAR';
 if (!I18N[S.ui]) S.ui = 'en';
@@ -1752,18 +1892,25 @@ function resolveTier(tierId, list) {
 
 /* ================= toast ================= */
 let toastTimer = 0;
-function toast(msg, tone) {
+function toast(msg, tone, action) {
   const el = $('#toast');
   el.textContent = msg; el.dataset.tone = tone || ''; el.hidden = false;
+  if (action) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'toast-act'; b.textContent = action.label;
+    b.addEventListener('click', () => { el.hidden = true; clearTimeout(toastTimer); action.fn(); });
+    el.append(' ', b);
+  }
   el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { el.hidden = true; }, tone === 'err' ? 6500 : 3000);
+  toastTimer = setTimeout(() => { el.hidden = true; }, action ? 6000 : tone === 'err' ? 6500 : 3000);
 }
 
 /* ================= tabs & header ================= */
 const TABS = ['talk', 'camera', 'phrases', 'tools', 'usage'];
 function setTab(name) {
   if (rec.on && name !== 'talk') stopConvo('manual');
+  if (ptt.active && name !== 'talk') pttCancel();
   if (cam.on && name !== 'camera') stopCam();
   tab = name;
   $$('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
@@ -1828,7 +1975,7 @@ function turnEl(x, example) {
   const el = document.createElement('article');
   el.dataset.id = x.id;
   el.innerHTML =
-    '<div class="meta"><span class="chip" dir="ltr"></span><time></time><span class="acts">' +
+    '<div class="meta"><span class="chip" dir="auto"></span><time></time><span class="acts">' +
     (example ? '' :
       '<button class="mini" type="button" data-act="speak" aria-label="' + esc(t('act_speak')) + '"><svg class="ic"><use href="#i-speak"/></svg></button>' +
       '<button class="mini" type="button" data-act="big" aria-label="' + esc(t('act_big')) + '"><svg class="ic"><use href="#i-expand"/></svg></button>' +
@@ -1839,7 +1986,7 @@ function turnEl(x, example) {
 }
 function fillTurn(el, x) {
   el.className = 'turn ' + (x.dir === 'in' ? 'theirs' : 'mine');
-  $('.chip', el).textContent = chipText(x);
+  $('.chip', el).textContent = x.dir && x.lang ? t(x.dir === 'out' ? 'who_me' : 'who_them') + ' · ' + langLabel(x.lang) : chipText(x);
   $('time', el).textContent = fmtTime(x.t);
   const src = $('.src', el), tgt = $('.tgt', el), jp = $('.jp', el), fx = $('.fx', el);
   if (x.pending) src.textContent = x.src || ''; else src.innerHTML = hlNums(x.src);
@@ -1879,8 +2026,17 @@ function emptyState() {
   } else {
     const ready = document.createElement('div');
     ready.className = 'ready';
-    ready.innerHTML = '<span class="glass-sq" aria-hidden="true"></span><h2>' + esc(t('ready_title')) + '</h2><p>' +
-      esc(t('ready_body2', { my: LANG[S.myLang].label })) + '</p><p class="ready-tip">' + esc(t('tip_tap')) + '</p>';
+    const pill = (cls, txt) => '<b class="pill ' + cls + '">' + esc(txt) + '</b>';
+    const fill = (k, m) => esc(t(k, { me: '§1', them: '§2', ok: '§3' })).replace('§1', m.me || '').replace('§2', m.them || '').replace('§3', m.ok || '');
+    ready.innerHTML = '<span class="glass-sq" aria-hidden="true"></span><h2>' + esc(t('ready_title')) + '</h2>' +
+      (S.recMode === 'ptt'
+        ? '<ol class="howto">' +
+          '<li><span class="hn">1</span><span>' + fill('how1', { me: pill('me', t('who_me')), them: pill('them', t('who_them')) }) + '</span></li>' +
+          '<li><span class="hn">2</span><span>' + esc(t('how2', { my: LANG[S.myLang].label })) + '</span></li>' +
+          '<li><span class="hn">3</span><span>' + fill('how3', { ok: pill('ok', '✓ ' + t('p_send')) }) + '</span></li></ol>'
+        : '<p>' + esc(t('ready_body2', { my: LANG[S.myLang].label })) + '</p>') +
+      '<p class="ready-tip">' + esc(t('tip_tap')) + '</p>' +
+      '<button class="linkbtn" type="button" data-act="guide">' + esc(t('guide_open')) + '</button>';
     wrap.append(ready);
   }
   const l1 = document.createElement('p');
@@ -1957,6 +2113,17 @@ function refreshStatus() {
     : busy ? t('live_trans_listen')
     : t('live_listen');
   $$('.mic').forEach(b => { b.setAttribute('aria-label', t(on ? 'mic_stop' : 'mic_speak')); b.setAttribute('aria-pressed', String(!!on)); });
+  const hint = $('#holdHint span'); if (hint) hint.textContent = t(S.recMode === 'ptt' ? 'p_hint' : 'hold_hint');
+  document.body.dataset.used = store.get('used', false) ? '1' : '';
+  const vl = $('#voiceLbl'); if (vl) vl.textContent = t(S.voice ? 'v_on_s' : 'v_off_s');
+  if (ptt.active) {
+    document.body.dataset.ptt = ptt.who + (ptt.held ? '-held' : '');
+    $('#holdHint').hidden = true; $('#live').hidden = false;
+    $('#liveDot').hidden = ptt.held || ptt.opening; $('#wave').hidden = ptt.held || ptt.opening; $('#liveSpin').hidden = !ptt.opening;
+    $('#liveText').textContent = ptt.opening ? t(store.get('micOK', false) ? 'p_opening' : 'p_allow') : ptt.held ? t('p_held') : t('p_rec_' + ptt.who);
+    $$('[data-ptt="hold"]').forEach(b => { b.setAttribute('aria-pressed', String(ptt.held)); b.setAttribute('aria-label', t(ptt.held ? 'p_resume' : 'p_hold')); });
+    $$('.rb-hold-cap').forEach(s => { s.textContent = t(ptt.held ? 'p_resume' : 'p_hold'); });
+  } else delete document.body.dataset.ptt;
   const vb = $('#voiceBtn');
   vb.setAttribute('aria-pressed', String(!!S.voice));
   vb.setAttribute('aria-label', t(S.voice ? 'voice_on' : 'voice_off'));
@@ -1968,7 +2135,7 @@ function drawWave() {
 }
 
 /* ================= Gemini ================= */
-function buildPrompt(history) {
+function buildPrompt(history, who) {
   const my = LANG[S.myLang].en;
   const zh = ZH() === 'cmn'
     ? 'standard Mandarin (Simplified characters)'
@@ -1978,11 +2145,14 @@ function buildPrompt(history) {
     'A = a foreign visitor who speaks ' + my + (S.myLang !== 'en' ? ' or English' : '') + '. B = a local merchant who speaks Guangzhou Cantonese or Mandarin.',
     'For each turn (audio or typed):',
     'LANG = language actually spoken, as an ISO 639-1 code (en, ar, fr, ru…), or yue for Cantonese, cmn for Mandarin, none for no clear speech. Tell Cantonese from Mandarin carefully by sound and words (Cantonese: 系 唔 嘅 咗 啲 冇 佢 喺 咁 乜嘢; Mandarin: 是 不 的 了 没有 他 在 这 什么).',
-    'TGT = if yue or cmn, translate into ' + my + '; otherwise translate into ' + zh + '.',
+    who === 'me' ? 'This turn is spoken by A (the visitor) in ' + my + (S.myLang !== 'en' ? ' or English' : '') + '. LANG = that language. TGT = translation into ' + zh + '.'
+      : who === 'them' ? 'This turn is spoken by B (the merchant) in Cantonese or Mandarin: LANG = yue or cmn. TGT = translation into ' + my + '.'
+      : 'TGT = if yue or cmn, translate into ' + my + '; otherwise translate into ' + zh + '.',
     'SRC = faithful one-line transcription. Chinese in Simplified characters; Cantonese with its colloquial characters.',
     'Rules:',
     '- Transcribe only words clearly audible in THIS audio. Never guess, never complete sentences, never reuse words from Background or earlier turns.',
     '- Noise, music, breathing or unclear sound is not speech: output LANG: none with empty SRC and TGT.',
+    '- A busy market may be heard in the background: transcribe and translate only the main voice speaking into the phone, never other people around.',
     '- Keep numbers, prices, quantities, sizes and model codes exact, written as digits. Chinese prices are in yuan; 蚊 means yuan.',
     '- Translate the meaning naturally with the same tone. No answers, notes or added words.',
     'Output only these lines:',
@@ -2042,7 +2212,7 @@ async function callGemini(input, history, onText, retried) {
   if (input.pcm) parts.push({ inlineData: { mimeType: 'audio/wav', data: fmt === 'mulaw' ? encodeMulawWavB64(input.pcm.chunks, input.pcm.rate) : encodeWavB64(input.pcm.chunks, input.pcm.rate) } });
   parts.push({ text: input.pcm ? 'Interpret this spoken turn.' : 'Interpret this typed turn:\n' + input.text });
   const base = {
-    systemInstruction: { parts: [{ text: buildPrompt(history) }] },
+    systemInstruction: { parts: [{ text: buildPrompt(history, input.who) }] },
     contents: [{ role: 'user', parts }],
     generationConfig: { maxOutputTokens: 700 }
   };
@@ -2269,6 +2439,7 @@ async function processTurn(input, opts) {
   opts = opts || {};
   const c = ensureConv();
   const x = { id: uid(), t: Date.now(), lang: '', src: input.text || '', tgt: '', jp: '', dir: '', to: '', pending: true };
+  if (input.who) x.who = input.who;
   let idx = c.turns.length, prev = null;
   if (opts.replaceId) { const i = c.turns.findIndex(y => y.id === opts.replaceId); if (i >= 0) { idx = i; prev = c.turns[i]; } }
   const history = c.turns.slice(0, idx).filter(y => !y.pending).slice(-3);
@@ -2327,7 +2498,7 @@ function applyParsed(x, p) {
   if (p.src) x.src = p.src;
   if (p.tgt) x.tgt = p.tgt;
   if (p.jp) x.jp = p.jp;
-  if (x.lang && x.lang !== 'none') x.dir = isZh(x.lang) ? 'in' : 'out';
+  if (x.lang && x.lang !== 'none') x.dir = x.who ? (x.who === 'me' ? 'out' : 'in') : (isZh(x.lang) ? 'in' : 'out');
 }
 
 function showError(e) {
@@ -2380,7 +2551,7 @@ async function openMic() {
   try {
     setAudioSession('play-and-record');
     const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
-    if (!rec.on || rec.paused) { stream.getTracks().forEach(x => x.stop()); return; }
+    if (!(rec.on || ptt.active) || rec.paused) { stream.getTracks().forEach(x => x.stop()); return; }
     if (!rec.ctx) { stream.getTracks().forEach(x => x.stop()); throw { name: 'NoAudio' }; }
     if (rec.ctx.state === 'suspended') { try { await rec.ctx.resume(); } catch (e) {} }
     rec.stream = stream; rec.rate = rec.ctx.sampleRate;
@@ -2462,6 +2633,7 @@ function onAudio(e) {
   const rms = Math.sqrt(sum / d.length);
   const ms = d.length / rec.rate * 1000;
   setLevel(rms);
+  if (ptt.active) { pttFrame(frame, rms, ms); return; }
   const th = Math.min(0.08, Math.max(0.014, rec.noise * 3.2));
   const loud = rms > th;
   if (!rec.inSpeech) {
@@ -2610,6 +2782,73 @@ function micError(e) {
   toast(m, 'err');
 }
 
+/* ================= two buttons: «Me» / «Seller» =================
+   Tap your button and talk; ✓ sends at once (no waiting for silence, no market noise before or after).
+   ⏸ holds what was said so far (continue or send later), ✕ throws it away. The app knows who is speaking,
+   so it never has to guess the language. */
+const ptt = { active: false, who: 'me', held: false, opening: false, chunks: [], levels: [], ms: 0, timer: 0 };
+function pttTimeText() { $$('.pttTime').forEach(el => { el.textContent = fmtDur(ptt.ms); }); }
+async function pttStart(who) {
+  if (ptt.active) { if (ptt.who === who) pttSend(); return; }
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
+  if (rec.on) stopConvo('abort');
+  unlockAudio();
+  clearSpeakQ(); speakSeq++; try { speechSynthesis.cancel(); } catch (e) {}
+  warmUp(); requestWake();
+  Object.assign(ptt, { active: true, who, held: false, opening: true, chunks: [], levels: [], ms: 0 });
+  pttTimeText(); refreshStatus();
+  try { await openMic(); }
+  catch (e) { ptt.active = false; closeMic(); refreshStatus(); micError(e); return; }
+  if (!ptt.active) { closeMic(); return; }
+  ptt.opening = false; vib(15);
+  clearInterval(ptt.timer); ptt.timer = setInterval(pttTimeText, 250);
+  refreshStatus();
+}
+function pttFrame(frame, rms, ms) {
+  if (!ptt.active || ptt.held || ptt.opening) return;
+  ptt.chunks.push(frame); ptt.levels.push(rms); ptt.ms += ms;
+  if (ptt.ms >= 60000) { toast(t('r_max')); pttSend(); }
+}
+// cut the silence before and after the speech: smaller upload, faster answer, fewer tokens
+function trimSilence(chunks, levels, totalMs) {
+  const n = chunks.length;
+  if (!n) return null;
+  const sorted = levels.slice().sort((a, b) => a - b);
+  const floor = sorted[Math.floor(n * 0.2)] || 0;
+  const th = Math.min(0.05, Math.max(0.012, floor * 2.4));
+  let a = -1, b = -1, loud = 0;
+  for (let i = 0; i < n; i++) if (levels[i] > th) { if (a < 0) a = i; b = i; loud++; }
+  if (a < 0 || loud < 2) return totalMs >= 900 ? chunks : null;      // very noisy or very quiet: let Gemini judge
+  return chunks.slice(Math.max(0, a - 4), Math.min(n, b + 5));
+}
+function pttEnd() {
+  ptt.active = false; ptt.held = false; ptt.opening = false;
+  clearInterval(ptt.timer);
+  closeMic(); refreshStatus();
+  if (speakQ.length && !speakQOn) setTimeout(nextSpeak, 150);
+}
+function pttSend() {
+  if (!ptt.active) return;
+  if (ptt.opening) { pttEnd(); return; }
+  const chunks = ptt.chunks, levels = ptt.levels, ms = ptt.ms, who = ptt.who, rate = rec.rate;
+  pttEnd(); vib(10);
+  const keep = trimSilence(chunks, levels, ms);
+  if (!keep) { toast(t('r_nospeech'), 'warn'); return; }
+  processTurn({ pcm: { chunks: keep, rate }, who }, {});
+}
+function pttCancel() { if (!ptt.active) return; pttEnd(); toast(t('r_cancel')); }
+function pttHold(force) {
+  if (!ptt.active || ptt.opening) return;
+  ptt.held = force === true ? true : !ptt.held;
+  if (!ptt.held && !rec.listening) openMic().catch(e => { pttEnd(); micError(e); });
+  refreshStatus();
+}
+function renderTalkLabels() {
+  $$('.tb-my').forEach(el => { el.textContent = LANG[S.myLang].label; });
+  $$('.tb-zh').forEach(el => { el.textContent = langLabel(ZH()); });
+  document.body.dataset.recmode = S.recMode;
+}
+
 /* ================= speech out ================= */
 let voices = [];
 function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } renderVoiceInfo(); }
@@ -2624,7 +2863,7 @@ function pickVoice(kind) {
 let speakSeq = 0;
 const speakQ = [];
 let speakQOn = false;
-function queueSpeak(text, kind) { speakQ.push([text, kind]); if (!speakQOn) nextSpeak(); }
+function queueSpeak(text, kind) { speakQ.push([text, kind]); if (!speakQOn && !ptt.active) nextSpeak(); }
 function nextSpeak() { const it = speakQ.shift(); if (!it) { speakQOn = false; return; } speakQOn = true; speak(it[0], it[1], null, true); }
 function clearSpeakQ() { speakQ.length = 0; speakQOn = false; }
 function speak(text, kind, rate, queued) {
@@ -2689,6 +2928,7 @@ async function requestWake() {
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && wanted) requestWake();
   if (document.visibilityState === 'hidden' && rec.on) stopConvo('manual');
+  if (document.visibilityState === 'hidden' && ptt.active) { if (ptt.opening) pttEnd(); else { pttHold(true); closeMic(); } }
   if (document.visibilityState === 'hidden' && cam.on) stopCam();
 });
 
@@ -2705,8 +2945,8 @@ function renderF2F(live) {
   const cmn = ZH() === 'cmn';
   let zh, me, zhLbl, meLbl;
   if (!last) {
-    zh = cmn ? '按一下中间的按钮，然后正常说话就可以。' : '撳一下中间个掣，然后自然讲嘢就得。';
-    me = t('f2f_hint_me');
+    zh = S.recMode === 'ptt' ? (cmn ? '按「卖家」按钮说话，说完按 ✓。' : '撳「卖家」个掣讲嘢，讲完撳 ✓。') : cmn ? '按一下中间的按钮，然后正常说话就可以。' : '撳一下中间个掣，然后自然讲嘢就得。';
+    me = t(S.recMode === 'ptt' ? 'f2f_hint_ptt' : 'f2f_hint_me');
     zhLbl = '翻译'; meLbl = t('f2f_ready');
   } else if (last.dir === 'out') {
     zh = last.tgt || '…'; me = last.src || '…';
@@ -2763,6 +3003,15 @@ function showTurnCard(x) {
   else showCard({ big: x.tgt, zh: false, small: x.src, speak: { text: x.tgt, kind: x.to || S.myLang } });
 }
 
+/* ================= quick guide ================= */
+function renderGuide() {
+  const rows = [
+    ['i-mic', 'g1t', 'g1d'], ['i-hand', 'g2t', 'g2d'], ['i-f2f', 'g3t', 'g3d'], ['i-swap', 'g4t', 'g4d'],
+    ['i-camera', 'g5t', 'g5d'], ['i-image', 'g6t', 'g6d'], ['i-phr', 'g7t', 'g7d'], ['i-tools', 'g8t', 'g8d'], ['i-check', 'g9t', 'g9d']
+  ];
+  $('#guideList').innerHTML = rows.map(r => '<li><span class="g-ic"><svg class="ic"><use href="#' + r[0] + '"/></svg></span><div><b>' + esc(t(r[1])) + '</b><span>' + esc(t(r[2])) + '</span></div></li>').join('');
+}
+
 /* ================= sheets ================= */
 function openSheet(name) {
   closeSheets();
@@ -2771,6 +3020,7 @@ function openSheet(name) {
   if (name === 'settings') renderSettings();
   if (name === 'voice') renderVoiceSheet();
   if (name === 'history') renderHistory();
+  if (name === 'guide') renderGuide();
 }
 function closeSheets() { $('#scrim').hidden = true; $$('.sheet').forEach(s => { s.hidden = true; }); }
 
@@ -2806,12 +3056,18 @@ function cancelEdit() { editId = null; $('#editNote').hidden = true; }
 function deleteTurn(id) {
   const c = current();
   if (!c) return;
+  const at = c.turns.findIndex(x => x.id === id), gone = c.turns[at];
+  if (!gone) return;
   c.turns = c.turns.filter(x => x.id !== id);
   const el = $('#feed').querySelector('[data-id="' + id + '"]');
   if (el) el.remove();
   if (!c.turns.length) { convs = convs.filter(x => x !== c); currentId = null; renderFeed(); }
   saveConvs(); renderF2F(); renderHeader();
-  toast(t('t_deleted'));
+  toast(t('t_deleted'), '', { label: t('undo'), fn: () => {
+    if (!convs.includes(c)) convs.unshift(c);
+    c.turns.splice(Math.min(at, c.turns.length), 0, gone);
+    currentId = c.id; saveConvs(); renderFeed(); renderF2F();
+  } });
 }
 
 function convText(c) {
@@ -3729,6 +3985,7 @@ function renderSettings() {
   $('#myLang').innerHTML = LANGS.map(l => '<option value="' + l[0] + '">' + esc(l[1]) + (l[1] !== l[2] ? ' · ' + esc(l[2]) : '') + '</option>').join('');
   $('#myLang').value = S.myLang;
   $('#zh-' + S.zhStyle).checked = true;
+  $('#rm-' + S.recMode).checked = true;
   renderInstallNote();
   $('#romanize').checked = !!S.romanize;
   $('#ctxInput').value = S.context;
@@ -3941,6 +4198,7 @@ function renderZhBtn() {
   const z = ZH();
   $('#zhBtnTxt').textContent = langLabel(z);
   b.dataset.z = z;
+  renderTalkLabels();
   b.setAttribute('aria-label', t('zh_btn', { l: langLabel(z) }));
 }
 
@@ -4021,6 +4279,21 @@ function bind() {
   });
 
   $('#voiceBtn').addEventListener('click', () => { unlockAudio(); openSheet('voice'); });
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-ptt]');
+    if (!b) return;
+    const a = b.dataset.ptt;
+    if (a === 'me' || a === 'them') pttStart(a);
+    else if (a === 'send') pttSend();
+    else if (a === 'hold') pttHold();
+    else if (a === 'cancel') pttCancel();
+  });
+  $$('input[name="recMode"]').forEach(r => r.addEventListener('change', () => {
+    S.recMode = r.value; saveSettings();
+    if (rec.on) stopConvo('abort');
+    if (ptt.active) pttCancel();
+    renderTalkLabels(); refreshStatus(); renderF2F(); if (!current()) renderFeed();
+  }));
   $('#vMaster').addEventListener('change', e => {
     S.voice = e.target.checked; saveSettings();
     $('#vSubs').hidden = !S.voice;
@@ -4062,6 +4335,7 @@ function bind() {
   $('#cardFlip').addEventListener('click', () => $('#cardBody').classList.toggle('flip'));
   $('#cardSpeak').addEventListener('click', () => { unlockAudio(); if (cardSpeak) speak(cardSpeak.text, cardSpeak.kind); });
   $('#setBtn').addEventListener('click', () => openSheet('settings'));
+  $('#guideBtn').addEventListener('click', () => openSheet('guide'));
   $('#scrim').addEventListener('click', closeSheets);
   $$('[data-close]').forEach(b => b.addEventListener('click', closeSheets));
 
@@ -4084,6 +4358,7 @@ function bind() {
       return;
     }
     if (act === 'go-phrases') { setTab('phrases'); return; }
+    if (act === 'guide') { openSheet('guide'); return; }
     if (act === 'ob-mic') { prepareMic(); return; }
     const art = b.closest('.turn');
     const c = current();
@@ -4256,7 +4531,7 @@ function bind() {
       if (e.key === 'Backspace') { e.preventDefault(); pressKey('del'); return; }
     }
     if (e.code === 'Space' && !e.repeat && tab === 'camera' && cam.on && !typing && $('#scrim').hidden) { e.preventDefault(); toggleFreeze(); return; }
-    if (e.code === 'Space' && !e.repeat && tab === 'talk' && !typing && document.activeElement.tagName !== 'BUTTON' && $('#scrim').hidden && $('#cardOv').hidden) { e.preventDefault(); toggleConvo(); }
+    if (e.code === 'Space' && !e.repeat && tab === 'talk' && !typing && document.activeElement.tagName !== 'BUTTON' && $('#scrim').hidden && $('#cardOv').hidden) { e.preventDefault(); if (S.recMode === 'ptt') { if (ptt.active) pttSend(); else pttStart('me'); } else toggleConvo(); }
   });
   let rz = 0;
   window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (tab === 'usage' && unlocked) drawChart(lastDays(14)); if (cam.on && cam.items.length) renderLabels(); if (!$('#shotOv').hidden) fitShot(); }, 150); });
@@ -4268,6 +4543,7 @@ function init() {
   applyI18n();
   buildWave();
   bind();
+  renderTalkLabels();
   setupPWA();
   if (S.calc) { $('#cPrice').value = S.calc.p || ''; $('#cQty').value = S.calc.q || ''; }
   renderFeed();
@@ -4277,7 +4553,7 @@ function init() {
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { ptt, trimSilence, speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
