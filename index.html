@@ -1014,6 +1014,31 @@ a{color:#F1C9A6}
 .new-pill .ic{width:17px;height:17px}
 @media (max-width:359px){.top .new-pill span{display:none}.top .new-pill{padding:0;width:36px;justify-content:center}}
 #clearAll{justify-content:center}
+
+/* v8.3 pocket: lock-screen disguise */
+.pk-meter{display:none}
+.pk-clock{border:0;background:none;padding:10px 26px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#56635F;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:transform .2s}
+.pk-date{font:400 17px/1.2 var(--font-ui);color:#4D5A56}
+.pk-time{font:300 92px/1 var(--font-latin);letter-spacing:-.01em;color:#5D6B66;font-variant-numeric:tabular-nums}
+.pocket[data-reveal="1"] .pk-time{font-size:34px}
+.pocket[data-reveal="1"] .pk-date{font-size:12px}
+.pocket .pk-center{justify-content:flex-start;padding-top:14vh}
+.pocket[data-reveal="1"] .pk-center{padding-top:0;gap:14px}
+/* only the clock shows; small texts appear when you reveal */
+.pocket:not([data-reveal="1"]) .pk-top,.pocket:not([data-reveal="1"]) .pk-count,.pocket:not([data-reveal="1"]) .pk-err{visibility:hidden}
+.pocket:not([data-reveal="1"]):not([data-intro="1"]) .pk-hold{border-top-color:transparent}
+.pocket:not([data-reveal="1"]):not([data-intro="1"]) .pk-hold>span:not(.pk-ring),.pocket:not([data-reveal="1"]):not([data-intro="1"]) .pk-ring{opacity:0}
+.pk-intro{margin:0;text-align:center;font-size:12.5px;color:#56635F;opacity:0;transition:opacity .6s}
+.pocket[data-intro="1"] .pk-intro{opacity:1}
+.pocket[data-reveal="1"] .pk-intro{display:none}
+/* important lines */
+.pk-item.imp{border-inline-start:3px solid #B9853E;padding-inline-start:12px}
+.pk-imp{display:inline-block;font-size:12px;font-weight:700;color:#D6A253;margin-bottom:2px}
+.pk-item .t .num{color:#F2C49C;font-weight:700}
+.pk-fx{margin:6px 0 0;font-size:13px;color:#C9A56A;display:flex;flex-wrap:wrap;gap:4px 14px}
+.pk-fx bdi{unicode-bidi:isolate;white-space:nowrap}
+.pk-sec{margin:0;font-size:11.5px;letter-spacing:.06em;color:#56635F}
+#pkEarRow[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1394,6 +1419,16 @@ a{color:#F1C9A6}
       <label class="tier" for="pk-text"><input type="radio" name="pkOut" value="text" id="pk-text"><b data-i18n="pk_text"></b><small data-i18n="pk_text_d"></small></label>
       <label class="tier" for="pk-ear"><input type="radio" name="pkOut" value="ear" id="pk-ear"><b data-i18n="pk_ear"></b><small data-i18n="pk_ear_d"></small></label>
     </div>
+    <label class="switch" for="pkEarAll" id="pkEarRow"><span><b data-i18n="pk_ear_all"></b><small data-i18n="pk_ear_all_d"></small></span><input type="checkbox" id="pkEarAll"></label>
+    <div class="field">
+      <span class="lbl" id="pkTimerLbl" data-i18n="pk_timer"></span>
+      <div class="seg" role="radiogroup" aria-labelledby="pkTimerLbl">
+        <label><input type="radio" name="pkTimer" value="0" id="pkt-0"><span data-i18n="pk_t0"></span></label>
+        <label><input type="radio" name="pkTimer" value="15" id="pkt-15"><span>15</span></label>
+        <label><input type="radio" name="pkTimer" value="30" id="pkt-30"><span>30</span></label>
+        <label><input type="radio" name="pkTimer" value="60" id="pkt-60"><span>60</span></label>
+      </div>
+    </div>
     <p class="note" data-i18n="pk_note"></p>
     <button class="btn pk-go" id="pkStart" type="button"><svg class="ic"><use href="#i-pocket"/></svg><span data-i18n="pk_start"></span></button>
   </div>
@@ -1617,16 +1652,16 @@ a{color:#F1C9A6}
 <div class="pocket" id="pocketOv" hidden role="dialog" aria-modal="true" data-i18n-aria="pk_title">
   <div class="pk-top"><span class="pk-dot"></span><span id="pkMode"></span><span class="pk-sep">·</span><span id="pkStatus"></span><time id="pkTime">0:00</time></div>
   <div class="pk-center">
-    <button class="pk-eye" id="pkEye" type="button" data-i18n-aria="pk_eye"><span></span></button>
+    <button class="pk-clock" id="pkEye" type="button" data-i18n-aria="pk_eye"><span class="pk-date" id="pkDate"></span><span class="pk-time" id="pkClock" dir="ltr"></span></button>
     <div class="pk-list" id="pkList" hidden aria-live="off"></div>
   </div>
-  <div class="pk-meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <p class="pk-count" id="pkCount"></p>
   <p class="pk-err" id="pkErr" hidden></p>
   <div class="pk-paused" id="pkPaused" hidden>
-    <p data-i18n="pk_paused"></p>
+    <p id="pkPausedTxt"></p>
     <div class="row"><button class="btn" id="pkResume" type="button" data-i18n="pk_resume"></button><button class="btn ghost" id="pkExit" type="button" data-i18n="pk_exit"></button></div>
   </div>
+  <p class="pk-intro" data-i18n="pk_intro"></p>
   <div class="pk-hold" id="pkHold"><span class="pk-ring" id="pkRing"></span><span data-i18n="pk_hold"></span></div>
 </div>
 
@@ -1715,7 +1750,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 8.2',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 8.3',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1777,7 +1812,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 8.2',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 8.3',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -1936,15 +1971,19 @@ Object.assign(I18N.ar, {
   g9t: 'ملخص الاتفاق', g9d: 'بعد جملتين يظهر زر ☑ فوق: يلخص السعر والكمية والتسليم.',
   pk_chip: 'الجيب', pk_title: 'وضع الجيب', pk_desc: 'يسمع كلام الناس حولك ويترجمه بدون أي صوت من الجوال. شغّله، ثم حط الجوال في جيبك.',
   pk_text: 'نص فقط · صامت', pk_text_d: 'تنكتب الترجمة على الشاشة السوداء وفي المحادثة. ما يطلع أي صوت.',
-  pk_ear: 'في سماعة الأذن', pk_ear_d: 'تسمع الترجمة في سماعتك، والنص ينحفظ. ⚠ تأكد إن السماعة متصلة، وإلا يطلع الصوت من الجوال.',
-  pk_note: 'لا تقفل الجوال بالزر الجانبي: الشاشة تصير سوداء لحالها. الترجمات مخفية: اضغط الدائرة في وسط الشاشة 3 مرات لعرضها. حطّه في جيب القميص أو الجاكيت والميكروفون (أسفل الجوال) لفوق، يلقط أوضح من جيب البنطلون. يترجم كلام الناس حولك فقط، ويصرف تقريباً 10–15٪ بطارية في الساعة.',
+  pk_ear: 'في سماعة الأذن', pk_ear_d: 'تسمع في سماعتك الجمل المهمة، والنص كله ينحفظ. ⚠ تأكد إن السماعة متصلة، وإلا يطلع الصوت من الجوال.',
+  pk_note: 'لا تقفل الجوال بالزر الجانبي: الشاشة تصير سوداء لحالها. الشاشة تبان مثل جوال مقفل بساعة: اضغط الساعة 3 مرات لعرض الترجمات. حطّه في جيب القميص أو الجاكيت والميكروفون (أسفل الجوال) لفوق، يلقط أوضح من جيب البنطلون. يترجم كلام الناس حولك فقط، ويصرف تقريباً 10–15٪ بطارية في الساعة.',
   pk_start: 'ابدأ وضع الجيب', pk_on_text: 'وضع الجيب · صامت', pk_on_ear: 'وضع الجيب · السماعة',
   pk_wait: 'أنتظر كلام…', pk_hear: 'أسمع…', pk_busy: 'أترجم…', pk_off: 'متوقف',
   pk_empty: 'الترجمات تظهر هنا', pk_hold: 'اضغط هنا مطولاً ثانيتين للخروج', pk_paused: 'توقف الاستماع لأن الشاشة انقفلت أو خرجت من التطبيق.',
   pk_resume: 'متابعة', pk_exit: 'خروج', pk_done: 'انتهى وضع الجيب · {n} ترجمة في المحادثة',
   g10t: 'وضع الجيب', g10d: 'يترجم كلام الناس حولك والجوال في جيبك، صامت أو في سماعة الأذن. زر «الجيب» فوق الأزرار.',
   cue_mine: 'تحدّث الآن · يظهر للطرف الآخر بلغته',
-  pk_count: 'سمعت {s} مقطع · ترجمت {n}', pk_eye: 'اضغط 3 مرات لعرض الترجمات أو إخفائها',
+  pk_count: 'سمعت {s} مقطع · ترجمت {n}', pk_eye: 'اضغط الساعة 3 مرات لعرض الترجمات أو إخفائها',
+  pk_imp: 'مهم', pk_pinned: 'مهم سابقاً', pk_latest: 'الأحدث', pk_sum_t: 'ملخص ما قيل حولك',
+  pk_intro: 'اضغط الساعة 3 مرات لعرض الترجمات · اضغط مطولاً أسفل الشاشة للخروج',
+  pk_ear_all: 'انطق كل الجمل', pk_ear_all_d: 'بدونها تسمع المهم فقط: الأسعار والخصم والكلام عنك.',
+  pk_timer: 'إيقاف تلقائي بعد', pk_t0: 'بدون', pk_tm: '{n} د', pk_timer_done: 'انتهى المؤقت وتوقف الاستماع لتوفير البطارية.',
   new_short: 'جديدة', h_clear: 'حذف كل المحادثات وبدء صفحة جديدة', h_clear_c: 'اضغط مرة ثانية للتأكيد', h_cleared: 'حُذفت كل المحادثات.',
   shot_retry: 'أعد المحاولة', shot_orig: 'الأصل', shot_new: 'صورة أخرى', shot_bad: 'تعذّر فتح الصورة.', shot_title: 'ترجمة الصورة'
 });
@@ -1985,15 +2024,19 @@ Object.assign(I18N.en, {
   g9t: 'Deal summary', g9d: 'After two lines a ☑ button appears at the top: price, quantity and delivery in one place.',
   pk_chip: 'Pocket', pk_title: 'Pocket mode', pk_desc: 'Listens to the people around you and translates them with no sound from the phone. Start it, then put the phone in your pocket.',
   pk_text: 'Text only · silent', pk_text_d: 'Translations are written on the black screen and in the chat. No sound at all.',
-  pk_ear: 'In my earphones', pk_ear_d: 'You hear translations in your earphones and the text is saved. ⚠ Make sure they are connected, or the phone will speak.',
-  pk_note: 'Don\'t lock the phone with the side button: the screen goes black by itself. Translations stay hidden: tap the circle in the middle 3 times to show them. A shirt or jacket pocket with the microphone (bottom of the phone) facing up hears far better than a trouser pocket. Only people around you are translated. Uses about 10–15% battery per hour.',
+  pk_ear: 'In my earphones', pk_ear_d: 'You hear the important lines in your earphones and all text is saved. ⚠ Make sure they are connected, or the phone will speak.',
+  pk_note: 'Don\'t lock the phone with the side button: the screen goes black by itself. The screen looks like a locked phone with a clock: tap the clock 3 times to see translations. A shirt or jacket pocket with the microphone (bottom of the phone) facing up hears far better than a trouser pocket. Only people around you are translated. Uses about 10–15% battery per hour.',
   pk_start: 'Start pocket mode', pk_on_text: 'Pocket mode · silent', pk_on_ear: 'Pocket mode · earphones',
   pk_wait: 'Waiting for speech…', pk_hear: 'Hearing…', pk_busy: 'Translating…', pk_off: 'Stopped',
   pk_empty: 'Translations appear here', pk_hold: 'Press and hold here for 2 seconds to leave', pk_paused: 'Listening stopped because the screen locked or you left the app.',
   pk_resume: 'Continue', pk_exit: 'Leave', pk_done: 'Pocket mode ended · {n} translations in the chat',
   g10t: 'Pocket mode', g10d: 'Translates people around you while the phone is in your pocket, silently or into your earphones. The Pocket button is above the talk buttons.',
   cue_mine: 'Speak now · shown to the other person in his language',
-  pk_count: 'Heard {s} · translated {n}', pk_eye: 'Tap 3 times to show or hide translations',
+  pk_count: 'Heard {s} · translated {n}', pk_eye: 'Tap the clock 3 times to show or hide translations',
+  pk_imp: 'Important', pk_pinned: 'Important earlier', pk_latest: 'Latest', pk_sum_t: 'What was said around you',
+  pk_intro: 'Tap the clock 3 times to see translations · long-press the bottom to leave',
+  pk_ear_all: 'Speak every line', pk_ear_all_d: 'Otherwise you only hear what matters: prices, discounts and talk about you.',
+  pk_timer: 'Stop automatically after', pk_t0: 'Never', pk_tm: '{n} min', pk_timer_done: 'The timer ended and listening stopped to save battery.',
   new_short: 'New', h_clear: 'Delete all chats and start fresh', h_clear_c: 'Tap again to confirm', h_cleared: 'All chats deleted.',
   shot_retry: 'Try again', shot_orig: 'Original', shot_new: 'Another image', shot_bad: 'Couldn\'t open that image.', shot_title: 'Image translation'
 });
@@ -2008,7 +2051,7 @@ const DEFAULTS = {
   voice: true, voiceZh: true, voiceMine: true, vRate: 0.95,
   autoStop: true, context: DEFAULT_CONTEXT,
   showFx: true, cur: 'SAR', rates: {}, ratesAt: 0, rateSrc: 'default',
-  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true, recMode: 'ptt', pocketOut: 'text'
+  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true, recMode: 'ptt', pocketOut: 'text', pkEarAll: false, pkTimer: 30
 };
 const S = Object.assign({}, DEFAULTS, old);
 if (S.v !== 3 && S.v !== 4) {
@@ -2520,6 +2563,7 @@ function buildPrompt(history, who) {
     'TGT: <text>',
     'SRC: <text>'
   ];
+  if (who === 'listen') L.push('IMP: <1 if it is about prices, money, discounts, quantities, deadlines, quality problems, or about the visitor himself (talking about him, his nationality, charging him more, misleading him); otherwise 0>');
   if (S.romanize) L.push(ZH() === 'cmn' ? 'JP: <Hanyu Pinyin with tone marks of the Chinese line>' : 'JP: <Jyutping with tone numbers of the Cantonese line>');
   L.push('Background (meaning only, never part of the audio): ' + (S.context || DEFAULT_CONTEXT).trim());
   if (history.length) {
@@ -2531,12 +2575,12 @@ function buildPrompt(history, who) {
 
 function parseOut(raw) {
   const txt = String(raw || '').replace(/```[a-z]*/gi, '');
-  const re = /^[ \t>*_-]*(LANG|SRC|TGT|JP)[ \t*_]*[:：][ \t]*/gim;
+  const re = /^[ \t>*_-]*(LANG|SRC|TGT|JP|IMP)[ \t*_]*[:：][ \t]*/gim;
   const marks = [];
   let m;
   while ((m = re.exec(txt))) marks.push({ k: m[1].toUpperCase(), start: m.index, vstart: re.lastIndex });
-  const out = { lang: '', src: '', tgt: '', jp: '' };
-  const map = { LANG: 'lang', SRC: 'src', TGT: 'tgt', JP: 'jp' };
+  const out = { lang: '', src: '', tgt: '', jp: '', imp: '' };
+  const map = { LANG: 'lang', SRC: 'src', TGT: 'tgt', JP: 'jp', IMP: 'imp' };
   marks.forEach((mk, i) => {
     const end = i + 1 < marks.length ? marks[i + 1].start : txt.length;
     const v = txt.slice(mk.vstart, end).replace(/\s*\n\s*/g, ' ').replace(/^[*_\s]+|[*_\s]+$/g, '').trim();
@@ -2823,7 +2867,7 @@ async function processTurn(input, opts) {
       fillTurn(el, x);
       if (f2fOpen && x.dir) renderF2F(x);
       if (!prevEl) scrollEnd();
-      if (!x.spoke && x.tgt && x.dir && /\n[ \t>*_-]*SRC[ \t*_]*[:：]/i.test(txt)) {   // translation line finished: speak now
+      if (!x.spoke && !rec.pocket && x.tgt && x.dir && /\n[ \t>*_-]*SRC[ \t*_]*[:：]/i.test(txt)) {   // translation line finished: speak now
         x.spoke = true; x.to = x.dir === 'in' ? S.myLang : ZH(); autoSpeakTurn(x);
       }
     });
@@ -2864,6 +2908,7 @@ function applyParsed(x, p) {
   if (p.src) x.src = p.src;
   if (p.tgt) x.tgt = p.tgt;
   if (p.jp) x.jp = p.jp;
+  if (p.imp) x.imp = /^\s*(1|yes|true)/i.test(p.imp);
   if (x.lang && x.lang !== 'none') x.dir = x.who ? (x.who === 'me' ? 'out' : 'in') : (isZh(x.lang) ? 'in' : 'out');
 }
 
@@ -3255,7 +3300,7 @@ function renderTalkLabels() {
    Start it, put the phone in your pocket: it listens to the people around you and translates them into your
    language, with no sound from the phone — text only, or into your earphones. The screen turns black and
    ignores touches; the latest translations stay readable on it. Long-press the bottom to leave. */
-const pocket = { on: false, start: 0, timer: 0, press: 0, pressT: 0, sent: 0, err: '', reveal: false, hideT: 0, taps: 0, tapT: 0 };
+const pocket = { on: false, start: 0, timer: 0, press: 0, pressT: 0, sent: 0, err: '', reveal: false, hideT: 0, taps: 0, tapT: 0, endAt: 0, timedOut: false, introT: 0 };
 // iPhone home-screen apps before iOS 18.4 ignore the wake lock: a tiny silent looping video keeps the screen on
 const NOSLEEP = 'data:video/mp4;base64,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';
 let noSleepVid = null;
@@ -3276,11 +3321,17 @@ function keepAwake(on) {
 function openPocketSheet() {
   if (!hasKey()) { showError({ code: 'nokey' }); return; }
   $('#pk-' + (S.pocketOut === 'ear' ? 'ear' : 'text')).checked = true;
+  $('#pkEarAll').checked = !!S.pkEarAll;
+  const tm = $('#pkt-' + ([0, 15, 30, 60].includes(+S.pkTimer) ? +S.pkTimer : 30)); if (tm) tm.checked = true;
+  $('#pkEarRow').hidden = S.pocketOut !== 'ear';
   openSheet('pocket');
 }
 async function startPocket() {
   const v = ($('input[name="pkOut"]:checked') || {}).value;
-  S.pocketOut = v === 'ear' ? 'ear' : 'text'; saveSettings();
+  S.pocketOut = v === 'ear' ? 'ear' : 'text';
+  S.pkEarAll = !!$('#pkEarAll').checked;
+  const tm = +(($('input[name="pkTimer"]:checked') || {}).value || 0); S.pkTimer = [0, 15, 30, 60].includes(tm) ? tm : 30;
+  saveSettings();
   closeSheets();
   if (!hasKey()) { showError({ code: 'nokey' }); return; }
   if (ptt.active) pttCancel();
@@ -3288,7 +3339,9 @@ async function startPocket() {
   clearSpeakQ(); try { speechSynthesis.cancel(); } catch (e) {}
   if (f2fOpen) closeF2F();
   setTab('talk');
-  pocket.on = true; pocket.start = Date.now(); pocket.sent = 0; pocket.err = ''; pocket.reveal = false; rec.pocket = true;
+  pocket.on = true; pocket.start = Date.now(); pocket.sent = 0; pocket.err = ''; pocket.reveal = false; pocket.timedOut = false; rec.pocket = true;
+  pocket.endAt = S.pkTimer ? Date.now() + S.pkTimer * 60000 : 0;
+  $('#pocketOv').dataset.intro = '1'; clearTimeout(pocket.introT); pocket.introT = setTimeout(() => { delete $('#pocketOv').dataset.intro; }, 7000);
   keepAwake(true);
   $('#pocketOv').hidden = false;
   renderPocket(); pocketTick();
@@ -3296,10 +3349,15 @@ async function startPocket() {
   await startConvo();
   pocketStatus();
 }
-function resumePocket() { if (pocket.on && !rec.on) { unlockAudio(); keepAwake(true); pocket.err = ''; startConvo().then(pocketStatus); } }
+function resumePocket() {
+  if (!pocket.on || rec.on) return;
+  unlockAudio(); keepAwake(true); pocket.err = ''; pocket.timedOut = false;
+  pocket.endAt = S.pkTimer ? Date.now() + S.pkTimer * 60000 : 0;
+  startConvo().then(pocketStatus);
+}
 function stopPocket() {
   if (!pocket.on) return;
-  const n = pocketTurns().length;
+  const turns = pocketTurns(), n = turns.length;
   pocket.on = false; rec.pocket = false; pocket.reveal = false; clearTimeout(pocket.hideT);
   keepAwake(false);
   clearInterval(pocket.timer); clearInterval(pocket.press);
@@ -3307,19 +3365,43 @@ function stopPocket() {
   clearSpeakQ();
   $('#pocketOv').hidden = true;
   refreshStatus(); renderFeed();
-  toast(t('pk_done', { n }));
+  if (n >= 2) pocketSummary(turns); else toast(t('pk_done', { n }));
+}
+// short summary of what people said around you, shown when you leave pocket mode
+async function pocketSummary(turns) {
+  const seq = openAI(t('pk_sum_t'));
+  try {
+    const lang = uiLangName();
+    const sys = ['Below are translations of what people around a traveller in China said while his phone was in his pocket, in order. Lines marked [important] matter most.',
+      'In ' + lang + ', write at most 3 short lines: the main points, any prices (keep the ¥ amounts), and anything said about the traveller himself. Start a line with ⚠ if they talk about charging him more, misleading him or a problem. No title, no bullets. If nothing useful was said, say so in one line.'].join('\n');
+    const txt = await callText(sys, turns.slice(-80).map(x => (x.imp ? '[important] ' : '') + String(x.tgt).slice(0, 240)).join('\n'), 300);
+    if (aiStale(seq)) return;
+    if (!txt) throw { code: 'empty' };
+    aiCtx = { sum: txt, c: current() };
+    $('#aiOut').innerHTML = '<div class="sum">' + summaryHtml(txt) + '</div>';
+    $('#aiActs').innerHTML = aiBtn('sum-copy', 'i-copy', t('sum_copy')) + aiBtn('sum-share', 'i-share', t('sum_share'), true);
+    $('#aiNote').textContent = t('pk_done', { n: turns.length });
+  } catch (e) { aiFail(seq, e); }
 }
 function pocketTurns() { const c = current(); return c ? c.turns.filter(x => x.t >= pocket.start && x.dir === 'in' && !x.pending) : []; }
 function renderPocket() {
   if (!pocket.on) return;
-  const list = pocketTurns().slice(-3).reverse();
+  const all = pocketTurns(), list = all.slice(-3).reverse();
+  const pinned = all.slice(0, -3).filter(x => x.imp).slice(-2).reverse();
   if (list.length) pocket.err = '';
   const pl = $('#pkList'); pl.hidden = !pocket.reveal; pl.setAttribute('aria-live', pocket.reveal ? 'polite' : 'off');
   $('#pocketOv').dataset.reveal = pocket.reveal ? '1' : '';
   $('#pkList').innerHTML = !pocket.reveal ? '' : list.length
-    ? list.map((x, i) => '<div class="pk-item' + (i ? ' old' : '') + '"><p class="t" dir="auto">' + esc(x.tgt) + '</p><p class="s zh" dir="auto">' + esc(x.src) + '</p></div>').join('')
+    ? (pinned.length ? '<p class="pk-sec">' + esc(t('pk_pinned')) + '</p>' + pinned.map(x => pkItem(x, true)).join('') + '<p class="pk-sec">' + esc(t('pk_latest')) + '</p>' : '') +
+      list.map((x, i) => pkItem(x, i > 0)).join('')
     : '<p class="pk-empty">' + esc(t('pk_empty')) + '</p>';
   pocketStatus();
+}
+function pkItem(x, old) {
+  const fx = fxChips(x);
+  return '<div class="pk-item' + (old ? ' old' : '') + (x.imp ? ' imp' : '') + '">' + (x.imp ? '<span class="pk-imp">⚠ ' + esc(t('pk_imp')) + '</span>' : '') +
+    '<p class="t" dir="auto">' + hlNums(x.tgt) + '</p>' + (fx.length ? '<p class="pk-fx">' + fx.map(f => '<bdi dir="ltr">' + esc(f) + '</bdi>').join('') + '</p>' : '') +
+    '<p class="s zh" dir="auto">' + esc(x.src) + '</p></div>';
 }
 function pocketStatus() {
   if (!pocket.on) return;
@@ -3329,6 +3411,7 @@ function pocketStatus() {
   $('#pkMode').textContent = t(S.pocketOut === 'ear' ? 'pk_on_ear' : 'pk_on_text');
   $('#pkStatus').textContent = t('pk_' + st);
   $('#pkPaused').hidden = on;
+  $('#pkPausedTxt').textContent = t(pocket.timedOut ? 'pk_timer_done' : 'pk_paused');
   $('#pkCount').textContent = t('pk_count', { s: pocket.sent, n: pocketTurns().length });
   const er = $('#pkErr'); er.textContent = pocket.err; er.hidden = !pocket.err;
 }
@@ -3344,7 +3427,18 @@ function pkEyeTap(e) {
   pocket.taps = now - pocket.tapT < 650 ? pocket.taps + 1 : 1; pocket.tapT = now;
   if (pocket.taps >= 3) { pocket.taps = 0; revealPocket(); }
 }
-function pocketTick() { $('#pkTime').textContent = fmtDur(Date.now() - pocket.start); }
+function pocketTick() {
+  const now = new Date();
+  $('#pkTime').textContent = fmtDur(now - pocket.start);
+  // the disguise: looks like an ordinary locked iPhone
+  $('#pkClock').textContent = new Intl.DateTimeFormat(S.ui === 'ar' ? 'ar-u-nu-latn' : 'en-GB', { hour: 'numeric', minute: '2-digit', hour12: false }).format(now);
+  $('#pkDate').textContent = new Intl.DateTimeFormat(LOC(), { weekday: 'long', day: 'numeric', month: 'long' }).format(now);
+  if (pocket.endAt && now >= pocket.endAt && rec.on) {            // auto-stop timer: stop listening, let the phone lock itself
+    pocket.endAt = 0; pocket.timedOut = true;
+    stopConvo('manual'); keepAwake(false); releaseWake();
+    pocketStatus();
+  }
+}
 function pkDown(e) {
   if (!pocket.on) return;
   e.preventDefault();
@@ -3407,7 +3501,7 @@ function speakTurn(x) { if (x) speak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.
 const voiceFor = dir => S.voice && (dir === 'out' ? S.voiceZh : S.voiceMine);
 function autoSpeakTurn(x) {
   if (!x) return;
-  if (rec.pocket) { if (S.pocketOut === 'ear' && x.dir === 'in') queueSpeak(x.tgt, x.to || S.myLang); return; }   // pocket: silent, or earphones only
+  if (rec.pocket) { if (S.pocketOut === 'ear' && x.dir === 'in' && (S.pkEarAll || x.imp)) queueSpeak(x.tgt, x.to || S.myLang); return; }   // pocket: silent, or earphones (important lines only unless asked)
   if (voiceFor(x.dir)) queueSpeak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang));
 }
 function renderVoiceInfo() {
@@ -3435,6 +3529,7 @@ const TEST_LINES = { en: 'For 500 pieces it is 12 yuan each.', ar: 'خمسمئة
 
 /* ================= wake lock ================= */
 let wake = null, wanted = false;
+function releaseWake() { wanted = false; try { if (wake) wake.release(); } catch (e) {} wake = null; }
 async function requestWake() {
   wanted = true;
   try { if ('wakeLock' in navigator && !wake) { wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', () => { wake = null; }); } } catch (e) {}
@@ -4884,6 +4979,7 @@ function bind() {
   $('#guideBtn').addEventListener('click', () => openSheet('guide'));
   $('#pocketBtn').addEventListener('click', openPocketSheet);
   $('#pkStart').addEventListener('click', () => { unlockAudio(); startPocket(); });
+  $$('input[name="pkOut"]').forEach(r => r.addEventListener('change', () => { $('#pkEarRow').hidden = r.value !== 'ear' || !r.checked; }));
   $('#pkResume').addEventListener('click', resumePocket);
   $('#pkExit').addEventListener('click', stopPocket);
   const pov = $('#pocketOv'), hold = $('#pkHold');
