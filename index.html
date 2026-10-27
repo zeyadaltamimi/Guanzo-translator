@@ -1107,6 +1107,98 @@ details.group.adv{display:block}
 .adv-body{display:flex;flex-direction:column;gap:12px}
 .lbl.sub-h{display:block;margin-top:6px}
 .pk-now{margin:0;padding:10px 12px;border-radius:14px;background:rgb(244 236 223 / .05);border:1px solid rgb(232 184 146 / .2);font-size:13.5px;color:#DCCBB5}
+
+/* ===== v9.1 ===== */
+/* destination */
+body:not([data-dest="CN"]) .tb-cn{display:none}
+body[data-dest="JP"] .zh{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",var(--font-ui)}
+body[data-dest="KR"] .zh{font-family:"Apple SD Gothic Neo","Noto Sans KR",var(--font-ui)}
+body:not([data-dest="CN"]):not([data-dest="JP"]):not([data-dest="KR"]) .zh{font-family:var(--font-ui)}
+.dp-f{font-size:26px;line-height:1;flex:none}
+.dest-pick{padding:10px 14px}
+.dest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dest{display:flex;align-items:center;gap:10px;min-width:0;padding:10px 12px;border-radius:16px;border:1px solid rgb(232 184 146 / .22);background:rgb(244 236 223 / .04);color:#F4ECDF;text-align:start;font:inherit}
+.dest>span:not(.dp-f){display:flex;flex-direction:column;min-width:0}
+.dest b{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dest small{font-size:12px;color:#B9AA95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dest[aria-pressed="true"]{border-color:#D9A47C;box-shadow:inset 0 0 0 1px #D9A47C;background:linear-gradient(160deg,rgb(214 150 108 / .22),rgb(214 150 108 / .08))}
+.destbar{display:flex;align-items:center;gap:8px;padding:8px 6px 8px 12px;margin:0 auto 8px;max-width:560px;border-radius:14px;background:var(--pearl);color:var(--pearl-ink);font-size:13.5px;font-weight:600;line-height:1.4;box-shadow:var(--metal-shadow)}
+#destBarTxt{flex:1;min-width:0}
+.destbar .btn{flex:none}
+.destbar .icon-btn{color:var(--pearl-ink);width:34px;height:34px;flex:none}
+.pack-wait{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px;border-radius:16px;border:1px solid rgb(232 184 146 / .22);background:rgb(244 236 223 / .04);color:#DCCBB5;font-size:14px;margin-bottom:12px}
+.pack-wait>span:not(.spin){flex:1;min-width:12ch}
+/* suggested replies */
+.rep-btn{display:none;align-self:flex-start;align-items:center;gap:6px;margin-top:6px;padding:6px 12px;border-radius:99px;border:1px solid rgb(232 184 146 / .38);background:rgb(232 184 146 / .1);color:#F1C9A6;font:600 13px/1.2 var(--font-ui)}
+.rep-btn .ic{width:16px;height:16px}
+.turn.last-in .rep-btn:not([hidden]){display:inline-flex}
+.rep-btn:disabled{opacity:.6}
+.reps{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.rep{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:9px 12px;border-radius:14px;border:1px solid rgb(232 184 146 / .3);background:rgb(232 184 146 / .08);color:#F4ECDF;text-align:start;font:inherit}
+.rep b{font-size:14.5px;font-weight:600}
+.rep span{font-size:13.5px;color:#E8B892}
+.rep:active{background:rgb(232 184 146 / .18)}
+
+/* ===== sun mode: readable outdoors ===== */
+html[data-sun="1"]{
+  --porcelain:#F4EEE3; --surface:#FFFFFF; --raised:#FFFFFF; --ink:#13201C; --ink-2:#3E4A45; --ink-3:#5E6A64;
+  --line:rgb(19 32 28 / .14); --jade:#8A4B24; --bar:#8A4B24; --amber:#9A6200; --ruby:#C2372B; --cobalt:#0E5C49; --rec:#D23A2C;
+  --fx-bg:rgb(154 98 0 / .12); --fx-ink:#7A4D00; --scrim:rgb(20 30 26 / .45);
+  --pearl:linear-gradient(160deg,#FFFFFF 0%,#F6F1E8 100%); --pearl-ink:#0E3B32;
+  color-scheme:light;background:#F4EEE3}
+html[data-sun="1"] body{background:#F4EEE3;color:var(--ink)}
+html[data-sun="1"] .top{background:rgb(255 255 255 / .92);border-bottom-color:rgb(19 32 28 / .12)}
+html[data-sun="1"] .brand-text h1{background:none;color:#8A4B24}
+html[data-sun="1"] .sub,html[data-sun="1"] .icon-btn{color:#13201C}
+html[data-sun="1"] .top .new-pill{color:#8A4B24;border-color:rgb(138 75 36 / .45)}
+html[data-sun="1"] .tabbar{background:#FFFFFF;border-top-color:rgb(19 32 28 / .12)}
+html[data-sun="1"] .tab{color:#5E6A64}
+html[data-sun="1"] .tab[aria-selected="true"]{color:#8A4B24}
+html[data-sun="1"] .turn{background:#FFFFFF;border-color:rgb(19 32 28 / .14);box-shadow:0 2px 10px rgb(0 0 0 / .08)}
+html[data-sun="1"] .turn.mine{background:#FFF4EA;border-color:rgb(138 75 36 / .35)}
+html[data-sun="1"] .turn.theirs{background:#FFFFFF}
+html[data-sun="1"] .turn .tgt{color:#0B1512;font-weight:600}
+html[data-sun="1"] .turn .src,html[data-sun="1"] .src.said{color:#3E4A45}
+html[data-sun="1"] .turn.mine .chip,html[data-sun="1"] .turn.theirs .chip{background:rgb(19 32 28 / .07);color:#13201C}
+html[data-sun="1"] .turn .num,html[data-sun="1"] .turn.theirs .tgt .num{color:#A23E00}
+html[data-sun="1"] .back{color:#0E5C49}
+html[data-sun="1"] .back::before{background:rgb(14 92 73 / .12);color:#0E5C49}
+html[data-sun="1"] .src.said::before{background:rgb(19 32 28 / .08);color:#3E4A45}
+html[data-sun="1"] .mini{color:#3E4A45}
+html[data-sun="1"] .fx span{background:#FFF1D6;color:#6B4300;border-color:rgb(154 98 0 / .35)}
+html[data-sun="1"] .dock{background:#FFFFFF;border-top-color:rgb(19 32 28 / .12)}
+html[data-sun="1"] .vchip,html[data-sun="1"] .side{background:#FFFFFF;border-color:rgb(19 32 28 / .22);color:#13201C}
+html[data-sun="1"] .side-w>span,html[data-sun="1"] .hold-tip,html[data-sun="1"] .live{color:#3E4A45}
+html[data-sun="1"] .tbtn.them{background:#0E3B32;color:#FFFFFF}
+html[data-sun="1"] .rep-btn{background:#FFF4EA;color:#8A4B24;border-color:rgb(138 75 36 / .4)}
+html[data-sun="1"] .rep{background:#FFF9F3;border-color:rgb(138 75 36 / .3);color:#13201C}
+html[data-sun="1"] .rep span{color:#8A4B24}
+html[data-sun="1"] .sheet{background:#FBF8F2;border-top-color:rgb(19 32 28 / .12)}
+html[data-sun="1"] .group h3,html[data-sun="1"] .label,html[data-sun="1"] .ph-group h3,html[data-sun="1"] details summary,html[data-sun="1"] a{color:#8A4B24}
+html[data-sun="1"] .note,html[data-sun="1"] .go-row small,html[data-sun="1"] .dest small,html[data-sun="1"] .net-row small{color:#5E6A64}
+html[data-sun="1"] .btn.ghost,html[data-sun="1"] .go-row,html[data-sun="1"] .dest,html[data-sun="1"] .tier,html[data-sun="1"] .net-row,html[data-sun="1"] .pk-now,html[data-sun="1"] .pack-wait{background:#FFFFFF;color:#13201C;border-color:rgb(19 32 28 / .18)}
+html[data-sun="1"] .inp,html[data-sun="1"] .search,html[data-sun="1"] .type-line input,html[data-sun="1"] .seg,html[data-sun="1"] .tseg{background:#FFFFFF;border-color:rgb(19 32 28 / .2);color:#13201C}
+html[data-sun="1"] select.inp{background-color:#FFFFFF}
+html[data-sun="1"] .seg span,html[data-sun="1"] .tseg button,html[data-sun="1"] .cat{color:#3E4A45}
+html[data-sun="1"] .cat{background:#FFFFFF;border-color:rgb(19 32 28 / .18)}
+html[data-sun="1"] .ph,html[data-sun="1"] .conv,html[data-sun="1"] .u-card,html[data-sun="1"] .u-cell,html[data-sun="1"] .pl,html[data-sun="1"] .pl-card,html[data-sun="1"] .calc-out>div,html[data-sun="1"] .fx-in,html[data-sun="1"] .key,html[data-sun="1"] .qchip,html[data-sun="1"] .howto,html[data-sun="1"] .card,html[data-sun="1"] .inst{background:#FFFFFF;border-color:rgb(19 32 28 / .16)}
+html[data-sun="1"] .ph-main .zh,html[data-sun="1"] .pl-zh,html[data-sun="1"] .qchip .zh,html[data-sun="1"] .howto li,html[data-sun="1"] .ready h2{color:#13201C}
+html[data-sun="1"] .switch input{background:rgb(19 32 28 / .2)}
+html[data-sun="1"] .menu button,html[data-sun="1"] .quick-acts button{color:#13201C}
+html[data-sun="1"] .f2f,html[data-sun="1"] .cardov{background:#F4EEE3}
+html[data-sun="1"] .half.them{background:#FFFFFF}
+html[data-sun="1"] .seam,html[data-sun="1"] .cardov-bar{background:#FFFFFF;border-color:rgb(19 32 28 / .14)}
+html[data-sun="1"] .half-txt,html[data-sun="1"] .cardov-big{color:#0B1512}
+html[data-sun="1"] .half-lbl{color:#8A4B24}
+html[data-sun="1"] .net-dot{border-color:#FFFFFF}
+html[data-sun="1"] .netbar{background:#FFE9E6;color:#8E1F14;border-color:rgb(194 55 43 / .4)}
+html[data-sun="1"] .netbar .btn{color:#8E1F14;border-color:rgb(194 55 43 / .45)}
+html[data-sun="1"] .fail-note,html[data-sun="1"] .slow-note{color:#9A4A00}
+html[data-sun="1"] input::placeholder,html[data-sun="1"] textarea::placeholder{color:#7C8781}
+.destbar .btn{height:34px;padding:0 14px;min-width:0;font-size:13.5px}
+body:not([data-dest="CN"]) #zhBtn .ic{display:none}
+.destbar .btn{border-radius:99px}
+@media (max-width:359px){.dest-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1182,6 +1274,7 @@ details.group.adv{display:block}
     <section class="panel talk" data-panel="talk" id="panel-talk" role="tabpanel" aria-labelledby="tab-talk">
       <div class="feed gut" id="feed" aria-live="polite"></div>
       <footer class="dock gut">
+        <div class="destbar" id="destBar" hidden role="status"><span id="destBarTxt"></span><button class="btn sm" id="destYes" type="button" data-i18n="dest_yes"></button><button class="icon-btn" id="destNo" type="button" data-i18n-aria="dest_no"><svg class="ic"><use href="#i-x"/></svg></button></div>
         <div class="netbar" id="netBar" hidden role="status"><span class="nb-dot"></span><span id="netBarTxt"></span><button class="btn sm ghost" id="netRetry" type="button" data-i18n="n_retry_bar"></button></div>
         <div class="cue" id="sellerCue" hidden aria-live="assertive"><span class="lm" aria-hidden="true"><span class="lm-ring"></span><span class="lm-ring r2"></span><span class="lm-core"><svg class="ic"><use href="#i-mic"/></svg></span></span><div class="cue-txt"><span class="lm-rec"><i></i><span class="zh" id="cueRec"></span></span><b class="zh" id="cueZh" dir="ltr"></b><small><span class="zh" id="cueZh2" dir="ltr"></span><span id="cueMine"></span></small></div><span class="lm-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
         <div class="dock-top">
@@ -1206,7 +1299,7 @@ details.group.adv{display:block}
 
           <div class="talk2">
             <button class="tbtn me" type="button" data-ptt="me"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_me"></b><small class="tb-my"></small><span class="pttTime tb-time">0:00</span></button>
-            <button class="tbtn them" type="button" data-ptt="them"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_them"></b><small><span class="zh">对方</span> · <span class="tb-zh zh"></span></small><span class="pttTime tb-time">0:00</span></button>
+            <button class="tbtn them" type="button" data-ptt="them"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_them"></b><small><span class="tb-cn"><span class="zh">对方</span> · </span><span class="tb-zh zh"></span></small><span class="pttTime tb-time">0:00</span></button>
           </div>
           <div class="side-w"><button class="side" id="f2fBtn" type="button" data-i18n-aria="f2f_aria"><svg class="ic"><use href="#i-f2f"/></svg></button><span data-i18n="cap_f2f"></span></div>
         </div>
@@ -1310,7 +1403,7 @@ details.group.adv{display:block}
         <div class="tool" id="tool-fx" role="tabpanel" hidden>
           <section class="u-card">
             <div class="fx-pair">
-              <label class="fx-in" for="fxCny"><span data-i18n="fx_cny"></span><input id="fxCny" type="number" inputmode="decimal" min="0" step="any" placeholder="0"><b>¥</b></label>
+              <label class="fx-in" for="fxCny"><span data-i18n="fx_cny"></span><input id="fxCny" type="number" inputmode="decimal" min="0" step="any" placeholder="0"><b id="fxLocSym">¥</b></label>
               <span class="fx-swap" aria-hidden="true"><svg class="ic"><use href="#i-updown"/></svg></span>
               <label class="fx-in" for="fxHome"><span id="fxHomeName"></span><input id="fxHome" type="number" inputmode="decimal" min="0" step="any" placeholder="0"><b id="fxHomeSym"></b></label>
             </div>
@@ -1331,7 +1424,7 @@ details.group.adv{display:block}
             </div>
             <div class="field">
               <label class="lbl" for="fxManual" data-i18n="fx_manual"></label>
-              <div class="fx-row"><span>1 ¥ =</span><input class="inp ltr" id="fxManual" type="number" inputmode="decimal" step="any" min="0"><span id="fxManualCur"></span></div>
+              <div class="fx-row"><span id="fxManualLbl">1 ¥ =</span><input class="inp ltr" id="fxManual" type="number" inputmode="decimal" step="any" min="0"><span id="fxManualCur"></span></div>
             </div>
             <label class="switch" for="showFx"><span><span data-i18n="fx_auto"></span><small data-i18n="fx_auto_note"></small></span><input type="checkbox" id="showFx"></label>
           </section>
@@ -1416,7 +1509,7 @@ details.group.adv{display:block}
 
     <div class="talk2">
       <button class="tbtn me" type="button" data-ptt="me"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_me"></b><small class="tb-my"></small><span class="pttTime tb-time">0:00</span></button>
-      <button class="tbtn them" type="button" data-ptt="them"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_them"></b><small><span class="zh">对方</span> · <span class="tb-zh zh"></span></small><span class="pttTime tb-time">0:00</span></button>
+      <button class="tbtn them" type="button" data-ptt="them"><svg class="ic"><use href="#i-mic"/></svg><b data-i18n="who_them"></b><small><span class="tb-cn"><span class="zh">对方</span> · </span><span class="tb-zh zh"></span></small><span class="pttTime tb-time">0:00</span></button>
     </div>
     <button class="side" id="f2fSpeak" type="button" data-i18n-aria="f2f_respeak"><svg class="ic"><use href="#i-speak"/></svg></button>
     <div class="rec-bar">
@@ -1489,6 +1582,12 @@ details.group.adv{display:block}
     <p class="note" data-i18n="pk_note"></p>
     <button class="btn pk-go" id="pkStart" type="button"><svg class="ic"><use href="#i-pocket"/></svg><span data-i18n="pk_start"></span></button>
   </div>
+</section>
+
+<section class="sheet" id="sheet-dest" hidden role="dialog" aria-modal="true" aria-labelledby="destTitle">
+  <div class="grab"></div>
+  <div class="sheet-head"><h2 id="destTitle" data-i18n="dest_title"></h2><button class="icon-btn" data-close type="button" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <div class="stack"><p class="note" data-i18n="dest_note"></p><div class="dest-grid" id="destGrid"></div></div>
 </section>
 
 <!-- Quick guide -->
@@ -1605,6 +1704,7 @@ details.group.adv{display:block}
     <button class="btn ghost guide-btn" id="guideBtn" type="button"><svg class="ic"><use href="#i-bulb"/></svg><span data-i18n="guide_btn"></span></button>
     <div class="group">
       <h3 data-i18n="g_lang"></h3>
+      <div class="field"><span class="lbl" data-i18n="dest_lbl"></span><button class="go-row dest-pick" id="destPick" type="button"></button></div>
       <div class="field">
         <span class="lbl" id="uiLbl" data-i18n="ui_lang"></span>
         <div class="seg" role="radiogroup" aria-labelledby="uiLbl">
@@ -1617,7 +1717,7 @@ details.group.adv{display:block}
         <select class="inp" id="myLang"></select>
         <p class="note" data-i18n="my_lang_note"></p>
       </div>
-      <div class="field">
+      <div class="field" id="zhField">
         <span class="lbl" id="zhLbl" data-i18n="zh_lang"></span>
         <div class="seg" role="radiogroup" aria-labelledby="zhLbl">
           <label><input type="radio" name="zhStyle" value="auto" id="zh-auto"><span data-i18n="zh_auto"></span></label>
@@ -1656,6 +1756,7 @@ details.group.adv{display:block}
     <div class="group">
       <h3 data-i18n="g_sound"></h3>
       <button class="btn ghost" id="openVoice" type="button"><svg class="ic"><use href="#i-speak"/></svg><span data-i18n="voice_open"></span></button>
+      <label class="switch" for="sun"><span><b data-i18n="sun"></b><small data-i18n="sun_d"></small></span><input type="checkbox" id="sun"></label>
       <span class="lbl sub-h" data-i18n="pk_opts_t"></span>
       <div class="tiers">
         <label class="tier" for="pk-text"><input type="radio" name="pkOut" value="text" id="pk-text"><b data-i18n="pk_text"></b><small data-i18n="pk_text_d"></small></label>
@@ -1781,12 +1882,134 @@ const LANGS = [
   ['pt', 'Português', 'Portuguese', 'pt-BR'], ['de', 'Deutsch', 'German', 'de-DE'], ['it', 'Italiano', 'Italian', 'it-IT'],
   ['sw', 'Kiswahili', 'Swahili', 'sw-KE'], ['ha', 'Hausa', 'Hausa', 'ha-NG'], ['am', 'አማርኛ', 'Amharic', 'am-ET'],
   ['uz', 'Oʻzbek', 'Uzbek', 'uz-UZ'], ['kk', 'Қазақ', 'Kazakh', 'kk-KZ'], ['ko', '한국어', 'Korean', 'ko-KR'],
-  ['ja', '日本語', 'Japanese', 'ja-JP'], ['vi', 'Tiếng Việt', 'Vietnamese', 'vi-VN'], ['th', 'ไทย', 'Thai', 'th-TH']
+  ['ja', '日本語', 'Japanese', 'ja-JP'], ['vi', 'Tiếng Việt', 'Vietnamese', 'vi-VN'], ['th', 'ไทย', 'Thai', 'th-TH'],
+  ['ka', 'ქართული', 'Georgian', 'ka-GE'], ['az', 'Azərbaycanca', 'Azerbaijani', 'az-AZ'], ['fil', 'Filipino', 'Filipino', 'fil-PH'],
+  ['nl', 'Nederlands', 'Dutch', 'nl-NL'], ['el', 'Ελληνικά', 'Greek', 'el-GR'], ['bs', 'Bosanski', 'Bosnian', 'bs-BA']
 ];
 const LANG = Object.fromEntries(LANGS.map(l => [l[0], { code: l[0], label: l[1], en: l[2], tts: l[3] }]));
 LANG.yue = { code: 'yue', label: '粤语', en: 'Cantonese', tts: 'zh-HK' };
 LANG.cmn = { code: 'cmn', label: '普通话', en: 'Mandarin', tts: 'zh-CN' };
 const isZh = l => l === 'yue' || l === 'cmn' || /^zh/.test(l || '');
+
+/* ================= trip destination =================
+   The other person's language, the local currency, the phrases and the taxi cards follow the country you are in.
+   China keeps its Cantonese / Mandarin switch and its ready Guangzhou content. */
+// id, flag, Arabic name, English name, language, currency, Arabic adjective of the language, time zones
+const DEST_LIST = [
+  ['CN', '🇨🇳', 'الصين', 'China', 'zh', 'CNY', 'صيني', /^(Asia\/(Shanghai|Chongqing|Chungking|Harbin|Urumqi|Kashgar|Macau|Macao)|PRC)$/],
+  ['TH', '🇹🇭', 'تايلاند', 'Thailand', 'th', 'THB', 'تايلندي', /^Asia\/Bangkok$/],
+  ['MY', '🇲🇾', 'ماليزيا', 'Malaysia', 'ms', 'MYR', 'ماليزي', /^Asia\/(Kuala_Lumpur|Kuching)$/],
+  ['ID', '🇮🇩', 'إندونيسيا', 'Indonesia', 'id', 'IDR', 'إندونيسي', /^Asia\/(Jakarta|Makassar|Jayapura|Pontianak)$/],
+  ['TR', '🇹🇷', 'تركيا', 'Türkiye', 'tr', 'TRY', 'تركي', /^((Europe|Asia)\/Istanbul|Turkey)$/],
+  ['GE', '🇬🇪', 'جورجيا', 'Georgia', 'ka', 'GEL', 'جورجي', /^Asia\/Tbilisi$/],
+  ['AZ', '🇦🇿', 'أذربيجان', 'Azerbaijan', 'az', 'AZN', 'أذربيجاني', /^Asia\/Baku$/],
+  ['JP', '🇯🇵', 'اليابان', 'Japan', 'ja', 'JPY', 'ياباني', /^(Asia\/Tokyo|Japan)$/],
+  ['KR', '🇰🇷', 'كوريا الجنوبية', 'South Korea', 'ko', 'KRW', 'كوري', /^(Asia\/Seoul|ROK)$/],
+  ['VN', '🇻🇳', 'فيتنام', 'Vietnam', 'vi', 'VND', 'فيتنامي', /^Asia\/(Ho_Chi_Minh|Saigon)$/],
+  ['PH', '🇵🇭', 'الفلبين', 'the Philippines', 'fil', 'PHP', 'فلبيني', /^Asia\/Manila$/],
+  ['IN', '🇮🇳', 'الهند', 'India', 'hi', 'INR', 'هندي', /^Asia\/(Kolkata|Calcutta)$/],
+  ['RU', '🇷🇺', 'روسيا', 'Russia', 'ru', 'RUB', 'روسي', /^(Europe\/(Moscow|Kaliningrad|Samara|Volgograd|Kirov)|Asia\/(Yekaterinburg|Omsk|Novosibirsk|Krasnoyarsk|Irkutsk|Yakutsk|Vladivostok))$/],
+  ['GB', '🇬🇧', 'بريطانيا', 'the UK', 'en', 'GBP', 'إنجليزي', /^(Europe\/(London|Belfast)|GB)$/],
+  ['FR', '🇫🇷', 'فرنسا', 'France', 'fr', 'EUR', 'فرنسي', /^Europe\/Paris$/],
+  ['IT', '🇮🇹', 'إيطاليا', 'Italy', 'it', 'EUR', 'إيطالي', /^Europe\/Rome$/],
+  ['ES', '🇪🇸', 'إسبانيا', 'Spain', 'es', 'EUR', 'إسباني', /^(Europe\/Madrid|Atlantic\/Canary)$/],
+  ['DE', '🇩🇪', 'ألمانيا', 'Germany', 'de', 'EUR', 'ألماني', /^Europe\/Berlin$/],
+  ['AT', '🇦🇹', 'النمسا', 'Austria', 'de', 'EUR', 'ألماني', /^Europe\/Vienna$/],
+  ['CH', '🇨🇭', 'سويسرا', 'Switzerland', 'de', 'CHF', 'ألماني', /^Europe\/Zurich$/],
+  ['NL', '🇳🇱', 'هولندا', 'the Netherlands', 'nl', 'EUR', 'هولندي', /^Europe\/Amsterdam$/],
+  ['GR', '🇬🇷', 'اليونان', 'Greece', 'el', 'EUR', 'يوناني', /^Europe\/Athens$/],
+  ['BA', '🇧🇦', 'البوسنة', 'Bosnia', 'bs', 'BAM', 'بوسني', /^Europe\/Sarajevo$/],
+  ['US', '🇺🇸', 'أمريكا', 'the USA', 'en', 'USD', 'إنجليزي', /^(America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Detroit|Boise|Indiana\/.+|Kentucky\/.+)|Pacific\/Honolulu)$/]
+];
+const DESTS = Object.fromEntries(DEST_LIST.map(d => [d[0], { id: d[0], f: d[1], ar: d[2], en: d[3], lang: d[4], cur: d[5], adj: d[6], tz: d[7] }]));
+const LANG_ALT = { fil: ['tl'], bs: ['hr', 'sr'], ms: ['id'], id: ['ms'] };
+const NONLATIN = new Set(['th', 'ja', 'ko', 'ru', 'el', 'ka', 'hi']);
+// the local currency (rate = units per 1 CNY, an approximate fallback until live rates load)
+const LOCALCUR = {
+  CNY: { s: '¥', ar: 'يوان صيني', en: 'Chinese yuan', def: 1, w: '元|块钱|块|蚊|yuans?|rmb|cny|يوان' },
+  THB: { s: '฿', ar: 'بات تايلندي', en: 'Thai baht', def: 4.86, w: 'บาท|baht|thb|بات' },
+  MYR: { s: 'RM', ar: 'رينغيت ماليزي', en: 'Malaysian ringgit', def: 0.63, w: 'ringgit|myr|رينغيت' },
+  IDR: { s: 'Rp', ar: 'روبية إندونيسية', en: 'Indonesian rupiah', def: 2470, w: 'rupiah|idr|روبية' },
+  TRY: { s: '₺', ar: 'ليرة تركية', en: 'Turkish lira', def: 6.4, w: 'tl|lira|liras?ı?|try|ليرة' },
+  GEL: { s: '₾', ar: 'لاري جورجي', en: 'Georgian lari', def: 0.40, w: 'lari|ლარი|gel|لاري' },
+  AZN: { s: '₼', ar: 'مانات أذربيجاني', en: 'Azerbaijani manat', def: 0.254, w: 'manat|azn|مانات' },
+  JPY: { s: '¥', ar: 'ين ياباني', en: 'Japanese yen', def: 22.4, w: '円|yen|jpy|ين' },
+  KRW: { s: '₩', ar: 'وون كوري', en: 'South Korean won', def: 209, w: '원|won|krw|وون' },
+  VND: { s: '₫', ar: 'دونغ فيتنامي', en: 'Vietnamese dong', def: 3930, w: 'đồng|dong|vnd|دونغ' },
+  PHP: { s: '₱', ar: 'بيزو فلبيني', en: 'Philippine peso', def: 8.7, w: 'pesos?|php|بيزو' },
+  INR: { s: '₹', ar: 'روبية هندية', en: 'Indian rupee', def: 13.2, w: 'rupees?|रुपये|inr|روبية' },
+  RUB: { s: '₽', ar: 'روبل روسي', en: 'Russian ruble', def: 12.3, w: 'руб(?:лей|ля|ль)?|rubles?|rub|روبل' },
+  GBP: { s: '£', ar: 'جنيه إسترليني', en: 'British pound', def: 0.112, w: 'pounds?|gbp|جنيه' },
+  EUR: { s: '€', ar: 'يورو', en: 'Euro', def: 0.1286, w: 'euros?|eur|يورو' },
+  CHF: { s: 'CHF', ar: 'فرنك سويسري', en: 'Swiss franc', def: 0.120, w: 'francs?|franken|chf|فرنك' },
+  BAM: { s: 'KM', ar: 'مارك بوسني', en: 'Bosnian mark', def: 0.251, w: 'maraka|bam|مارك' },
+  USD: { s: '$', ar: 'دولار أمريكي', en: 'US dollar', def: 0.1405, w: 'dollars?|usd|دولار' }
+};
+// what the app says to the other person in his language: «please speak», labels, driver and shop lines
+const CUES = {
+  th: ['เชิญพูดได้เลย', 'พูดจบแล้วจะแปลให้ทันที', 'กำลังบันทึก', 'คำแปล', 'คุณพูดว่า', 'กดปุ่มสีขาวค้างไว้แล้วพูด ปล่อยเมื่อพูดจบ', 'กรุณาพาไปที่นี่:', 'ขออันนี้:', 'ราคานี้ได้ไหม?'],
+  ms: ['Sila bercakap', 'Selepas anda habis, saya terjemahkan', 'Sedang merakam', 'Terjemahan', 'Anda berkata', 'Tekan dan tahan butang putih sambil bercakap, lepaskan bila selesai', 'Tolong bawa saya ke sini:', 'Saya mahu yang ini:', 'Boleh dengan harga ini?'],
+  id: ['Silakan bicara', 'Setelah selesai, saya terjemahkan', 'Sedang merekam', 'Terjemahan', 'Anda bilang', 'Tekan dan tahan tombol putih sambil bicara, lepaskan setelah selesai', 'Tolong antar saya ke sini:', 'Saya mau yang ini:', 'Bisa dengan harga ini?'],
+  tr: ['Lütfen konuşun', 'Bitirince çevireceğim', 'Kaydediliyor', 'Çeviri', 'Dediğiniz', 'Beyaz düğmeye basılı tutup konuşun, bitince bırakın', 'Lütfen beni buraya götürün:', 'Bunu istiyorum:', 'Bu fiyata olur mu?'],
+  ka: ['გთხოვთ, ისაუბროთ', 'როცა დაასრულებთ, გადავთარგმნი', 'იწერება', 'თარგმანი', 'თქვენ თქვით', 'დააჭირეთ თეთრ ღილაკს, ისაუბრეთ და ბოლოს აუშვით', 'გთხოვთ, წამიყვანეთ აქ:', 'ეს მინდა:', 'ამ ფასად შეიძლება?'],
+  az: ['Zəhmət olmasa, danışın', 'Bitirəndə tərcümə edəcəyəm', 'Yazılır', 'Tərcümə', 'Siz dediniz', 'Ağ düyməni basıb saxlayın və danışın, bitirəndə buraxın', 'Zəhmət olmasa, məni bura aparın:', 'Bunu istəyirəm:', 'Bu qiymətə olar?'],
+  ja: ['どうぞお話しください', '話し終わったら翻訳します', '録音中', '翻訳', 'あなたの言葉', '白いボタンを押したまま話して、終わったら離してください', 'ここまでお願いします：', 'これをください：', 'この値段でいいですか？'],
+  ko: ['말씀하세요', '말씀이 끝나면 번역해 드릴게요', '녹음 중', '번역', '하신 말씀', '흰 버튼을 누른 채로 말씀하시고, 끝나면 떼세요', '여기로 가 주세요:', '이거 주세요:', '이 가격에 될까요?'],
+  vi: ['Mời bạn nói', 'Nói xong tôi sẽ dịch', 'Đang ghi âm', 'Bản dịch', 'Bạn đã nói', 'Nhấn giữ nút trắng khi nói, nói xong thì thả ra', 'Làm ơn chở tôi đến đây:', 'Cho tôi cái này:', 'Giá này được không?'],
+  fil: ['Pakisalita po', 'Isasalin ko pagkatapos ninyo', 'Nagre-record', 'Salin', 'Sinabi ninyo', 'Pindutin nang matagal ang puting button habang nagsasalita, bitawan kapag tapos na', 'Pakihatid po ako dito:', 'Gusto ko po ito:', 'Puwede po ba sa presyong ito?'],
+  hi: ['कृपया बोलिए', 'आपके बोलने के बाद मैं अनुवाद करूँगा', 'रिकॉर्ड हो रहा है', 'अनुवाद', 'आपने कहा', 'सफ़ेद बटन दबाकर रखें और बोलें, ख़त्म होने पर छोड़ दें', 'कृपया मुझे यहाँ ले चलिए:', 'मुझे यह चाहिए:', 'क्या इस दाम में मिलेगा?'],
+  ru: ['Говорите, пожалуйста', 'Когда закончите, я переведу', 'Идёт запись', 'Перевод', 'Вы сказали', 'Нажмите и держите белую кнопку, пока говорите, потом отпустите', 'Отвезите меня сюда, пожалуйста:', 'Мне вот это, пожалуйста:', 'Можно по этой цене?'],
+  en: ['Please speak', 'I\'ll translate when you finish', 'Recording', 'Translation', 'You said', 'Press and hold the white button while you speak, release when done', 'Please take me here:', 'I\'d like this one:', 'Is this price OK?'],
+  fr: ['Parlez, s’il vous plaît', 'Je traduis dès que vous avez fini', 'Enregistrement', 'Traduction', 'Vous avez dit', 'Maintenez le bouton blanc pendant que vous parlez, relâchez à la fin', 'Emmenez-moi ici, s’il vous plaît :', 'Je voudrais ceci :', 'Ce prix vous convient ?'],
+  it: ['Prego, parli pure', 'Quando ha finito, traduco', 'Registrazione', 'Traduzione', 'Ha detto', 'Tenga premuto il pulsante bianco mentre parla, poi lo rilasci', 'Mi porti qui, per favore:', 'Vorrei questo:', 'Va bene questo prezzo?'],
+  es: ['Hable, por favor', 'Cuando termine, lo traduzco', 'Grabando', 'Traducción', 'Usted dijo', 'Mantenga pulsado el botón blanco mientras habla y suéltelo al terminar', 'Lléveme aquí, por favor:', 'Quisiera esto:', '¿Le parece bien este precio?'],
+  de: ['Bitte sprechen Sie', 'Wenn Sie fertig sind, übersetze ich', 'Aufnahme läuft', 'Übersetzung', 'Sie sagten', 'Halten Sie die weiße Taste gedrückt, während Sie sprechen, und lassen Sie dann los', 'Bitte bringen Sie mich hierhin:', 'Ich hätte gern das hier:', 'Geht dieser Preis?'],
+  nl: ['Spreek maar', 'Als u klaar bent, vertaal ik het', 'Opname loopt', 'Vertaling', 'U zei', 'Houd de witte knop ingedrukt terwijl u praat en laat los als u klaar bent', 'Breng me hierheen, alstublieft:', 'Ik wil dit graag:', 'Is deze prijs goed?'],
+  el: ['Παρακαλώ, μιλήστε', 'Όταν τελειώσετε, θα το μεταφράσω', 'Εγγραφή', 'Μετάφραση', 'Είπατε', 'Κρατήστε πατημένο το λευκό κουμπί όσο μιλάτε και αφήστε το στο τέλος', 'Παρακαλώ, πηγαίνετέ με εδώ:', 'Θα ήθελα αυτό:', 'Γίνεται σε αυτή την τιμή;'],
+  bs: ['Izvolite, govorite', 'Kad završite, prevest ću', 'Snimanje', 'Prijevod', 'Rekli ste', 'Držite bijelo dugme dok govorite i pustite kad završite', 'Molim vas, odvezite me ovdje:', 'Želio bih ovo:', 'Može li po ovoj cijeni?']
+};
+const DST = () => DESTS[S.dest] || DESTS.CN;
+const isCN = () => DST().id === 'CN';
+const CUE = () => { const c = CUES[DST().lang] || CUES.en; return { cue: c[0], cue2: c[1], rec: c[2], tr: c[3], said: c[4], hint: c[5], drive: c[6], want: c[7], offer: c[8] }; };
+const isOther = l => isCN() ? isZh(l) : !!l && (l === DST().lang || (LANG_ALT[DST().lang] || []).includes(l));
+const locCur = () => DST().cur;
+const locSym = () => LOCALCUR[locCur()].s;
+const escRe = s => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function tzDest() {
+  let tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  const d = DEST_LIST.find(x => x[7].test(tz));
+  return d ? d[0] : '';
+}
+// the other person's language, in words a prompt understands
+function otherDesc(k) {
+  k = k || ZH();
+  if (k === 'cmn') return 'standard Mandarin (Simplified characters)';
+  if (k === 'yue') return 'natural spoken Guangzhou Cantonese (广州话) in Simplified characters with Cantonese colloquial words (嘅 唔 系 咗 啲 嚟 冇 佢 喺 咁 乜嘢 几多 边度 而家 畀); never Mandarin wording';
+  const n = LANG[k] ? LANG[k].en : k;
+  return 'natural, polite spoken ' + n + ' as people say it in ' + DST().en + (k === 'ja' ? ' (polite です/ます form)' : k === 'ko' ? ' (polite 요 form)' : '');
+}
+// prompts written for China, adapted to the trip destination
+function P(s) {
+  if (isCN()) return s;
+  const d = DST(), n = LANG[d.lang].en, lc = LOCALCUR[d.cur], sym = lc.s, word = lc.en.split(' ').pop();
+  return String(s).replace(/yuan prices as ¥ amounts \(for example ¥12\)/g, 'prices with the ' + sym + ' symbol (for example ' + sym + '12)')
+    .replace(/in Guangzhou/g, 'in ' + d.en).replace(/in China/g, 'in ' + d.en).replace(/\bChinese\b/g, n)
+    .replace(/\byuan\b/g, word).replace(/¥/g, sym);
+}
+// texts on screen written for China, adapted to the trip destination
+function adaptText(s) {
+  const d = DST(), lc = LOCALCUR[d.cur], sym = lc.s;
+  if (S.ui === 'ar') {
+    const to = /^ال/.test(d.ar) ? 'لل' + d.ar.slice(2) : 'ل' + d.ar;
+    return s.replace(/يوان صيني/g, lc.ar).replace(/باليوان/g, 'بالعملة المحلية').replace(/للصين/g, to)
+      .replace(/بالصيني/g, 'بال' + d.adj).replace(/الصيني/g, 'ال' + d.adj).replace(/صيني/g, d.adj)
+      .replace(/ \(Taobao وغيره\)/g, '').replace(/Taobao أو WeChat/g, 'أي تطبيق أو موقع').replace(/¥/g, sym);
+  }
+  return s.replace(/Chinese yuan/g, lc.en).replace(/to China/g, 'to ' + d.en).replace(/\bChinese\b/g, LANG[d.lang].en)
+    .replace(/\byuan\b/g, lc.en.split(' ').pop()).replace(/ \(Taobao and others\)/g, '').replace(/Taobao or WeChat/g, 'any app or website').replace(/¥/g, sym);
+}
+const localName = () => S.ui === 'ar' ? 'ال' + DST().adj : (isCN() ? 'Chinese' : LANG[DST().lang].en);
 const langLabel = l => (LANG[l] && LANG[l].label) || (l ? String(l).toUpperCase() : '…');
 
 /* ================= currencies (rate = units per 1 CNY) ================= */
@@ -1834,7 +2057,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 9.0',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 9.1',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -1896,7 +2119,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 9.0',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 9.1',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -2125,6 +2348,24 @@ Object.assign(I18N.en, {
   shot_retry: 'Try again', shot_orig: 'Original', shot_new: 'Another image', shot_bad: 'Couldn\'t open that image.', shot_title: 'Image translation'
 });
 Object.assign(I18N.ar, {
+  dest_lbl: 'وجهتك', dest_title: 'وين مسافر؟', dest_note: 'اختر البلد، ويضبط التطبيق لغة الطرف الآخر والعملة والعبارات الجاهزة.',
+  dest_here: 'أنت هنا الآن', dest_btn: 'وجهتك: {c} · اضغط للتغيير', dest_set: 'الوجهة الآن {c} · الطرف الآخر يتكلم {l}',
+  dest_q: 'يبدو إنك في {c} · أخلي الطرف الآخر يتكلم {l}؟', dest_yes: 'غيّر', dest_no: 'لا',
+  pk_prep: 'أجهّز العبارات الجاهزة باللغة {l}… مرة واحدة فقط.', pk_prep_btn: 'جهّزها الآن', pk_prep_fail: 'العبارات الجاهزة باللغة {l} تتجهز مرة واحدة وتبقى على جوالك.', pk_prep_key: 'أضف مفتاح Google AI Studio لتجهيز العبارات باللغة {l}.',
+  rep_btn: 'ردود مقترحة', rep_loading: 'أجهّز ردود…', taxi_none: 'أضف فندقك أو أي عنوان، ويظهر للسائق بخط كبير مع جملة «خذني هنا» بلغته.',
+  sun: 'وضع الشمس', sun_d: 'ألوان فاتحة وتباين قوي للقراءة في الشارع تحت الشمس.',
+  e_net_g: 'تعذّر الوصول إلى Gemini. تأكد من الإنترنت ثم حاول مرة أخرى.', c_net_g: 'تعذّر الوصول إلى Google. تأكد من الإنترنت.'
+});
+Object.assign(I18N.en, {
+  dest_lbl: 'Your destination', dest_title: 'Where are you travelling?', dest_note: 'Pick the country: the other person\'s language, the currency and the ready phrases follow it.',
+  dest_here: 'you are here now', dest_btn: 'Destination: {c} · tap to change', dest_set: 'Destination: {c} · the other person speaks {l}',
+  dest_q: 'Looks like you are in {c} · switch the other person to {l}?', dest_yes: 'Switch', dest_no: 'No',
+  pk_prep: 'Preparing the ready phrases in {l}… only once.', pk_prep_btn: 'Prepare now', pk_prep_fail: 'Ready phrases in {l} are prepared once and stay on your phone.', pk_prep_key: 'Add a Google AI Studio key to prepare phrases in {l}.',
+  rep_btn: 'Suggested replies', rep_loading: 'Preparing replies…', taxi_none: 'Add your hotel or any address: it is shown to the driver in large text with «take me here» in his language.',
+  sun: 'Sun mode', sun_d: 'Light colours and strong contrast for reading outdoors in bright sun.',
+  e_net_g: 'Can\'t reach Gemini. Check your internet and try again.', c_net_g: 'Can\'t reach Google. Check your internet.'
+});
+Object.assign(I18N.ar, {
   said_lbl: 'قلت', back_lbl: 'يعني', ex_back: 'إذا طلبت 500 قطعة، كم سعر القطعة؟',
   p_short: 'اضغط مطوّلاً على الزر وأنت تتكلم، وارفع إصبعك للإرسال.', p_hint2: 'اضغط مطوّلاً وتكلّم · ارفع للإرسال · اسحب للإلغاء',
   p_kb_send: 'اضغط الزر مرة ثانية للإرسال', p_early: 'ابدأ الكلام بعد الصوت الخفيف، واستمر ضاغطاً حتى تخلص.',
@@ -2157,6 +2398,8 @@ Object.assign(I18N.en, {
 
 /* ================= settings ================= */
 const DEFAULT_CONTEXT = 'I am a visitor buying wholesale products from suppliers in Guangzhou markets to import to my country. Typical topics: price per piece in yuan (RMB), MOQ (minimum order quantity), samples, quality, materials, colors and sizes, packaging, OEM / custom logo, production time, delivery, shipping, payment terms and deposit.';
+const TRAVEL_CONTEXT = 'I am a visitor travelling for tourism, shopping and sometimes business. Typical topics: prices and bargaining, sizes and colors, restaurants and food, taxis and directions, hotels, tickets and tours, pharmacies, payment.';
+const ctxText = () => (S.context && S.context !== DEFAULT_CONTEXT && S.context !== TRAVEL_CONTEXT) ? S.context : (isCN() ? DEFAULT_CONTEXT : TRAVEL_CONTEXT);
 const uiDefault = /^ar/i.test(navigator.language || '') ? 'ar' : 'en';
 const old = store.get('settings', {}) || {};
 const DEFAULTS = {
@@ -2165,7 +2408,7 @@ const DEFAULTS = {
   voice: true, voiceZh: true, voiceMine: true, vRate: 0.95,
   autoStop: true, context: DEFAULT_CONTEXT,
   showFx: true, cur: 'SAR', rates: {}, ratesAt: 0, rateSrc: 'default',
-  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true, recMode: 'ptt', pocketOut: 'text', pkEarAll: false, pkTimer: 30
+  calc: { p: '', q: '' }, tool: 'calc', camMode: 'signs', v: 4, freeKey: '', saver: true, recMode: 'ptt', pocketOut: 'text', pkEarAll: false, pkTimer: 30, dest: '', sun: false
 };
 const S = Object.assign({}, DEFAULTS, old);
 if (S.v !== 3 && S.v !== 4) {
@@ -2180,14 +2423,16 @@ if (S.v !== 3 && S.v !== 4) {
 if (S.v === 3) { if (S.zhStyle === 'yue') S.zhStyle = 'auto'; S.v = 4; }
 if (!['auto', 'yue', 'cmn'].includes(S.zhStyle)) S.zhStyle = 'auto';
 S.recMode = 'ptt';                                       // v9: one way to talk — press and hold your button
+if (!DESTS[S.dest]) S.dest = old.v ? 'CN' : (tzDest() || 'CN');
 if (!LANG[S.myLang] || isZh(S.myLang)) S.myLang = 'en';
 if (!CUR[S.cur]) S.cur = 'SAR';
 if (!I18N[S.ui]) S.ui = 'en';
 
 function t(k, vars) {
+  if (!isCN() && (k === 'e_net' || k === 'c_net')) k += '_g';           // the China VPN advice only applies in China
   let s = (I18N[S.ui] && I18N[S.ui][k]) || I18N.en[k] || k;
   if (vars) s = s.replace(/\{(\w+)\}/g, (m, n) => (vars[n] != null ? vars[n] : m));
-  return s;
+  return isCN() ? s : adaptText(s);
 }
 const LOC = () => S.ui === 'ar' ? 'ar-u-nu-latn' : 'en-GB';
 function applyI18n() {
@@ -2218,7 +2463,7 @@ function saveConvs() {
 const current = () => convs.find(c => c.id === currentId) || null;
 // the seller's Chinese: fixed in Settings, or (auto) per chat: Cantonese until the seller speaks Mandarin
 let zhNew = null;
-function ZH() { if (S.zhStyle === 'yue' || S.zhStyle === 'cmn') return S.zhStyle; const c = current(); return (c && c.zh) || zhNew || 'yue'; }
+function ZH() { if (!isCN()) return DST().lang; if (S.zhStyle === 'yue' || S.zhStyle === 'cmn') return S.zhStyle; const c = current(); return (c && c.zh) || zhNew || 'yue'; }
 
 /* ================= formatting ================= */
 const fmtTime = ts => new Intl.DateTimeFormat(LOC(), { hour: 'numeric', minute: '2-digit' }).format(ts);
@@ -2231,14 +2476,23 @@ function fmtUSD(v) { v = v || 0; if (v === 0) return '$0'; if (v < 0.01) return 
 const fmtDur = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
 const curSym = c => S.ui === 'ar' ? CUR[c].sa : c;
 const curName = c => CUR[c][S.ui] || CUR[c].en;
-function rateOf(c) { const r = S.rates && S.rates[c]; return r > 0 ? r : CUR[c] && CUR[c].def > 0 ? CUR[c].def : null; }
+function rateOf(c) { const r = S.rates && S.rates[c]; return r > 0 ? r : CUR[c] && CUR[c].def > 0 ? CUR[c].def : LOCALCUR[c] && LOCALCUR[c].def > 0 ? LOCALCUR[c].def : null; }
+const locPerCNY = () => isCN() ? 1 : rateOf(locCur());
+function homePerLocal() { const h = rateOf(S.cur), l = locPerCNY(); return h && l ? h / l : null; }
+// 1.250,50 and 15.000 (Europe, Indonesia, Vietnam…) as well as 1,250.50
+function parseNum(s) {
+  s = toLatinDigits(s).replace(/[，٬]/g, ',').replace('٫', '.');
+  if (/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) return parseFloat(s.replace(/\./g, '').replace(',', '.'));
+  if (/^\d+,\d{1,2}$/.test(s)) return parseFloat(s.replace(',', '.'));
+  return parseFloat(s.replace(/,/g, ''));
+}
 function smartN(v) {
   if (v == null || !isFinite(v)) return '—';
   const a = Math.abs(v);
   return a >= 1000 ? fmtN(v) : a >= 100 ? fmtN(v, 1) : a >= 1 ? fmtN(v, 2) : a >= 0.01 ? fmtN(v, 3) : fmtN(v, 5);
 }
 const money = (v, c) => smartN(v) + ' ' + curSym(c);
-function cnyToHome(v) { const r = rateOf(S.cur); return r ? v * r : null; }
+function cnyToHome(v) { const r = homePerLocal(); return r && (isCN() || locCur() !== S.cur) ? v * r : null; }   // local price → my currency
 function usdToHome(v) { const r = rateOf(S.cur), u = rateOf('USD'); return r && u ? v * r / u : null; }
 function costText(usd) { const h = S.cur === 'USD' ? null : usdToHome(usd); return fmtUSD(usd) + (h != null ? ' ≈ ' + money(h, S.cur) : ''); }
 function chipText(x) {
@@ -2317,7 +2571,10 @@ const PHRASES = [
     { ar: 'وين دورة المياه؟', en: 'Where is the toilet?', yue: '洗手间喺边度？', jy: 'sai2 sau2 gaan1 hai2 bin1 dou6?', cmn: '洗手间在哪里？', py: 'xǐshǒujiān zài nǎlǐ?' }
   ] }
 ];
-const builtinZh = p => ZH() === 'cmn' ? { zh: p.cmn, rom: p.py, kind: 'cmn' } : { zh: p.yue, rom: p.jy, kind: 'yue' };
+const builtinZh = p => {
+  if (!isCN()) { const pk = phrasePack(), e = pk && pk.items[p.en]; return e ? { zh: e[0], rom: e[1] || '', kind: ZH() } : { zh: '', rom: '', kind: ZH(), missing: true }; }
+  return ZH() === 'cmn' ? { zh: p.cmn, rom: p.py, kind: 'cmn' } : { zh: p.yue, rom: p.jy, kind: 'yue' };
+};
 const myPhrases = () => { const a = store.get('phrases', []); return Array.isArray(a) ? a : []; };
 const phraseLabel = p => S.ui === 'ar' ? p.ar : p.en;
 
@@ -2350,8 +2607,8 @@ const PLACES = [
   { c: 's', zh: '花城广场', addr: '天河区珠江新城', en: 'Huacheng Square', ar: 'ساحة هواتشنغ' }
 ];
 const myPlaces = () => { const a = store.get('places', []); return Array.isArray(a) ? a : []; };
-const driverLine = () => ZH() === 'cmn' ? '师傅，请带我去这里：' : '师傅，唔该去呢度：';
-const mapUrl = zh => 'https://uri.amap.com/search?keyword=' + encodeURIComponent(zh) + '&city=440100&view=map&callnative=1';
+const driverLine = () => !isCN() ? CUE().drive : ZH() === 'cmn' ? '师傅，请带我去这里：' : '师傅，唔该去呢度：';
+const mapUrl = zh => !isCN() ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(zh) : 'https://uri.amap.com/search?keyword=' + encodeURIComponent(zh) + '&city=440100&view=map&callnative=1';
 
 /* ================= models & prices ================= */
 const PRICE_TABLE = [
@@ -2454,20 +2711,23 @@ function hlNums(s) {
 }
 function fxChips(x) {
   if (!S.showFx) return [];
-  const rate = rateOf(S.cur);
-  if (!rate) return [];
+  const rate = homePerLocal();
+  if (!rate || (!isCN() && locCur() === S.cur)) return [];
   const text = (x.src || '') + '\n' + (x.tgt || '');
   const vals = [];
   const add = (s, mul) => {
-    const v = parseFloat(toLatinDigits(s).replace(/[,，٬]/g, '').replace('٫', '.')) * (mul === '万' ? 1e4 : mul ? 1e3 : 1);
-    if (v > 0 && v < 1e9 && !vals.includes(v)) vals.push(v);
+    const v = parseNum(s) * (mul === '万' ? 1e4 : mul ? 1e3 : 1);
+    if (v > 0 && v < 1e12 && !vals.includes(v)) vals.push(v);
   };
   let m;
-  const re1 = new RegExp(NUM_RE + '\\s*(万|千|k)?\\s*(?:元|块钱|块|蚊|yuans?|yuanes|rmb|cny|يوان|юан)', 'gi');
-  const re2 = new RegExp('(?:¥|￥|rmb|cny)\\s*' + NUM_RE + '\\s*(万|千|k)?', 'gi');
+  const lc = LOCALCUR[locCur()];
+  const re1 = isCN() ? new RegExp(NUM_RE + '\\s*(万|千|k)?\\s*(?:元|块钱|块|蚊|yuans?|yuanes|rmb|cny|يوان|юан)', 'gi')
+    : new RegExp(NUM_RE + '\\s*(k)?\\s*(?:' + lc.w + ')(?![a-z])', 'gi');
+  const re2 = isCN() ? new RegExp('(?:¥|￥|rmb|cny)\\s*' + NUM_RE + '\\s*(万|千|k)?', 'gi')
+    : new RegExp('(?:' + escRe(lc.s) + ')\\s*' + NUM_RE + '\\s*(k)?', 'gi');
   while ((m = re1.exec(text))) add(m[1], m[2]);
   while ((m = re2.exec(text))) add(m[1], m[2]);
-  return vals.slice(0, 4).map(v => '¥' + smartN(v) + ' ≈ ' + money(v * rate, S.cur));
+  return vals.slice(0, 4).map(v => locSym() + smartN(v) + ' ≈ ' + money(v * rate, S.cur));
 }
 function turnEl(x, example) {
   const el = document.createElement('article');
@@ -2478,7 +2738,8 @@ function turnEl(x, example) {
       '<button class="mini" type="button" data-act="speak" aria-label="' + esc(t('act_speak')) + '"><svg class="ic"><use href="#i-speak"/></svg></button>' +
       '<button class="mini" type="button" data-act="big" aria-label="' + esc(t('act_big')) + '"><svg class="ic"><use href="#i-expand"/></svg></button>' +
       '<button class="mini" type="button" data-act="more" aria-label="' + esc(t('act_more')) + '"><svg class="ic"><use href="#i-more"/></svg></button>') +
-    '</span></div><p class="src" dir="auto"></p><p class="tgt" dir="auto"></p><p class="back" dir="auto" hidden></p><p class="jp" hidden></p><div class="fx" hidden></div>';
+    '</span></div><p class="src" dir="auto"></p><p class="tgt" dir="auto"></p><p class="back" dir="auto" hidden></p><p class="jp" hidden></p><div class="fx" hidden></div>' +
+    (example ? '' : '<button class="rep-btn" type="button" data-act="replies" hidden><svg class="ic"><use href="#i-spark"/></svg><span>' + esc(t('rep_btn')) + '</span></button><div class="reps" hidden></div>');
   fillTurn(el, x);
   return el;
 }
@@ -2489,7 +2750,7 @@ function fillTurn(el, x) {
   const src = $('.src', el), tgt = $('.tgt', el), jp = $('.jp', el), fx = $('.fx', el);
   if (x.pending) src.textContent = x.src || ''; else src.innerHTML = hlNums(x.src);
   src.hidden = !x.src;
-  src.classList.toggle('zh', isZh(x.lang));
+  src.classList.toggle('zh', isOther(x.lang));
   const said = x.dir === 'out' && !!x.src && !x.pending;                // what you said, so you can check it was heard right
   src.classList.toggle('said', said); if (said) src.dataset.lbl = t('said_lbl'); else delete src.dataset.lbl;
   const bk = $('.back', el);
@@ -2503,6 +2764,8 @@ function fillTurn(el, x) {
   fx.hidden = !chips.length;
   fx.innerHTML = chips.map(c => '<span>' + esc(c) + '</span>').join('');
   $$('.mini', el).forEach(b => { b.disabled = !!x.pending; });
+  const rb = $('.rep-btn', el);
+  if (rb) { const can = x.dir === 'in' && !x.pending; rb.hidden = !can || !!(x.reps && x.reps.length); if (can && x.reps && x.reps.length && $('.reps', el).hidden) renderReps(el, x); }
 }
 function quickChips(n) {
   const out = [];
@@ -2549,6 +2812,7 @@ function emptyState() {
   chips.className = 'chips scroll-row';
   quickChips(8).forEach(p => {
     const z = builtinZh(p);
+    if (z.missing) return;
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'qchip';
     b.innerHTML = '<span class="zh" dir="ltr">' + esc(z.zh) + '</span><small>' + esc(phraseLabel(p)) + '</small>';
@@ -2556,7 +2820,7 @@ function emptyState() {
     chips.append(b);
   });
   wrap.append(chips);
-  if (store.get('used', false)) return wrap;
+  if (store.get('used', false) || !isCN()) return wrap;
   const l2 = document.createElement('p');
   l2.className = 'label'; l2.textContent = t('example_label');
   wrap.append(l2);
@@ -2572,6 +2836,7 @@ function renderFeed() {
   renderHeader(); renderZhBtn();
   if (!c || !c.turns.length) { feed.append(emptyState()); feed.scrollTop = 0; return; }
   c.turns.forEach(x => feed.append(turnEl(x)));
+  markLastIn();
   scrollEnd();
 }
 function scrollEnd() { const f = $('#feed'); f.scrollTop = f.scrollHeight; }
@@ -2579,7 +2844,7 @@ function ensureConv() {
   let c = current();
   if (!c) {
     const now = Date.now();
-    c = { id: uid(), title: defaultTitle(now), created: now, updated: now, turns: [] };
+    c = { id: uid(), title: defaultTitle(now), created: now, updated: now, turns: [], dest: S.dest };
     if (zhNew) { c.zh = zhNew; zhNew = null; }
     convs.unshift(c);
     currentId = c.id;
@@ -2652,7 +2917,7 @@ function drawWave() {
 /* ================= Gemini ================= */
 function buildPrompt(history, who) {
   const my = LANG[S.myLang].en;
-  const zh = ZH() === 'cmn'
+  const zh = !isCN() ? otherDesc() : ZH() === 'cmn'
     ? 'standard Mandarin (Simplified characters)'
     : 'natural spoken Guangzhou Cantonese (广州话) in Simplified characters with Cantonese colloquial words (嘅 唔 系 咗 啲 嚟 冇 佢 喺 咁 乜嘢 几多 边度 而家 畀); never Mandarin wording';
   const L = [
@@ -2683,10 +2948,23 @@ function buildPrompt(history, who) {
     'TGT: <text>',
     'SRC: <text>'
   ];
-  if (who !== 'them' && who !== 'listen') L.push('BACK: <only when TGT is Chinese: what the Chinese line means, translated back into ' + uiLangName() + ' literally, exactly as the Chinese listener will understand it, so the visitor can check it; otherwise leave empty>');
+  if (!isCN()) {                                          // written for China: adapt each line to the destination
+    const d = DST(), LN = LANG[d.lang].en, lc = LOCALCUR[d.cur];
+    L.forEach((s, i) => {
+      L[i] = s.replace('a traveller in China', 'a traveller in ' + d.en)
+        .replace('who speaks Cantonese or Mandarin.', 'who usually speaks ' + LN + ' (sometimes English).')
+        .replace(/^LANG = language actually spoken.*$/, 'LANG = language actually spoken, as an ISO 639-1 code (en, ar, ' + d.lang + '…), none for no clear speech.')
+        .replace('in Cantonese or Mandarin: LANG = yue or cmn.', 'usually in ' + LN + ': LANG = its code.')
+        .replace('(yue, cmn…)', '(' + d.lang + '…)')
+        .replace('TGT = if yue or cmn, translate into', 'TGT = if it is ' + LN + ', translate into')
+        .replace('SRC = faithful one-line transcription. Chinese in Simplified characters; Cantonese with its colloquial characters.', 'SRC = faithful one-line transcription in the original script.')
+        .replace('Chinese prices are in yuan; 蚊 means yuan.', 'Local prices are in ' + lc.en + ' (' + d.cur + ').');
+    });
+  }
+  if (who !== 'them' && who !== 'listen') L.push(P('BACK: <only when TGT is Chinese: what the Chinese line means, translated back into ' + uiLangName() + ' literally, exactly as the Chinese listener will understand it, so the visitor can check it; otherwise leave empty>'));
   if (who === 'listen') L.push('IMP: <1 if it is about prices, money, discounts, quantities, deadlines, quality problems, or about the visitor himself (talking about him, his nationality, charging him more, misleading him); otherwise 0>');
-  if (S.romanize) L.push(ZH() === 'cmn' ? 'JP: <Hanyu Pinyin with tone marks of the Chinese line>' : 'JP: <Jyutping with tone numbers of the Cantonese line>');
-  L.push('Background (meaning only, never part of the audio): ' + (S.context || DEFAULT_CONTEXT).trim());
+  if (S.romanize && (isCN() || NONLATIN.has(DST().lang))) L.push(!isCN() ? 'JP: <pronunciation of the ' + LANG[DST().lang].en + ' line in simple Latin letters>' : ZH() === 'cmn' ? 'JP: <Hanyu Pinyin with tone marks of the Chinese line>' : 'JP: <Jyutping with tone numbers of the Cantonese line>');
+  L.push('Background (meaning only, never part of the audio): ' + ctxText().trim());
   if (history.length) {
     L.push('Earlier turns (context only, do not translate):');
     history.forEach(x => L.push((x.dir === 'out' ? 'A: ' : 'B: ') + String(x.src).slice(0, 100) + ' => ' + String(x.tgt).slice(0, 100)));
@@ -2710,7 +2988,7 @@ function parseOut(raw) {
   });
   const l0 = out.lang.toLowerCase().trim();
   out.lang = /yue|canton|zh[-_ ]?(hk|yue)|粤/.test(l0) ? 'yue' : /cmn|mandarin|putonghua|普通|zh[-_ ]?(cn|hans)/.test(l0) ? 'cmn' : (l0.match(/[a-z]+/) || [''])[0];
-  const alias = { zh: 'cmn', mandarin: 'cmn', cantonese: 'yue', english: 'en', arabic: 'ar' };
+  const alias = { zh: 'cmn', mandarin: 'cmn', cantonese: 'yue', english: 'en', arabic: 'ar', tl: 'fil', tagalog: 'fil', filipino: 'fil' };
   if (alias[out.lang]) out.lang = alias[out.lang];
   return out;
 }
@@ -3081,7 +3359,7 @@ async function processTurn(input, opts) {
     x.usage = res.usage || null;
     x.pending = false; delete x.failed; delete x.slow;
     store.set('used', true);
-    if (x.dir === 'in' && (x.lang === 'yue' || x.lang === 'cmn') && S.zhStyle === 'auto' && (c.zh || 'yue') !== x.lang) {
+    if (isCN() && x.dir === 'in' && (x.lang === 'yue' || x.lang === 'cmn') && S.zhStyle === 'auto' && (c.zh || 'yue') !== x.lang) {
       c.zh = x.lang; renderZhBtn(); toast(t(x.lang === 'cmn' ? 'zh_switch_cmn' : 'zh_switch_yue'));
     } else if (x.dir === 'in' && (x.lang === 'yue' || x.lang === 'cmn') && S.zhStyle === 'auto') c.zh = x.lang;
     x.to = x.dir === 'in' ? S.myLang : ZH();
@@ -3092,6 +3370,7 @@ async function processTurn(input, opts) {
     renderF2F();
     renderHeader();
     if (!spoke) autoSpeakTurn(x);
+    markLastIn();
     if (pocket.on) renderPocket();
     if (!store.get('tipTap', false) && c.turns.length >= 2) { store.set('tipTap', true); setTimeout(() => toast(t('tip_tap')), 1200); }
   } catch (e) {
@@ -3125,7 +3404,7 @@ function applyParsed(x, p) {
   if (p.jp) x.jp = p.jp;
   if (p.imp) x.imp = /^\s*(1|yes|true)/i.test(p.imp);
   if (p.back) x.back = p.back;
-  if (x.lang && x.lang !== 'none') x.dir = x.who ? (x.who === 'me' ? 'out' : 'in') : (isZh(x.lang) ? 'in' : 'out');
+  if (x.lang && x.lang !== 'none') x.dir = x.who ? (x.who === 'me' ? 'out' : 'in') : (isOther(x.lang) ? 'in' : 'out');
 }
 
 function showError(e, silent) {
@@ -3568,6 +3847,7 @@ function pttHold(force) {
 function renderTalkLabels() {
   $$('.tb-my').forEach(el => { el.textContent = LANG[S.myLang].label; });
   $$('.tb-zh').forEach(el => { el.textContent = langLabel(ZH()); });
+  document.body.dataset.dest = DST().id;
   document.body.dataset.recmode = S.recMode;
   const tip = $('#holdTip'); if (tip) tip.hidden = (store.get('holdN', 0) || 0) >= 3;
 }
@@ -3652,8 +3932,8 @@ async function pocketSummary(turns) {
   const seq = openAI(t('pk_sum_t'));
   try {
     const lang = uiLangName();
-    const sys = ['Below are translations of what people around a traveller in China said while his phone was in his pocket, in order. Lines marked [important] matter most.',
-      'In ' + lang + ', write at most 3 short lines: the main points, any prices (keep the ¥ amounts), and anything said about the traveller himself. Start a line with ⚠ if they talk about charging him more, misleading him or a problem. No title, no bullets. If nothing useful was said, say so in one line.'].join('\n');
+    const sys = ['Below are translations of what people around a traveller in ' + DST().en + ' said while his phone was in his pocket, in order. Lines marked [important] matter most.',
+      'In ' + lang + ', write at most 3 short lines: the main points, any prices (keep the ¥ amounts), and anything said about the traveller himself. Start a line with ⚠ if they talk about charging him more, misleading him or a problem. No title, no bullets. If nothing useful was said, say so in one line.'].map(P).join('\n');
     const txt = await callText(sys, turns.slice(-80).map(x => (x.imp ? '[important] ' : '') + String(x.tgt).slice(0, 240)).join('\n'), 300);
     if (aiStale(seq)) return;
     if (!txt) throw { code: 'empty' };
@@ -3764,7 +4044,7 @@ function speak(text, kind, rate, queued) {
     if (queued) speakQOn = false;
     if (listening) setTimeout(() => { if (!speakQOn) resumeListening(); }, 250);
   };
-  const zh = kind === 'yue' || kind === 'cmn';
+  const zh = kind === 'yue' || kind === 'cmn' || kind === 'ja' || kind === 'ko' || kind === 'th';
   const r = rate || +S.vRate || 0.95;
   const guard = setTimeout(finish, Math.min(25000, 1500 + Array.from(text).length * (zh ? 260 : 75) / r));
   try {
@@ -3819,7 +4099,7 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && pocket.on) keepAwake(true);
   if (document.visibilityState === 'hidden' && rec.on) stopConvo('manual');
   if (document.visibilityState === 'hidden' && ptt.active) { holdReset(); if (ptt.opening || ptt.ms < 700) pttEnd(); else pttSend(); }
-  if (document.visibilityState === 'visible') checkNet(true);
+  if (document.visibilityState === 'visible') { checkNet(true); renderDestBar(); }
   if (document.visibilityState === 'hidden' && cam.on) stopCam();
 });
 
@@ -3830,6 +4110,7 @@ function fitSize(text, big) {
   return n <= 12 ? '2.6rem' : n <= 28 ? '2.15rem' : n <= 60 ? '1.75rem' : n <= 120 ? '1.4rem' : '1.15rem';
 }
 function sellerCue() {
+  if (!isCN()) { const c = CUE(); return { big: c.cue, small: c.cue2, rec: c.rec }; }
   const cmn = ZH() === 'cmn';
   return ptt.held ? { big: cmn ? '请稍等' : '等阵先', small: '', rec: '已暂停' } : { big: cmn ? '请说话' : '请讲', small: cmn ? '说完我会帮你翻译' : '讲完我会帮你翻译', rec: cmn ? '正在录音' : '录紧音' };
 }
@@ -3850,24 +4131,24 @@ function renderF2F(live) {
   const cmn = ZH() === 'cmn';
   let zh, me, zhLbl, meLbl;
   if (!last) {
-    zh = S.recMode === 'ptt' ? (cmn ? '按住「对方」按钮说话，说完松开。' : '撳住「对方」个掣讲嘢，讲完放手。') : cmn ? '按一下中间的按钮，然后正常说话就可以。' : '撳一下中间个掣，然后自然讲嘢就得。';
+    zh = !isCN() ? CUE().hint : S.recMode === 'ptt' ? (cmn ? '按住「对方」按钮说话，说完松开。' : '撳住「对方」个掣讲嘢，讲完放手。') : cmn ? '按一下中间的按钮，然后正常说话就可以。' : '撳一下中间个掣，然后自然讲嘢就得。';
     me = t(S.recMode === 'ptt' ? 'f2f_hint_ptt' : 'f2f_hint_me');
-    zhLbl = '翻译'; meLbl = t('f2f_ready');
+    zhLbl = isCN() ? '翻译' : CUE().tr; meLbl = t('f2f_ready');
   } else if (last.dir === 'out') {
     zh = last.tgt || '…'; me = last.src || '…';
-    zhLbl = cmn ? '翻译 · 普通话' : '翻译 · 粤语'; meLbl = t('f2f_said');
+    zhLbl = !isCN() ? CUE().tr + ' · ' + langLabel(ZH()) : cmn ? '翻译 · 普通话' : '翻译 · 粤语'; meLbl = t('f2f_said');
   } else {
     zh = last.src || '…'; me = last.tgt || '…';
-    zhLbl = cmn ? '你说的' : '你讲嘅'; meLbl = t('f2f_trans');
+    zhLbl = !isCN() ? CUE().said : cmn ? '你说的' : '你讲嘅'; meLbl = t('f2f_trans');
   }
   const zEl = $('#f2fZh'), mEl = $('#f2fMe');
   zEl.textContent = zh; zEl.style.fontSize = fitSize(zh);
   mEl.textContent = me; mEl.style.fontSize = fitSize(me);
-  mEl.classList.toggle('zh', !!last && isZh(last.lang) && last.dir === 'out');
+  mEl.classList.toggle('zh', !!last && isOther(last.lang) && last.dir === 'out');
   $('#f2fZhLbl').textContent = zhLbl;
   $('#f2fMeLbl').textContent = meLbl;
 }
-const cmnLbl = () => ZH() === 'cmn' ? '普通话' : '粤语';
+const cmnLbl = () => !isCN() ? langLabel(ZH()) : ZH() === 'cmn' ? '普通话' : '粤语';
 function openF2F() { f2fOpen = true; $('#f2f').hidden = false; renderF2F(); requestWake(); $('#f2fBtn').setAttribute('aria-pressed', 'true'); }
 function closeF2F() { f2fOpen = false; $('#f2f').hidden = true; $('#f2fBtn').setAttribute('aria-pressed', 'false'); }
 
@@ -3927,6 +4208,7 @@ function openSheet(name) {
   if (name === 'voice') renderVoiceSheet();
   if (name === 'history') renderHistory();
   if (name === 'guide') renderGuide();
+  if (name === 'dest') renderDestSheet();
 }
 function closeSheets() { $('#scrim').hidden = true; $$('.sheet').forEach(s => { s.hidden = true; }); }
 
@@ -3942,7 +4224,7 @@ function openTurnMenu(x) {
 function savePhraseFromTurn(x) {
   const zh = x.dir === 'out' ? x.tgt : x.src;
   const label = x.dir === 'out' ? x.src : x.tgt;
-  const kind = x.dir === 'out' ? (x.to || ZH()) : (isZh(x.lang) ? x.lang : ZH());
+  const kind = x.dir === 'out' ? (x.to || ZH()) : (isOther(x.lang) ? x.lang : ZH());
   const list = myPhrases();
   if (list.some(p => p.zh === zh)) { toast(t('t_phrase_exists')); return; }
   list.unshift({ id: uid(), zh, label, rom: x.jp || '', kind });
@@ -4016,20 +4298,29 @@ function downloadConv(c) {
 let phraseCat = 'all';
 const norm = s => String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
 function renderPhrases() {
-  const mine = myPhrases();
+  const mine = myPhrases().filter(p => isCN() ? (!p.kind || isZh(p.kind)) : p.kind === ZH());
+  const ready = isCN() || !!phrasePack();
+  if (!ready && !packBusy && hasKey() && Date.now() - packFail > 60000) setTimeout(() => ensurePack(), 0);
   const cats = [{ id: 'all', name: t('ph_all') }].concat(mine.length ? [{ id: 'mine', name: t('ph_mine') }] : [], PHRASES.map(g => ({ id: g.id, name: t('cat_' + g.id) })));
   if (!cats.some(c => c.id === phraseCat)) phraseCat = 'all';
   $('#phraseCats').innerHTML = cats.map(c => '<button class="cat" type="button" data-cat="' + c.id + '" aria-pressed="' + (c.id === phraseCat) + '">' + esc(c.name) + '</button>').join('');
   const q = norm($('#phraseSearch').value.trim());
   const groups = [];
   if (mine.length) groups.push({ id: 'mine', name: t('ph_mine'), items: mine });
-  PHRASES.forEach(g => groups.push({ id: g.id, name: t('cat_' + g.id), items: g.items }));
+  if (ready) PHRASES.forEach(g => groups.push({ id: g.id, name: t('cat_' + g.id), items: g.items.filter(phraseOK) }));
   const list = $('#phraseList');
   list.textContent = '';
+  if (!ready) {
+    const w = document.createElement('div'); w.className = 'pack-wait';
+    w.innerHTML = packBusy ? '<span class="spin"></span><span>' + esc(t('pk_prep', { l: localName() })) + '</span>'
+      : '<span>' + esc(t(hasKey() ? 'pk_prep_fail' : 'pk_prep_key', { l: localName() })) + '</span>' + (hasKey() ? '<button class="btn sm" type="button" id="packGo">' + esc(t('pk_prep_btn')) + '</button>' : '');
+    list.append(w);
+    const g = $('#packGo', w); if (g) g.addEventListener('click', () => ensurePack(true));
+  }
   let shown = 0;
   for (const g of groups) {
     if (phraseCat !== 'all' && phraseCat !== g.id) continue;
-    const items = g.items.filter(p => !q || norm([p.ar, p.en, p.yue, p.cmn, p.jy, p.py, p.label, p.zh].join(' ')).includes(q));
+    const items = g.items.filter(p => !q || norm([p.ar, p.en, p.yue, p.cmn, p.jy, p.py, p.label, p.zh, builtinZh(p).zh].join(' ')).includes(q));
     if (!items.length) continue;
     const sec = document.createElement('section');
     sec.className = 'ph-group';
@@ -4053,7 +4344,7 @@ function renderPhrases() {
     });
     list.append(sec);
   }
-  if (!shown) list.innerHTML = '<p class="muted">' + esc(t('ph_empty')) + '</p>';
+  if (!shown && ready) list.innerHTML = '<p class="muted">' + esc(t('ph_empty')) + '</p>';
 }
 
 /* ================= tools tab ================= */
@@ -4074,7 +4365,7 @@ function renderCalc() {
 function updateCalc() {
   const { p, q } = calcState();
   const total = p * q;
-  $('#cTotal').textContent = '¥' + smartN(total || 0);
+  $('#cTotal').textContent = locSym() + smartN(total || 0);
   const th = cnyToHome(total), uh = cnyToHome(p);
   $('#cTotalHome').textContent = th != null && total ? '≈ ' + money(th, S.cur) : (rateOf(S.cur) ? '' : t('fx_no_rate'));
   $('#cUnitHome').textContent = uh != null && p ? money(uh, S.cur) : '—';
@@ -4085,19 +4376,25 @@ function showCalc() {
   const { p, q } = calcState();
   if (!p || !q) { toast(t('calc_need'), 'warn'); return; }
   const total = p * q;
-  const zh = ZH() === 'cmn'
+  const zh = !isCN() ? fmtN(q) + ' × ' + locSym() + smartN(p) + ' = ' + locSym() + smartN(total) : ZH() === 'cmn'
     ? q + '件，每件' + smartN(p) + '元，一共' + smartN(total) + '元。'
     : q + '件，每件' + smartN(p) + '蚊，一共' + smartN(total) + '蚊。';
   const th = cnyToHome(total);
   unlockAudio();
   const smallHtml = '<bdi dir="ltr">' + esc(t('calc_small', { q: fmtN(q), p: smartN(p), t: smartN(total) })) + '</bdi>' + (th != null ? ' ≈ <bdi>' + esc(money(th, S.cur)) + '</bdi>' : '');
-  showCard({ big: '¥' + smartN(total), mid: zh, smallHtml, speak: { text: zh, kind: ZH() }, autoSpeak: autoZh() });
+  showCard({ big: locSym() + smartN(total), mid: zh, smallHtml, speak: isCN() ? { text: zh, kind: ZH() } : null, autoSpeak: autoZh() });
 }
 function showOffer() {
   const p = numVal('#cOffer');
   if (!p) { toast(t('calc_offer_need'), 'warn'); return; }
   const q = Math.round(numVal('#cQty'));
   const cmn = ZH() === 'cmn';
+  if (!isCN()) {                                         // other countries: the number speaks for itself, plus «is this price OK?»
+    const h0 = cnyToHome(p);
+    unlockAudio();
+    showCard({ top: CUE().offer, big: locSym() + smartN(p) + (q ? ' × ' + fmtN(q) : ''), small: (q ? t('offer_small', { q: fmtN(q), p: smartN(p) }) : t('offer_small_noq', { p: smartN(p) })) + (h0 != null ? '  (≈ ' + money(h0, S.cur) + ')' : ''), speak: { text: CUE().offer, kind: ZH() }, autoSpeak: autoZh() });
+    return;
+  }
   const zh = q
     ? (cmn ? '我要' + q + '件，' + smartN(p) + '元一件，可以吗？' : '我要' + q + '件，' + smartN(p) + '蚊一件，得唔得？')
     : (cmn ? '我出' + smartN(p) + '元一件，可以吗？' : '我出' + smartN(p) + '蚊一件，得唔得？');
@@ -4115,8 +4412,9 @@ function renderFx() {
   $('#fxHomeName').textContent = curName(S.cur);
   $('#fxHomeSym').textContent = curSym(S.cur);
   $('#fxManualCur').textContent = S.cur;
-  const r = rateOf(S.cur);
+  const r = homePerLocal();
   $('#fxManual').value = r ? +r.toPrecision(6) : '';
+  $('#fxLocSym').textContent = locSym(); $('#fxManualLbl').textContent = '1 ' + locSym() + ' =';
   $('#showFx').checked = !!S.showFx;
   const rateN = v => v >= 100 ? fmtN(v, 1) : v >= 1 ? fmtN(v, 3) : String(+v.toPrecision(4));
   $('#fxRateLine').textContent = r ? t('fx_rate', { r: rateN(r), c: curSym(S.cur), i: rateN(1 / r) }) : t('fx_no_rate');
@@ -4124,10 +4422,11 @@ function renderFx() {
   $('#fxStamp').textContent = stamp;
   if (!$('#fxCny').value && !$('#fxHome').value) $('#fxCny').value = 100;
   syncFx();
-  $('#fxRef').innerHTML = [1, 10, 50, 100, 500, 1000, 5000, 10000].map(v => '<div><span>¥' + fmtN(v) + '</span><span>' + (r ? money(v * r, S.cur) : '—') + '</span></div>').join('');
+  const big = locPerCNY() > 50 ? 1000 : locPerCNY() > 5 ? 10 : 1;
+  $('#fxRef').innerHTML = [1, 10, 50, 100, 500, 1000, 5000, 10000].map(v => v * big).map(v => '<div><span>' + locSym() + fmtN(v) + '</span><span>' + (r ? money(v * r, S.cur) : '—') + '</span></div>').join('');
 }
 function syncFx() {
-  const r = rateOf(S.cur);
+  const r = homePerLocal();
   if (!r) return;
   if (fxLast === 'cny') { const v = numVal('#fxCny'); $('#fxHome').value = v ? +(v * r).toFixed(r * v >= 100 ? 2 : 4) : ''; }
   else { const v = numVal('#fxHome'); $('#fxCny').value = v ? +(v / r).toFixed(v / r >= 100 ? 2 : 4) : ''; }
@@ -4141,7 +4440,7 @@ async function refreshRates(silent) {
     const j = await res.json();
     if (j.result !== 'success' || !j.rates) throw new Error('bad');
     const rates = {};
-    Object.keys(CUR).forEach(c => { if (j.rates[c] > 0) rates[c] = j.rates[c]; });
+    Object.keys(CUR).concat(Object.keys(LOCALCUR)).forEach(c => { if (j.rates[c] > 0) rates[c] = j.rates[c]; });
     if (!rates.USD) throw new Error('bad');
     S.rates = rates; S.ratesAt = (j.time_last_update_unix ? j.time_last_update_unix * 1000 : Date.now()); S.rateSrc = 'live';
     saveSettings();
@@ -4151,6 +4450,7 @@ async function refreshRates(silent) {
   } finally {
     btn.disabled = false;
     if (tab === 'tools' && S.tool === 'fx') renderFx();
+    if (tab === 'talk' && current()) renderFeed();
   }
 }
 function maybeAutoRefresh() {
@@ -4174,7 +4474,7 @@ function placeCard(p, mine) {
     unlockAudio();
     const zhName = mine ? p.zh.split(/\n/)[0] : p.zh;
     const addr = mine ? p.zh.split(/\n/).slice(1).join(' ') : p.addr;
-    const say = (ZH() === 'cmn' ? '师傅，请带我去' : '师傅，唔该去') + zhName.replace(/（.*?）/g, '') + '。';
+    const say = !isCN() ? CUE().drive + ' ' + zhName : (ZH() === 'cmn' ? '师傅，请带我去' : '师傅，唔该去') + zhName.replace(/（.*?）/g, '') + '。';
     showCard({ top: driverLine(), big: zhName, zh: true, mid: addr, small: name, speak: { text: say, kind: ZH() }, autoSpeak: autoZh() });
   });
   $('[data-pa="copy"]', el).addEventListener('click', async () => { toast(await copyText(mine ? p.zh : (p.zh + (p.addr ? ' ' + p.addr : ''))) ? t('taxi_copied') : t('t_copy_fail')); });
@@ -4188,7 +4488,8 @@ function renderPlaces() {
   const groups = [];
   const mine = myPlaces();
   if (mine.length) groups.push({ name: t('taxi_mine'), items: mine, mine: true });
-  ['m', 't', 'r', 's'].forEach(c => groups.push({ name: t('pcat_' + c), items: PLACES.filter(p => p.c === c) }));
+  if (isCN()) ['m', 't', 'r', 's'].forEach(c => groups.push({ name: t('pcat_' + c), items: PLACES.filter(p => p.c === c) }));   // ready places: Guangzhou only
+  if (!groups.length) list.innerHTML = '<p class="muted">' + esc(t('taxi_none')) + '</p>';
   for (const g of groups) {
     const sec = document.createElement('section');
     sec.className = 'ph-group';
@@ -4345,6 +4646,15 @@ function visionPrompt() {
     'Guangzhou signs often use written Cantonese (嘅 唔 冇 啲 咗 嚟 系 喺 嘢); translate the Cantonese meaning.',
     'If there is no readable Chinese text, return {"items":[]}.'
   );
+  if (!isCN()) {
+    const d = DST(), LN = LANG[d.lang].en;
+    return L.map(s => s.replace('You read Chinese text seen through a phone camera in Guangzhou', 'You read ' + LN + ' text seen through a phone camera in ' + d.en)
+      .replace('box around that Chinese text', 'box around that text').replace('"zh": the Chinese text exactly as written;', '"zh": the original text exactly as written;')
+      .replace('the price in yuan as a number', 'the price in ' + LOCALCUR[d.cur].en + ' as a number')
+      .replace(/"pork" \(猪[^)]*\)/, '"pork"').replace(/"alcohol" \([^)]*\)/, '"alcohol" (wine, beer, spirits, cooked with alcohol)').replace(/"blood" \([^)]*\)/, '"blood"')
+      .replace("If there is no readable Chinese text, return {\"items\":[]}.", 'If there is no readable text, return {"items":[]}.'))
+      .filter(s => !/written Cantonese/.test(s)).join('\n');
+  }
   return L.join('\n');
 }
 async function postJSON(model, body, key) {
@@ -4366,7 +4676,7 @@ async function callVision(b64, o) {
   const model = taskModel(o.main);
   const base = {
     systemInstruction: { parts: [{ text: o.prompt || visionPrompt() }] },
-    contents: [{ role: 'user', parts: [{ inlineData: { mimeType: 'image/jpeg', data: b64 } }, { text: o.ask || 'Read and translate the Chinese text in this view.' }] }],
+    contents: [{ role: 'user', parts: [{ inlineData: { mimeType: 'image/jpeg', data: b64 } }, { text: o.ask || P('Read and translate the Chinese text in this view.') }] }],
     generationConfig: { maxOutputTokens: o.maxOut || 1400, responseMimeType: 'application/json' }
   };
   if (/gemini-2\./.test(model)) base.generationConfig.temperature = 0.2;
@@ -4412,7 +4722,7 @@ function parseItems(text) {
   })).filter(it => it.b.length === 4 && it.b.every(v => isFinite(v)) && it.t).slice(0, 14);
 }
 const flagClass = h => h === 'pork' || h === 'alcohol' || h === 'blood' ? 'warn' : h === 'meat' ? 'caution' : '';
-function priceText(p) { if (!p) return ''; const h = S.showFx ? cnyToHome(p) : null; return '¥' + smartN(p) + (h != null ? ' ≈ ' + money(h, S.cur) : ''); }
+function priceText(p) { if (!p) return ''; const h = S.showFx ? cnyToHome(p) : null; return locSym() + smartN(p) + (h != null ? ' ≈ ' + money(h, S.cur) : ''); }
 function renderLabels() {
   const box = $('#camLabels');
   box.innerHTML = '';
@@ -4496,7 +4806,7 @@ const shot = { items: [], seq: 0, b64: '', key: '', w: 0, h: 0, g: null };
 const shotCanvas = document.createElement('canvas');
 // one screenshot ≈ 1,100 image + 500 prompt tokens in, ≈ 700 tokens out
 const per100Shot = model => { const p = priceOf(model); const usd = (1600 * p.t + 700 * p.o) / 1e6 * 100; const h = S.cur === 'USD' ? null : usdToHome(usd); return h != null ? money(h, S.cur) : fmtUSD(usd); };
-const isPriceOnly = s => /^[¥￥]\s?[0-9][0-9.,]*\s*万?$/.test(String(s).trim());
+const isPriceOnly = s => new RegExp('^(?:[¥￥]|' + escRe(locSym()) + ')\\s?[0-9][0-9.,]*\\s*万?$').test(String(s).trim());
 function shotPrompt() {
   const my = LANG[S.myLang].en;
   const fx = S.showFx && rateOf(S.cur);
@@ -4511,7 +4821,8 @@ function shotPrompt() {
     '- Skip text with no Chinese characters' + (fx ? ' (except those prices)' : '') + ', the phone status bar, and tiny unreadable text. At most 45 entries, top to bottom.',
     'Written Cantonese (嘅 唔 冇 啲 咗 系 喺) may appear; translate the meaning.',
     'If there is no Chinese text, return {"i":[]}.'
-  ].join('\n');
+  ].map(s => isCN() ? s : P(s).replace(/ \(Taobao, 1688[^)]*\)/, ' (shops, menus, maps, chats, product pages, booking sites)').replace(/for a foreign buyer in [^.]*\./, 'for a visitor in ' + DST().en + '.'))
+   .filter(s => isCN() || !/Written Cantonese|Shopping terms/.test(s)).join('\n');
 }
 function parseShot(text) {
   const raw = String(text || '').replace(/```json|```/gi, '').trim();
@@ -4607,7 +4918,7 @@ async function translateShot() {
   if (hit) { shot.items = hit.items || []; showShotResult(); return; }
   setShotStatus('reading');
   try {
-    const items = await callVision(shot.b64, { prompt: shotPrompt(), ask: 'Translate the Chinese text in this image, in place.', mr: 'MEDIA_RESOLUTION_HIGH', maxOut: 3000, parse: parseShot });
+    const items = await callVision(shot.b64, { prompt: shotPrompt(), ask: P('Translate the Chinese text in this image, in place.'), mr: 'MEDIA_RESOLUTION_HIGH', maxOut: 3000, parse: parseShot });
     if (seq !== shot.seq || $('#shotOv').hidden) return;
     shot.items = items;
     const list = (store.get('shots', []) || []).filter(x => x && x.k !== shot.key);
@@ -4629,13 +4940,13 @@ function showShotResult() {
 function renderShot() {
   const box = $('#shotLabels');
   box.innerHTML = '';
-  const rate = S.showFx ? rateOf(S.cur) : null;
+  const rate = S.showFx && (isCN() || locCur() !== S.cur) ? homePerLocal() : null;
   shot.items.forEach(it => {
     let [y0, x0, y1, x1] = it.b.map(v => Math.max(0, Math.min(1000, v)));
     if (y1 < y0) [y0, y1] = [y1, y0];
     if (x1 < x0) [x0, x1] = [x1, x0];
     if (isPriceOnly(it.t)) {
-      const v = parseFloat(it.t.replace(/[^0-9.]/g, '')) * (/万/.test(it.t) ? 1e4 : 1);
+      const v = parseNum(it.t.replace(/[^0-9.,]/g, '')) * (/万/.test(it.t) ? 1e4 : 1);
       if (!rate || !(v > 0)) return;
       const el = document.createElement('span');
       el.className = 'sp-fx';
@@ -4894,7 +5205,10 @@ function renderSettings() {
   renderPocketOpts(); renderNet();
   renderInstallNote();
   $('#romanize').checked = !!S.romanize;
-  $('#ctxInput').value = S.context;
+  $('#ctxInput').value = ctxText();
+  $('#zhField').hidden = !isCN(); const vt = $('[data-i18n="vpn_tip"]'); if (vt) vt.hidden = !isCN();
+  renderDestPick();
+  $('#sun').checked = !!S.sun;
 }
 async function connect() {
   if (!hasKey()) { setConnectState(t('c_need_key'), 'err'); return false; }
@@ -4961,7 +5275,7 @@ async function callText(sys, user, maxOut, main) {
   }
   throw lastErr;
 }
-const dialectText = k => k === 'cmn' ? 'standard Mandarin (Simplified characters)' : 'natural spoken Guangzhou Cantonese in Simplified characters with Cantonese colloquial words (嘅 唔 系 咗 啲 冇 喺 几多)';
+const dialectText = k => !isCN() || (k && k !== 'cmn' && k !== 'yue') ? otherDesc(k) : k === 'cmn' ? 'standard Mandarin (Simplified characters)' : 'natural spoken Guangzhou Cantonese in Simplified characters with Cantonese colloquial words (嘅 唔 系 咗 啲 冇 喺 几多)';
 const uiLangName = () => S.ui === 'ar' ? 'Arabic' : 'English';
 const aiBtn = (act, icon, label, ghost) => '<button class="btn sm' + (ghost ? ' ghost' : '') + '" type="button" data-ai="' + act + '"><svg class="ic"><use href="#' + icon + '"/></svg><span>' + esc(label) + '</span></button>';
 let aiCtx = null, aiSeq = 0;
@@ -4996,8 +5310,8 @@ async function aiPolite(x) {
     const sys = ['You help a traveller in China speak politely to a local person.',
       'Rewrite the Chinese line so it sounds more polite, warm and respectful, the way a friendly, respectful visitor would say it, in ' + dialectText(kind) + '.',
       'Keep exactly the same meaning, numbers, prices and requests. Keep it short and natural to say aloud.',
-      'Output only these lines:', 'ZH: <the polite Chinese line>', 'MY: <its meaning in ' + LANG[S.myLang].en + '>'].join('\n');
-    const txt = await callText(sys, 'Chinese line: ' + x.tgt + '\nWhat the traveller said: ' + x.src, 300, true);
+      'Output only these lines:', 'ZH: <the polite Chinese line>', 'MY: <its meaning in ' + LANG[S.myLang].en + '>'].map(P).join('\n');
+    const txt = await callText(sys, P('Chinese line: ') + x.tgt + '\nWhat the traveller said: ' + x.src, 300, true);
     const r = parseKeys(txt, ['ZH', 'MY']);
     if (!r.ZH) throw { code: 'empty' };
     x.polite = { zh: r.ZH, my: r.MY || '' }; saveConvs();
@@ -5006,7 +5320,7 @@ async function aiPolite(x) {
 }
 
 async function aiExplain(x) {
-  const kind = isZh(x.lang) ? x.lang : ZH();
+  const kind = isOther(x.lang) ? x.lang : ZH();
   const seq = openAI(t('ai_explain_t'));
   const show = r => {
     if (aiStale(seq)) return;
@@ -5022,7 +5336,7 @@ async function aiExplain(x) {
       'Explain to the traveller in ' + uiLangName() + ' what the person really means: the intent and tone (for example firm, flexible, open to bargaining, a polite refusal, upselling) and any cultural or trade nuance worth knowing.',
       'At most 3 short sentences in simple words. If the line is plain, say so in one sentence. Keep numbers exact.',
       'Then suggest one short, polite reply the traveller could say next.',
-      'Output only these lines:', 'EXPLAIN: <text>', 'REPLY: <the reply in ' + dialectText(kind) + '>', 'REPLY_MY: <the reply in ' + LANG[S.myLang].en + '>'].join('\n');
+      'Output only these lines:', 'EXPLAIN: <text>', 'REPLY: <the reply in ' + dialectText(kind) + '>', 'REPLY_MY: <the reply in ' + LANG[S.myLang].en + '>'].map(P).join('\n');
     const h = historyLines(x, 4);
     const txt = await callText(sys, (h ? 'Earlier in the chat:\n' + h + '\n\n' : '') + 'The other person said: ' + x.src + '\nTranslation: ' + x.tgt, 450, true);
     const r = parseKeys(txt, ['EXPLAIN', 'REPLY', 'REPLY_MY']);
@@ -5033,11 +5347,11 @@ async function aiExplain(x) {
 }
 
 function fxInline(s) {
-  const rate = S.showFx ? rateOf(S.cur) : null;
+  const rate = S.showFx && (isCN() || locCur() !== S.cur) ? homePerLocal() : null;
   let out = '', last = 0, m;
-  const re = new RegExp('[¥￥]\\s?' + NUM_RE + '(\\s?万)?', 'g');
+  const re = new RegExp('(?:[¥￥]|' + escRe(locSym()) + ')\\s?' + NUM_RE + '(\\s?万)?', 'g');
   while ((m = re.exec(s))) {
-    const v = parseFloat(toLatinDigits(m[1]).replace(/[,，٬]/g, '').replace('٫', '.')) * (m[2] ? 1e4 : 1);
+    const v = parseNum(m[1]) * (m[2] ? 1e4 : 1);
     out += hlNums(s.slice(last, re.lastIndex)) + (rate && v > 0 ? ' <small dir="ltr">≈ ' + esc(money(v * rate, S.cur)) + '</small>' : '');
     last = re.lastIndex;
   }
@@ -5069,7 +5383,7 @@ async function openSummary(force) {
     const sys = ['Summarize a conversation between a traveller (A) and a local person in China (B), for the traveller, in ' + lang + '.',
       'Write short "Label: value" lines, only for points actually discussed, choosing from: product, price, quantity or MOQ, samples, quality or materials, delivery time, shipping, payment or deposit, other agreements, next step or open question.',
       'Labels in ' + lang + '. Keep every number exact and write yuan prices as ¥ amounts (for example ¥12). Never invent anything. At most 9 lines, no title, no bullets.',
-      'If nothing commercial was discussed, write one line with the main point.'].join('\n');
+      'If nothing commercial was discussed, write one line with the main point.'].map(P).join('\n');
     const lines = turns.slice(-60).map(x => (x.dir === 'out' ? 'A: ' : 'B: ') + String(x.dir === 'out' ? x.src : x.tgt).slice(0, 220)).join('\n');
     const txt = await callText(sys, lines, 500);
     if (!txt) throw { code: 'empty' };
@@ -5102,10 +5416,126 @@ async function aiAction(ev) {
 function renderZhBtn() {
   const b = $('#zhBtn'); if (!b) return;
   const z = ZH();
-  $('#zhBtnTxt').textContent = langLabel(z);
+  $('#zhBtnTxt').textContent = (isCN() ? '' : DST().f + ' ') + langLabel(z);
   b.dataset.z = z;
   renderTalkLabels();
-  b.setAttribute('aria-label', t('zh_btn', { l: langLabel(z) }));
+  b.setAttribute('aria-label', isCN() ? t('zh_btn', { l: langLabel(z) }) : t('dest_btn', { c: S.ui === 'ar' ? DST().ar : DST().en }));
+}
+
+/* ================= where you are travelling ================= */
+function destName(d) { return S.ui === 'ar' ? d.ar : d.en.replace(/^the /, 'The '); }
+function renderDestPick() {
+  const b = $('#destPick'); if (!b) return;
+  const d = DST();
+  b.innerHTML = '<span class="dp-f">' + d.f + '</span><span><b>' + esc(destName(d)) + '</b><small>' + esc(langLabel(ZH())) + ' · ' + esc(LOCALCUR[d.cur][S.ui] || LOCALCUR[d.cur].en) + '</small></span><svg class="ic chev"><use href="#i-chev"/></svg>';
+}
+function renderDestSheet() {
+  const here = tzDest();
+  $('#destGrid').innerHTML = DEST_LIST.map(x => DESTS[x[0]]).map(d =>
+    '<button type="button" class="dest" data-dest="' + d.id + '" aria-pressed="' + (d.id === DST().id) + '"><span class="dp-f">' + d.f + '</span><span><b>' + esc(destName(d)) + '</b><small>' + esc(d.id === 'CN' ? '粤语 · 普通话' : langLabel(d.lang)) + (d.id === here ? ' · ' + esc(t('dest_here')) : '') + '</small></span></button>').join('');
+}
+function setDest(id) {
+  if (!DESTS[id]) return;
+  closeSheets();
+  if (id === S.dest) return;
+  if (rec.on) stopConvo('abort');
+  if (ptt.active) pttCancel();
+  S.dest = id; zhNew = null; saveSettings();
+  const here = tzDest(); if (here && here !== id) store.set('destSkip', here);   // a choice you made: stop suggesting
+  const c = current();
+  if (c && c.turns.length) { currentId = null; saveConvs(); }     // a new country starts a new chat
+  applyI18n(); renderTalkLabels(); renderZhBtn(); renderFeed(); renderF2F(); renderDestBar(); refreshStatus();
+  if (tab === 'phrases') renderPhrases();
+  if (tab === 'tools') renderTools();
+  if (!isCN() && !(S.rates && S.rates[locCur()])) refreshRates(true);
+  ensurePack();
+  toast(t('dest_set', { c: destName(DST()) + ' ' + DST().f, l: localName() }));
+}
+function renderDestBar() {
+  const bar = $('#destBar'); if (!bar) return;
+  const here = tzDest();
+  const show = !!here && here !== S.dest && store.get('destSkip', '') !== here && hasKey();
+  bar.hidden = !show;
+  if (show) { const d = DESTS[here]; $('#destBarTxt').textContent = t('dest_q', { c: destName(d) + ' ' + d.f, l: S.ui === 'ar' ? 'ال' + d.adj : LANG[d.lang].en }); bar.dataset.dest = here; }
+}
+
+/* ================= ready phrases for any language: translated once, kept on the phone ================= */
+const phraseOK = p => isCN() || !/WeChat|Alipay/.test(p.en);
+const packKey = () => 'pack.' + DST().lang;
+const phrasePack = () => { if (isCN()) return null; const p = store.get(packKey(), null); return p && p.v === 1 && p.items ? p : null; };
+let packBusy = false, packFail = 0;
+async function ensurePack(force) {
+  if (isCN() || packBusy || !hasKey() || (!force && phrasePack())) return;
+  packBusy = true;
+  if (tab === 'phrases') renderPhrases();
+  const lang = DST().lang;
+  try {
+    const items = [];
+    PHRASES.forEach(g => g.items.forEach(p => { if (phraseOK(p)) items.push(p.en); }));
+    const n = LANG[lang].en, rom = NONLATIN.has(lang);
+    const sys = ['Translate these short phrases for a traveller in ' + DST().en + ' into ' + otherDesc(lang) + ', the way a friendly visitor says them to a local. Keep them short and natural.',
+      'Answer with one line per phrase, in the same order and numbered like the input: "<n>. <' + n + ' translation>' + (rom ? ' || <pronunciation in simple Latin letters>' : '') + '". Nothing else.'].join('\n');
+    const txt = await callText(sys, items.map((s, i) => (i + 1) + '. ' + s).join('\n'), 4000);
+    const out = {};
+    String(txt || '').split(/\n+/).forEach(line => {
+      const m = line.match(/^\s*(\d+)[.)、:]\s*(.+)$/); if (!m) return;
+      const en = items[+m[1] - 1]; if (!en) return;
+      const parts = m[2].split(/\s*\|\|\s*/);
+      if (parts[0].trim()) out[en] = [parts[0].trim(), (parts[1] || '').trim()];
+    });
+    if (Object.keys(out).length < items.length * 0.7) throw { code: 'empty' };
+    if (DST().lang === lang) store.set(packKey(), { v: 1, at: Date.now(), items: out });
+  } catch (e) { packFail = Date.now(); if (force) showError(e); }
+  finally {
+    packBusy = false;
+    if (tab === 'phrases') renderPhrases();
+    if (tab === 'talk' && !current()) renderFeed();
+  }
+}
+
+/* ================= suggested replies: 3 ready answers in the other person's language ================= */
+function markLastIn() { const a = $$('#feed .turn.theirs'); a.forEach((e, i) => e.classList.toggle('last-in', i === a.length - 1)); }
+function renderReps(el, x) {
+  const box = $('.reps', el); if (!box) return;
+  box.hidden = false;
+  box.innerHTML = x.reps.map((r, i) => '<button class="rep" type="button" data-act="rep-use" data-i="' + i + '"><b dir="auto">' + esc(r[0]) + '</b><span class="zh" dir="auto">' + esc(r[1]) + '</span></button>').join('');
+  const b = $('.rep-btn', el); if (b) b.hidden = true;
+}
+async function suggestReplies(x, el) {
+  if (x.reps && x.reps.length) { renderReps(el, x); return; }
+  const b = $('.rep-btn', el);
+  if (b) { b.disabled = true; $('span', b).textContent = t('rep_loading'); }
+  try {
+    const h = historyLines(x, 6);
+    const sys = [P('You help a traveller in China answer the local person they are talking to.'),
+      'Suggest 3 short, natural things the traveller could say next, each with a different purpose (for example: accept or agree, ask a useful follow-up question, politely negotiate or decline). Fit the conversation and keep numbers exact.',
+      'Output exactly 3 lines and nothing else. Each line: <the reply in ' + LANG[S.myLang].en + '> ||| <the same reply in ' + otherDesc() + '>'].join('\n');
+    const txt = await callText(sys, (h ? 'Earlier in the chat:\n' + h + '\n\n' : '') + 'The other person just said: ' + x.src + '\nMeaning: ' + x.tgt, 400);
+    const reps = String(txt || '').split(/\n+/).map(l => l.replace(/^\s*(\d+[.)]|[-•*])\s*/, '').split(/\s*\|\|\|?\s*/)).filter(p => p.length >= 2 && p[0].trim() && p[1].trim()).slice(0, 3).map(p => [p[0].trim(), p[1].trim()]);
+    if (!reps.length) throw { code: 'empty' };
+    x.reps = reps; saveConvs();
+    renderReps(el, x);
+  } catch (e) {
+    if (b) { b.disabled = false; $('span', b).textContent = t('rep_btn'); }
+    showError(e);
+  }
+}
+function useReply(x, i) {
+  const r = x.reps && x.reps[i]; if (!r) return;
+  const c = current(); if (!c) return;
+  unlockAudio();
+  const y = { id: uid(), t: Date.now(), lang: S.myLang, src: r[0], tgt: r[1], jp: '', dir: 'out', to: ZH(), who: 'me' };
+  c.turns.push(y); c.updated = Date.now(); saveConvs();
+  const feed = $('#feed');
+  feed.append(turnEl(y)); scrollEnd(); markLastIn();
+  renderF2F(); renderHeader();
+  autoSpeakTurn(y);
+}
+
+/* ================= outdoor mode: light colours and strong contrast for bright sun ================= */
+function applySun() {
+  document.documentElement.dataset.sun = S.sun ? '1' : '';
+  $$('meta[name="theme-color"]').forEach(m => m.setAttribute('content', S.sun ? '#F4EEE3' : '#0B2F28'));
 }
 
 /* ================= installable app + offline ================= */
@@ -5231,7 +5661,7 @@ function bind() {
   $('#vZh').addEventListener('change', e => { S.voiceZh = e.target.checked; saveSettings(); });
   $('#vMine').addEventListener('change', e => { S.voiceMine = e.target.checked; saveSettings(); });
   $$('input[name="vRate"]').forEach(r => r.addEventListener('change', () => { S.vRate = +r.value; saveSettings(); }));
-  $('#vTestZh').addEventListener('click', () => { unlockAudio(); speak(ZH() === 'cmn' ? '五百件的话，每件12元。' : '五百件嘅话，每件12蚊。', ZH()); });
+  $('#vTestZh').addEventListener('click', () => { unlockAudio(); speak(!isCN() ? CUE().cue + '. ' + CUE().cue2 : ZH() === 'cmn' ? '五百件的话，每件12元。' : '五百件嘅话，每件12蚊。', ZH()); });
   $('#vTestMine').addEventListener('click', () => { unlockAudio(); speak(TEST_LINES[S.myLang] || TEST_LINES.en, TEST_LINES[S.myLang] ? S.myLang : 'en'); });
   $('#openVoice').addEventListener('click', () => openSheet('voice'));
   $('#kbBtn').addEventListener('click', () => {
@@ -5270,6 +5700,11 @@ function bind() {
   $('#pkEarAll').addEventListener('change', e => { S.pkEarAll = e.target.checked; saveSettings(); });
   $$('input[name="pkTimer"]').forEach(r => r.addEventListener('change', () => { if (r.checked) { S.pkTimer = +r.value; saveSettings(); } }));
   $('#goTools').addEventListener('click', () => { closeSheets(); setTab('tools'); });
+  $('#destPick').addEventListener('click', () => openSheet('dest'));
+  $('#destGrid').addEventListener('click', e => { const b = e.target.closest('[data-dest]'); if (b) setDest(b.dataset.dest); });
+  $('#destYes').addEventListener('click', () => { const id = $('#destBar').dataset.dest; if (id) setDest(id); });
+  $('#destNo').addEventListener('click', () => { store.set('destSkip', $('#destBar').dataset.dest || ''); renderDestBar(); });
+  $('#sun').addEventListener('change', e => { S.sun = e.target.checked; saveSettings(); applySun(); });
   $('#goUsage').addEventListener('click', () => { closeSheets(); setTab('usage'); });
   $('#backBtn').addEventListener('click', () => setTab('talk'));
   $('#netTest').addEventListener('click', () => checkNet(true));
@@ -5317,6 +5752,8 @@ function bind() {
     else if (act === 'big') showTurnCard(x);
     else if (act === 'more') openTurnMenu(x);
     else if (act === 'retry') retryOne(x);
+    else if (act === 'replies') suggestReplies(x, art);
+    else if (act === 'rep-use') { useReply(x, +b.dataset.i); }
   });
   $('#feed').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'obKey') { e.preventDefault(); const b = $('[data-act="ob-connect"]'); if (b) b.click(); } });
   $('#sheet-turn').addEventListener('click', async ev => {
@@ -5356,7 +5793,7 @@ function bind() {
   $('#homeCur').addEventListener('change', e => { S.cur = e.target.value; saveSettings(); renderFx(); if (!rateOf(S.cur)) refreshRates(true); });
   $('#fxManual').addEventListener('change', e => {
     const v = parseFloat(e.target.value);
-    if (v > 0) { S.rates = Object.assign({}, S.rates, { [S.cur]: v }); S.rateSrc = 'manual'; saveSettings(); renderFx(); }
+    if (v > 0) { S.rates = Object.assign({}, S.rates, { [S.cur]: v * locPerCNY() }); S.rateSrc = 'manual'; saveSettings(); renderFx(); }
   });
   $('#showFx').addEventListener('change', e => { S.showFx = e.target.checked; saveSettings(); });
   $('#addPlace').addEventListener('click', () => { $('#placeName').value = ''; $('#placeZh').value = ''; openSheet('place'); setTimeout(() => $('#placeName').focus(), 60); });
@@ -5404,7 +5841,7 @@ function bind() {
     const it = cam.items[cam.idx]; if (!it) return;
     const cmn = ZH() === 'cmn';
     closeSheets(); unlockAudio();
-    showCard({ top: cmn ? '你好，我要这个：' : '唔该，我要呢个：', big: it.zh, zh: true, small: it.t, speak: { text: (cmn ? '你好，我要' : '唔该，我要') + it.zh, kind: ZH() }, autoSpeak: autoZh() });
+    showCard({ top: !isCN() ? CUE().want : cmn ? '你好，我要这个：' : '唔该，我要呢个：', big: it.zh, zh: true, small: it.t, speak: { text: (!isCN() ? CUE().want + ' ' : cmn ? '你好，我要' : '唔该，我要') + it.zh, kind: ZH() }, autoSpeak: autoZh() });
   });
   $('#itAsk').addEventListener('click', () => { closeSheets(); const g = PHRASES.find(x => x.id === 'food'); if (g) openPhrase(g.items[0]); });
   $('#histBtn').addEventListener('click', () => openSheet('history'));
@@ -5455,6 +5892,7 @@ function bind() {
   $('#myLang').addEventListener('change', e => { S.myLang = e.target.value; saveSettings(); renderF2F(); if (!current()) renderFeed(); });
   $$('input[name="zhStyle"]').forEach(r => r.addEventListener('change', () => { S.zhStyle = r.value; saveSettings(); renderZhBtn(); renderF2F(); if (!current()) renderFeed(); }));
   $('#zhBtn').addEventListener('click', () => {
+    if (!isCN()) { openSheet('dest'); return; }
     const next = ZH() === 'cmn' ? 'yue' : 'cmn';
     if (S.zhStyle === 'auto') { const c = current(); if (c) { c.zh = next; if (c.turns.length) saveConvs(); } else zhNew = next; }
     else { S.zhStyle = next; saveSettings(); }
@@ -5464,8 +5902,8 @@ function bind() {
   $('#sumBtn').addEventListener('click', openSummary);
   $('#sheet-ai').addEventListener('click', aiAction);
   $('#romanize').addEventListener('change', e => { S.romanize = e.target.checked; saveSettings(); renderFeed(); });
-  $('#ctxInput').addEventListener('change', e => { S.context = e.target.value.trim() || DEFAULT_CONTEXT; saveSettings(); });
-  $('#ctxReset').addEventListener('click', () => { S.context = DEFAULT_CONTEXT; $('#ctxInput').value = DEFAULT_CONTEXT; saveSettings(); });
+  $('#ctxInput').addEventListener('change', e => { S.context = e.target.value.trim(); saveSettings(); });
+  $('#ctxReset').addEventListener('click', () => { S.context = ''; $('#ctxInput').value = ctxText(); saveSettings(); });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
@@ -5508,11 +5946,12 @@ function init() {
   const t0 = store.get('tab', 'talk');
   setTab(TABS.includes(t0) ? t0 : 'talk');
   if (/^#pocket/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} setTab('talk'); setTimeout(openPocketSheet, 300); }
+  applySun(); renderDestBar(); if (!isCN()) setTimeout(() => { ensurePack(); if (!(S.rates && S.rates[locCur()])) refreshRates(true); }, 2500);
   renderNet(); setInterval(netTick, 10000); if (hasKey()) setTimeout(() => { if (!net.state && !net.busy) checkNet(true); }, 600);
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { net, failedQ, checkNet, hold, pocket, rec, ptt, trimSilence, speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { DST, tzDest, setDest, phrasePack, ensurePack, homePerLocal, parseNum, net, failedQ, checkNet, hold, pocket, rec, ptt, trimSilence, speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
