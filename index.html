@@ -1221,6 +1221,97 @@ a{color:var(--cobalt)}
 .destbar .btn{height:34px;padding:0 14px;min-width:0;font-size:13.5px;border-radius:99px}
 body:not([data-dest="CN"]) #zhBtn .ic{display:none}
 @media (max-width:359px){.dest-grid{grid-template-columns:1fr}}
+
+/* ===================== v12: guide, emergency, expenses, pocket pro ===================== */
+.tabbar{grid-template-columns:repeat(4,minmax(0,1fr))}
+.gd-top{display:flex;align-items:center;gap:10px}
+.gd-top b{flex:1;font-size:19px}
+.sos{background:color-mix(in srgb,var(--rec) 9%,var(--surface));border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--bubble-shadow)}
+.sos h2{margin:0;font-size:16px;display:flex;align-items:center;gap:8px;color:var(--rec)}
+.sos-nums{display:flex;flex-wrap:wrap;gap:8px}
+.sos-num{flex:1 1 90px;display:flex;flex-direction:column;align-items:center;gap:0;padding:10px 6px;border-radius:14px;background:var(--rec);color:#fff;text-decoration:none}
+.sos-num b{font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.sos-num small{font-size:12px;font-weight:600;opacity:.92}
+.sos-lbl{margin:0;font-size:12.5px;color:var(--ink-2);font-weight:600}
+.sos-phr{display:flex;flex-wrap:wrap;gap:6px}
+.sos-ph{border:0;border-radius:99px;padding:7px 12px;background:var(--surface);color:var(--ink);font:600 13.5px/1.2 var(--font-ui);box-shadow:var(--bubble-shadow)}
+.sos-emb{display:flex;align-items:center;gap:8px;color:var(--cobalt);font-weight:600;font-size:14px;text-decoration:none}
+.gd-ask{display:flex;flex-direction:column;gap:10px}
+.gd-qs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.gd-qs::-webkit-scrollbar{display:none}
+.gd-qs .cat{flex:none;white-space:nowrap;background:var(--surface);color:var(--ink);box-shadow:var(--bubble-shadow);font-weight:600;padding:8px 14px}
+.gd-ask .switch{background:var(--surface);border-radius:14px;padding:10px 12px}
+.gd-answers{display:flex;flex-direction:column;gap:8px}
+.gd-ans{background:var(--surface);border-radius:16px;padding:12px 14px;box-shadow:var(--bubble-shadow)}
+.gd-ans.busy{display:flex;align-items:center;gap:10px;color:var(--ink-2)}
+.gd-q{margin:0 0 4px;font-weight:700;font-size:14.5px;color:var(--accent)}
+.gd-a{margin:0;font-size:15px;line-height:1.6}
+.gd-src{margin:6px 0 0;font-size:12px}
+.gd-intro{margin:0;font-size:15.5px;line-height:1.6;color:var(--ink)}
+.gd-sec{display:flex;flex-direction:column;gap:8px}
+.gd-sec h3{margin:6px 0 0;font-size:16px;display:flex;align-items:center;gap:8px}
+.gd-sec ul{margin:0;padding:12px 14px;padding-inline-start:30px;background:var(--surface);border-radius:16px;box-shadow:var(--bubble-shadow);display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.55}
+.gd-sec ul.warn li::marker{color:var(--rec)}
+.gd-sec>p{margin:0;padding:12px 14px;background:var(--surface);border-radius:16px;box-shadow:var(--bubble-shadow);font-size:14.5px;line-height:1.55}
+.gd-cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;margin-inline:-2px;scrollbar-width:none}
+.gd-cards::-webkit-scrollbar{display:none}
+.gd-card{flex:none;width:min(78vw,300px);scroll-snap-align:start;background:var(--surface);border-radius:18px;padding:14px;box-shadow:var(--bubble-shadow);display:flex;flex-direction:column;gap:6px}
+.gd-card p{margin:0;font-size:14px;line-height:1.5}
+.gd-ch{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.gd-ch b{font-size:16px}
+.gd-ch small{color:var(--ink-3);font-size:12px;white-space:nowrap}
+.gd-l{color:var(--accent);font-weight:600}
+.gd-m{color:var(--ink-2)}
+.gd-acts{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.gd-acts .btn{flex:1;text-decoration:none;justify-content:center}
+.gd-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.what-n{margin:0 0 4px;font-size:20px}
+.what-h{margin:8px 0 0;padding:8px 12px;border-radius:12px;background:var(--accent-soft);color:var(--jade);font-weight:650}
+.what-h.bad{background:color-mix(in srgb,var(--rec) 12%,transparent);color:var(--rec)}
+/* expenses */
+.fxb{display:inline-flex;align-items:center;gap:6px;border:0;font:600 13px/1.2 var(--font-ui);padding:4px 6px 4px 10px;border-radius:99px;background:var(--fx-bg);color:var(--fx-ink);font-variant-numeric:tabular-nums;direction:ltr}
+.fxb i{font-style:normal;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--fx-ink) 18%,transparent);font-weight:800;font-size:13px}
+.fxb:active{filter:brightness(.95)}
+.ex-head{display:flex;flex-direction:column;align-items:center;gap:2px;padding:18px;background:var(--accent) !important;color:#fff}
+.ex-head span{font-size:13px;opacity:.9}
+.ex-head b{font-size:30px;font-variant-numeric:tabular-nums}
+.ex-head small{opacity:.85}
+.ex-form{display:grid;grid-template-columns:1fr;gap:8px}
+.ex-amt input{font-size:20px}
+.ex-list{display:flex;flex-direction:column;gap:6px}
+.ex-day{margin:8px 0 0;font-size:12.5px;color:var(--ink-3)}
+.ex-row{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:14px;padding:10px 12px;box-shadow:var(--bubble-shadow)}
+.ex-f{font-size:20px}
+.ex-n{flex:1;min-width:0;display:flex;flex-direction:column;font-size:14px;overflow:hidden}
+.ex-n small{color:var(--ink-3);font-size:12px}
+.ex-v{display:flex;flex-direction:column;align-items:flex-end;text-align:end}
+.ex-v small{color:var(--ink-3);font-size:12px}
+.ex-acts{gap:8px}
+.ex-acts .btn{flex:1}
+/* pocket: voices, alerts, marks, timeline */
+.spk{display:block}
+.spk+.spk{margin-top:4px}
+.spk b{display:inline-block;margin-inline-end:6px;padding:0 7px;border-radius:99px;font-size:11.5px;font-weight:700;background:color-mix(in srgb,var(--them) 14%,transparent);color:var(--them);vertical-align:2px}
+.pocket .spk b{background:#16243F;color:#8FB0FF}
+.pocket[data-marked="1"] .pk-clock{opacity:.35;transition:none}
+.pk-sum{display:flex;flex-direction:column;gap:10px}
+.pk-mood{margin:0;padding:10px 12px;border-radius:12px;background:var(--accent-soft);color:var(--ink);font-weight:600}
+.pk-tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.pk-tl li{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:12px;background:var(--raised)}
+.pk-tl li.warn{background:color-mix(in srgb,var(--rec) 10%,transparent)}
+.pk-tl li.mark{background:color-mix(in srgb,var(--amber) 14%,transparent)}
+.pk-tl time{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink-3);min-width:42px;font-size:13px}
+.pk-prices{margin:0;font-size:14px}
+#toolSeg{grid-template-columns:repeat(4,minmax(0,1fr))}
+#toolSeg button{padding:9px 2px;font-size:13.5px;gap:4px}
+@media (max-width:374px){#toolSeg button .ic{display:none}}
+.ex-form .inp{background:var(--surface);border-color:transparent;box-shadow:var(--bubble-shadow);font-size:16px}
+#pkWords{font-size:16px}
+.sos-nums{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:8px}
+.sos-num{padding:10px 4px;text-align:center}
+.sos-num small{font-size:11.5px;line-height:1.25}
+.what-h.unsure{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--ink)}
+.gd-ask .type-line input{background:var(--surface);border:0;box-shadow:var(--bubble-shadow);border-radius:14px;padding-inline:14px;font-size:16px}
 </style>
 </head>
 <body>
@@ -1273,6 +1364,8 @@ body:not([data-dest="CN"]) #zhBtn .ic{display:none}
   <symbol id="i-pocket" viewBox="0 0 24 24"><path d="M5.5 4.5h13v8.5a6.5 6.5 0 0 1-13 0z"/><path d="M5.5 8.5h13M10 12.5l2 1.5 2-1.5"/></symbol>
   <symbol id="i-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 15.5l-5-5-9 9"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4.5 7.5h14a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5h-14z"/><path d="M4.5 7.5V6a1.5 1.5 0 0 1 1.5-1.5h10.5v3M15.5 13.5h4.5"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M12 7v6.5M9.5 11l2.5 2.5 2.5-2.5M10.5 18.5h3"/></symbol>
 </svg>
@@ -1358,7 +1451,9 @@ body:not([data-dest="CN"]) #zhBtn .ic{display:none}
           </ul>
           <button class="btn cam-go" id="camGo" type="button"><svg class="ic"><use href="#i-camera"/></svg><span data-i18n="cam_start"></span></button>
           <button class="btn ghost cam-go" id="shotGo" type="button"><svg class="ic"><use href="#i-image"/></svg><span data-i18n="shot_btn"></span></button>
+          <button class="btn ghost cam-go" id="whatGo" type="button"><svg class="ic"><use href="#i-spark"/></svg><span data-i18n="what_btn"></span></button>
           <input type="file" id="shotFile" class="vh-file" accept="image/*" tabindex="-1" aria-hidden="true">
+          <input type="file" id="whatFile" class="vh-file" accept="image/*" tabindex="-1" aria-hidden="true">
           <p class="note cam-note" id="camCost"></p>
           <p class="note cam-note" id="shotCost"></p>
           <p class="note cam-note" id="camHalalNote" data-i18n="cam_halal_note"></p>
@@ -1395,6 +1490,7 @@ body:not([data-dest="CN"]) #zhBtn .ic{display:none}
           <button type="button" role="tab" data-tool="calc" id="tt-calc"><svg class="ic"><use href="#i-calc"/></svg><span data-i18n="tools_calc"></span></button>
           <button type="button" role="tab" data-tool="fx" id="tt-fx"><svg class="ic"><use href="#i-coin"/></svg><span data-i18n="tools_fx"></span></button>
           <button type="button" role="tab" data-tool="taxi" id="tt-taxi"><svg class="ic"><use href="#i-car"/></svg><span data-i18n="tools_taxi"></span></button>
+          <button type="button" role="tab" data-tool="exp" id="tt-exp"><svg class="ic"><use href="#i-wallet"/></svg><span data-i18n="ex_title"></span></button>
         </div>
 
         <!-- Calculator -->
@@ -1460,6 +1556,40 @@ body:not([data-dest="CN"]) #zhBtn .ic{display:none}
           <div id="placeList" class="stack"></div>
           <p class="note" data-i18n="taxi_note"></p>
         </div>
+
+        <!-- Expenses -->
+        <div class="tool" id="tool-exp" role="tabpanel" hidden>
+          <section class="u-card ex-head"><span data-i18n="ex_total"></span><b id="exTotal"></b><small id="exCount"></small></section>
+          <form class="ex-form" id="exForm">
+            <label class="fx-in ex-amt" for="exAmt"><span data-i18n="ex_amt"></span><input id="exAmt" type="number" inputmode="decimal" min="0" step="any" placeholder="0"><b id="exSym"></b></label>
+            <input class="inp" id="exNote" type="text" autocomplete="off" dir="auto" data-i18n-ph="ex_note">
+            <button class="btn" type="submit"><svg class="ic"><use href="#i-plus"/></svg><span data-i18n="ex_add"></span></button>
+          </form>
+          <div id="exList" class="ex-list"></div>
+          <div class="row ex-acts"><button class="btn ghost" id="exShare" type="button" data-i18n="ex_share"></button><button class="btn ghost danger" id="exClear" type="button" data-i18n="ex_clear"></button></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Guide -->
+    <section class="panel scroll" data-panel="guide" id="panel-guide" role="tabpanel" aria-labelledby="tab-guide" hidden>
+      <div class="pane gut">
+        <div class="gd-top"><span class="dp-f" id="gdFlag"></span><b id="gdName"></b><button class="btn sm ghost" id="gdDest" type="button" data-i18n="gd_change"></button></div>
+        <section class="sos" aria-labelledby="sosT">
+          <h2 id="sosT"><span aria-hidden="true">🆘</span><span data-i18n="sos_t"></span></h2>
+          <div class="sos-nums" id="sosNums"></div>
+          <p class="sos-lbl" data-i18n="sos_show"></p>
+          <div class="sos-phr" id="sosPhr"></div>
+          <a class="sos-emb" id="sosEmb" target="_blank" rel="noopener" hidden><svg class="ic"><use href="#i-pin"/></svg><span id="sosEmbTxt"></span></a>
+        </section>
+        <form class="gd-ask" id="gdForm">
+          <div class="type-line"><input id="gdQ" type="text" autocomplete="off" enterkeyhint="send" dir="auto" data-i18n-ph="gd_ask_ph"><button class="send" type="submit" data-i18n-aria="send_aria"><svg class="ic"><use href="#i-send"/></svg></button></div>
+          <div class="gd-qs"><button type="button" class="cat" data-ask-k="gd_q1"></button><button type="button" class="cat" data-ask-k="gd_q2"></button><button type="button" class="cat" data-ask-k="gd_q3"></button><button type="button" class="cat" data-ask-k="gd_q4"></button></div>
+          <label class="switch" for="gdSearch"><span><b data-i18n="gd_search"></b><small data-i18n="gd_search_d"></small></span><input type="checkbox" id="gdSearch"></label>
+        </form>
+        <div id="gdAns" class="gd-answers"></div>
+        <div id="gdBody"></div>
       </div>
     </section>
 
@@ -1513,6 +1643,7 @@ body:not([data-dest="CN"]) #zhBtn .ic{display:none}
     <button class="tab" role="tab" id="tab-talk" data-tab="talk" aria-controls="panel-talk" type="button"><span class="tab-ic"><svg class="ic"><use href="#i-mic"/></svg></span><span data-i18n="tab_talk"></span></button>
     <button class="tab" role="tab" id="tab-camera" data-tab="camera" aria-controls="panel-camera" type="button"><span class="tab-ic"><svg class="ic"><use href="#i-camera"/></svg></span><span data-i18n="tab_camera"></span></button>
     <button class="tab" role="tab" id="tab-phrases" data-tab="phrases" aria-controls="panel-phrases" type="button"><span class="tab-ic"><svg class="ic"><use href="#i-phr"/></svg></span><span data-i18n="tab_phrases"></span></button>
+    <button class="tab" role="tab" id="tab-guide" data-tab="guide" aria-controls="panel-guide" type="button"><span class="tab-ic"><svg class="ic"><use href="#i-compass"/></svg></span><span data-i18n="tab_guide"></span></button>
   </nav>
 </div>
 
@@ -1796,6 +1927,19 @@ body:not([data-dest="CN"]) #zhBtn .ic{display:none}
         <label class="tier" for="pk-text"><input type="radio" name="pkOut" value="text" id="pk-text"><b data-i18n="pk_text"></b><small data-i18n="pk_text_d"></small></label>
         <label class="tier" for="pk-ear"><input type="radio" name="pkOut" value="ear" id="pk-ear"><b data-i18n="pk_ear"></b><small data-i18n="pk_ear_d"></small></label>
       </div>
+      <div class="field">
+        <span class="lbl" id="pkSenseLbl" data-i18n="pk_sense"></span>
+        <div class="seg" role="radiogroup" aria-labelledby="pkSenseLbl">
+          <label><input type="radio" name="pkSense" value="far" id="pks-far"><span data-i18n="pk_far"></span></label>
+          <label><input type="radio" name="pkSense" value="near" id="pks-near"><span data-i18n="pk_near"></span></label>
+        </div>
+        <p class="note" data-i18n="pk_sense_d"></p>
+      </div>
+      <div class="field">
+        <label class="lbl" for="pkWords" data-i18n="pk_words"></label>
+        <input class="inp" id="pkWords" type="text" autocomplete="off" dir="auto" data-i18n-ph="pk_words_ph">
+        <p class="note" data-i18n="pk_words_d"></p>
+      </div>
       <label class="switch" for="pkEarAll" id="pkEarRow"><span><b data-i18n="pk_ear_all"></b><small data-i18n="pk_ear_all_d"></small></span><input type="checkbox" id="pkEarAll"></label>
       <div class="field">
         <span class="lbl" id="pkTimerLbl" data-i18n="pk_timer"></span>
@@ -2002,6 +2146,16 @@ const CUES = {
   el: ['Παρακαλώ, μιλήστε', 'Όταν τελειώσετε, θα το μεταφράσω', 'Εγγραφή', 'Μετάφραση', 'Είπατε', 'Κρατήστε πατημένο το λευκό κουμπί όσο μιλάτε και αφήστε το στο τέλος', 'Παρακαλώ, πηγαίνετέ με εδώ:', 'Θα ήθελα αυτό:', 'Γίνεται σε αυτή την τιμή;'],
   bs: ['Izvolite, govorite', 'Kad završite, prevest ću', 'Snimanje', 'Prijevod', 'Rekli ste', 'Držite bijelo dugme dok govorite i pustite kad završite', 'Molim vas, odvezite me ovdje:', 'Želio bih ovo:', 'Može li po ovoj cijeni?']
 };
+// emergency numbers (checked, no network needed): all = one number for everything
+const EMERG = {
+  CN: [['police', '110'], ['amb', '120'], ['fire', '119']], TH: [['police', '191'], ['tourist', '1155'], ['amb', '1669'], ['fire', '199']],
+  MY: [['all', '999']], ID: [['all', '112'], ['police', '110'], ['amb', '118']], TR: [['all', '112']], GE: [['all', '112']],
+  AZ: [['all', '112'], ['police', '102'], ['amb', '103']], JP: [['police', '110'], ['amb', '119']], KR: [['police', '112'], ['amb', '119'], ['tourist', '1330']],
+  VN: [['police', '113'], ['amb', '115'], ['fire', '114']], PH: [['all', '911']], IN: [['all', '112']], RU: [['all', '112']], GB: [['all', '999'], ['all', '112']],
+  FR: [['all', '112']], IT: [['all', '112']], ES: [['all', '112']], DE: [['all', '112']], AT: [['all', '112']], CH: [['all', '112'], ['police', '117'], ['amb', '144']],
+  NL: [['all', '112']], GR: [['all', '112']], BA: [['police', '122'], ['amb', '124'], ['fire', '123']], US: [['all', '911']]
+};
+const HOME_COUNTRY = { SAR: ['Saudi Arabia', 'السعودية'], AED: ['the UAE', 'الإمارات'], QAR: ['Qatar', 'قطر'], KWD: ['Kuwait', 'الكويت'], BHD: ['Bahrain', 'البحرين'], OMR: ['Oman', 'عُمان'], JOD: ['Jordan', 'الأردن'], EGP: ['Egypt', 'مصر'] };
 const DST = () => DESTS[S.dest] || DESTS.CN;
 const isCN = () => DST().id === 'CN';
 const CUE = () => { const c = CUES[DST().lang] || CUES.en; return { cue: c[0], cue2: c[1], rec: c[2], tr: c[3], said: c[4], hint: c[5], drive: c[6], want: c[7], offer: c[8] }; };
@@ -2091,7 +2245,7 @@ const I18N = {
     g_conn: 'الاتصال', key_lbl: 'مفتاح Google AI Studio', key_show: 'إظهار المفتاح', key_note: 'يُحفظ على هذا الجهاز فقط ويُرسل مباشرة إلى Google. احصل عليه مجاناً من',
     g_quality: 'جودة الترجمة والتكلفة', model_pick: 'اختيار نموذج محدد', model_note: 'اضغط «اتصال» ليظهر لك كل النماذج المتاحة لمفتاحك.',
     g_view: 'الصوت والعرض', voice_open: 'إعدادات صوت الترجمة', romanize: 'إظهار النطق بالحروف اللاتينية في المحادثة',
-    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 11.0',
+    g_ctx: 'سياق المحادثة', ctx_lbl: 'موضوعك ومصطلحاتك', ctx_note: 'يساعد الترجمة تفهم المنتجات والمصطلحات. اكتبه بالإنجليزي.', ctx_reset: 'الافتراضي', version: 'ترجمان السفر · الإصدار 12.0',
     tier_eco: 'اقتصادي', tier_bal: 'متوازن', tier_best: 'الأدق', tier_eco_d: 'الأرخص، وكافٍ لأغلب محادثات السوق', tier_bal_d: 'أحدث نموذج Lite، فهم أفضل للهجة', tier_best_d: 'Flash الكامل، للمحادثات المهمة والمعقدة',
     recommended: 'موصى به', per1000: '≈ {v} / 1000 ترجمة',
     c_need_key: 'أدخل المفتاح أولاً.', c_checking: 'أتحقق من المفتاح…', c_ok: 'متصل ✓ · {m}', c_using: 'سأستخدم {m}', c_manual: 'اختيار يدوي · {m}',
@@ -2153,7 +2307,7 @@ const I18N = {
     g_conn: 'Connection', key_lbl: 'Google AI Studio key', key_show: 'Show key', key_note: 'Stored on this device only and sent directly to Google. Get one free at',
     g_quality: 'Quality and cost', model_pick: 'Pick a specific model', model_note: 'Tap Connect to list every model your key can use.',
     g_view: 'Voice and display', voice_open: 'Translation voice settings', romanize: 'Show romanization in chats',
-    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 11.0',
+    g_ctx: 'Conversation context', ctx_lbl: 'Your topic and terms', ctx_note: 'Helps with product names and trade terms. Write it in English.', ctx_reset: 'Default', version: 'ترجمان السفر · version 12.0',
     tier_eco: 'Economy', tier_bal: 'Balanced', tier_best: 'Most accurate', tier_eco_d: 'Cheapest, fine for most market talk', tier_bal_d: 'Newest Lite model, better with dialect', tier_best_d: 'Full Flash, for important or complex talks',
     recommended: 'Recommended', per1000: '≈ {v} / 1,000 turns',
     c_need_key: 'Enter the key first.', c_checking: 'Checking the key…', c_ok: 'Connected ✓ · {m}', c_using: 'Will use {m}', c_manual: 'Manual pick · {m}',
@@ -2322,7 +2476,7 @@ Object.assign(I18N.ar, {
   cue_mine: 'تحدّث الآن · يظهر للطرف الآخر بلغته',
   pk_count: 'سمعت {s} مقطع · ترجمت {n}', pk_eye: 'اضغط الساعة 3 مرات لعرض الترجمات أو إخفائها',
   pk_imp: 'مهم', pk_pinned: 'مهم سابقاً', pk_latest: 'الأحدث', pk_sum_t: 'ملخص ما قيل حولك',
-  pk_intro: 'اضغط الساعة 3 مرات لعرض الترجمات · اضغط مطولاً أسفل الشاشة للخروج',
+  pk_intro: 'اضغط الساعة 3 مرات لعرض الترجمات · ضغطتين بعيداً عن الساعة تعلّم اللحظة · اضغط مطولاً أسفل الشاشة للخروج',
   pk_ear_all: 'انطق كل الجمل', pk_ear_all_d: 'بدونها تسمع المهم فقط: الأسعار والخصم والكلام عنك.',
   pk_timer: 'إيقاف تلقائي بعد', pk_t0: 'بدون', pk_tm: '{n} د', pk_timer_done: 'انتهى المؤقت وتوقف الاستماع لتوفير البطارية.',
   new_short: 'جديدة', h_clear: 'حذف كل المحادثات وبدء صفحة جديدة', h_clear_c: 'اضغط مرة ثانية للتأكيد', h_cleared: 'حُذفت كل المحادثات.',
@@ -2375,7 +2529,7 @@ Object.assign(I18N.en, {
   cue_mine: 'Speak now · shown to the other person in his language',
   pk_count: 'Heard {s} · translated {n}', pk_eye: 'Tap the clock 3 times to show or hide translations',
   pk_imp: 'Important', pk_pinned: 'Important earlier', pk_latest: 'Latest', pk_sum_t: 'What was said around you',
-  pk_intro: 'Tap the clock 3 times to see translations · long-press the bottom to leave',
+  pk_intro: 'Tap the clock 3 times to see translations · double-tap away from the clock to mark the moment · long-press the bottom to leave',
   pk_ear_all: 'Speak every line', pk_ear_all_d: 'Otherwise you only hear what matters: prices, discounts and talk about you.',
   pk_timer: 'Stop automatically after', pk_t0: 'Never', pk_tm: '{n} min', pk_timer_done: 'The timer ended and listening stopped to save battery.',
   new_short: 'New', h_clear: 'Delete all chats and start fresh', h_clear_c: 'Tap again to confirm', h_cleared: 'All chats deleted.',
@@ -2400,6 +2554,23 @@ Object.assign(I18N.en, {
   e_net_g: 'Can\'t reach Gemini. Check your internet and try again.', c_net_g: 'Can\'t reach Google. Check your internet.'
 });
 Object.assign(I18N.ar, {
+  tab_guide: 'الدليل', title_guide: 'دليل السفر', gd_change: 'تغيير',
+  sos_t: 'طوارئ', sos_police: 'شرطة', sos_amb: 'إسعاف', sos_fire: 'إطفاء', sos_tourist: 'شرطة السياح', sos_all: 'الطوارئ', sos_show: 'اعرضها للناس بلغتهم:',
+  sos_emb: 'سفارة {h} هنا على الخريطة', sos_prep: 'أجهّز عبارات الطوارئ باللغة {l}…',
+  gd_ask_ph: 'اسأل المرشد عن أي شيء…', gd_search: 'ابحث في Google عن معلومات حديثة', gd_search_d: 'أدق للأسعار والأوقات. مجاني ضمن حصة Google المجانية وبعدها برسوم، فاتركه مقفلاً إذا ما تحتاجه.',
+  gd_q1: 'وين أحسن مطاعم حلال؟', gd_q2: 'كيف أروح من المطار للمدينة وبكم؟', gd_q3: 'وش أشهر الأسواق للتسوق؟', gd_q4: 'كم يوم يكفي وكيف أوزعها؟',
+  gd_thinking: 'المرشد يجاوب…', gd_prep: 'أجهّز دليل {c}… مرة واحدة فقط.', gd_prep_q: 'دليل {c}: المعالم، الآداب، الاحتيال، المواصلات والأكل الحلال. يتجهز مرة وحدة ويبقى على جوالك.', gd_prep_btn: 'جهّزه',
+  gd_key: 'أضف مفتاح Google AI Studio لتجهيز دليل {c}.', gd_land: 'معالم لا تفوتك', gd_etq: 'آداب وعادات', gd_tip: 'البقشيش', gd_scam: 'انتبه من', gd_move: 'المواصلات', gd_pay: 'الدفع',
+  gd_halal: 'الأكل الحلال', gd_power: 'الكهرباء والإنترنت', gd_apps: 'تطبيقات مفيدة', gd_map: 'الخريطة', gd_show: 'اعرضها للسائق',
+  gd_foot: 'جُهّز {d}. معلومات عامة؛ تأكد من الأوقات والأسعار قبل الذهاب.', gd_refresh: 'تحديث',
+  what_btn: 'وش هذا؟ صوّر معلم أو أكلة أو منتج', what_t: 'وش هذا؟', what_pork: 'فيه لحم خنزير على الأغلب', what_alc: 'فيه كحول على الأغلب', what_unsure: 'ما أقدر أتأكد إنه حلال، اسأل قبل.', what_ok: 'يبدو مناسباً (بدون خنزير أو كحول ظاهر)',
+  ex_title: 'المصاريف', ex_add_aria: 'أضف هذا السعر للمصاريف', ex_added: 'أُضيف للمصاريف: {a}', ex_count: '{n} عملية', ex_empty: 'اضغط أي سعر في المحادثة ليُضاف هنا، أو أضفه يدوياً.',
+  ex_noname: 'مصروف', ex_del: 'حذف', ex_need: 'اكتب المبلغ.', ex_amt: 'المبلغ', ex_note: 'وش هو؟ (اختياري)', ex_add: 'أضف', ex_clear: 'مسح الكل', ex_cleared: 'مُسحت المصاريف.', ex_share: 'مشاركة', ex_total: 'مجموع الرحلة',
+  spk_m: 'رجل', spk_w: 'امرأة', spk_c: 'طفل', spk_u: 'صوت',
+  pk_sense: 'المسافة', pk_far: 'بعيد · محل أو شارع', pk_near: 'قريب · جلسة أو طاولة', pk_sense_d: '«قريب» يتجاهل الأصوات البعيدة والإعلانات.',
+  pk_words: 'كلمات تنبّهك', pk_words_ph: 'مثلاً: سعودي، السعر، اسمك', pk_words_d: 'لما تنقال وحدة منها تنعلّم مهمة، وفي السماعة تسمع نغمة ثم الجملة. افصل بفاصلة.',
+  pk_alert_say: 'تنبيه {w}:', pk_marks: '{n} علامة', pk_cost: 'التكلفة {c}', pk_cost_free: 'مجاني', pk_prices: 'الأسعار:',
+  pk_sum_note: '{n} ترجمة في {m} دقيقة · {c}',
   perf_line: '⏱ وصلت الترجمة كاملة بعد {total} ث · أول كلمة بعد {first} ث · الصوت {up}KB · {key}', perf_free: 'المفتاح المجاني', perf_paid: 'المفتاح المدفوع',
   perf_avg: 'متوسط آخر {n} ترجمات: {s} ث (أول كلمة {f} ث)',
   fast_voice: 'سرعة أعلى للترجمة الصوتية', fast_voice_d: 'الصوت يستخدم المفتاح المدفوع أولاً: أسرع وأثبت. تقريباً ريال واحد لكل 800 جملة. أوقفه ليُستخدم المجاني أولاً.',
@@ -2421,6 +2592,23 @@ Object.assign(I18N.ar, {
   pk_now: 'الآن: {m} · يتوقف بعد {s}. تغيّرها من الإعدادات.'
 });
 Object.assign(I18N.en, {
+  tab_guide: 'Guide', title_guide: 'Travel guide', gd_change: 'Change',
+  sos_t: 'Emergency', sos_police: 'Police', sos_amb: 'Ambulance', sos_fire: 'Fire', sos_tourist: 'Tourist police', sos_all: 'Emergency', sos_show: 'Show people in their language:',
+  sos_emb: 'Embassy of {h} here on the map', sos_prep: 'Preparing emergency phrases in {l}…',
+  gd_ask_ph: 'Ask the guide anything…', gd_search: 'Search Google for up-to-date info', gd_search_d: 'Better for prices and opening hours. Free within Google\'s free quota, paid after that, so leave it off unless you need it.',
+  gd_q1: 'Where are the best halal restaurants?', gd_q2: 'How do I get from the airport to the city, and for how much?', gd_q3: 'What are the best markets for shopping?', gd_q4: 'How many days do I need and how should I split them?',
+  gd_thinking: 'The guide is answering…', gd_prep: 'Preparing the {c} guide… only once.', gd_prep_q: '{c} guide: landmarks, etiquette, scams, transport and halal food. Prepared once, kept on your phone.', gd_prep_btn: 'Prepare',
+  gd_key: 'Add a Google AI Studio key to prepare the {c} guide.', gd_land: 'Don\'t miss', gd_etq: 'Etiquette', gd_tip: 'Tipping', gd_scam: 'Watch out for', gd_move: 'Getting around', gd_pay: 'Paying',
+  gd_halal: 'Halal food', gd_power: 'Power and internet', gd_apps: 'Useful apps', gd_map: 'Map', gd_show: 'Show the driver',
+  gd_foot: 'Prepared {d}. General information; check times and prices before you go.', gd_refresh: 'Refresh',
+  what_btn: 'What is this? Snap a landmark, dish or product', what_t: 'What is this?', what_pork: 'Most likely contains pork', what_alc: 'Most likely contains alcohol', what_unsure: 'Can\'t confirm it is halal; ask first.', what_ok: 'Looks fine (no visible pork or alcohol)',
+  ex_title: 'Expenses', ex_add_aria: 'Add this price to expenses', ex_added: 'Added to expenses: {a}', ex_count: '{n} items', ex_empty: 'Tap any price in a chat to add it here, or add one by hand.',
+  ex_noname: 'Expense', ex_del: 'Delete', ex_need: 'Enter the amount.', ex_amt: 'Amount', ex_note: 'What for? (optional)', ex_add: 'Add', ex_clear: 'Clear all', ex_cleared: 'Expenses cleared.', ex_share: 'Share', ex_total: 'Trip total',
+  spk_m: 'Man', spk_w: 'Woman', spk_c: 'Child', spk_u: 'Voice',
+  pk_sense: 'Distance', pk_far: 'Far · shop or street', pk_near: 'Near · sitting at a table', pk_sense_d: '«Near» ignores distant voices and announcements.',
+  pk_words: 'Alert words', pk_words_ph: 'e.g. Saudi, price, your name', pk_words_d: 'When one is said, the line is marked important; in earphones you hear a tone, then the line. Separate with commas.',
+  pk_alert_say: 'Alert {w}:', pk_marks: '{n} marks', pk_cost: 'cost {c}', pk_cost_free: 'free', pk_prices: 'Prices:',
+  pk_sum_note: '{n} translations in {m} min · {c}',
   perf_line: '⏱ Full translation in {total}s · first word in {first}s · audio {up}KB · {key}', perf_free: 'free key', perf_paid: 'paid key',
   perf_avg: 'Average of the last {n} translations: {s}s (first word {f}s)',
   fast_voice: 'Faster voice translation', fast_voice_d: 'Voice uses the paid key first: faster and steadier. About 1 SAR per 800 lines. Turn off to use the free key first.',
@@ -2605,6 +2793,8 @@ const PHRASES = [
     { ar: 'أحتاج طبيب', en: 'I need a doctor.', yue: '我要睇医生。', jy: 'ngo5 jiu3 tai2 ji1 sang1.', cmn: '我需要看医生。', py: 'wǒ xūyào kàn yīshēng.' },
     { ar: 'وين الصيدلية؟', en: 'Where is the pharmacy?', yue: '药房喺边度？', jy: 'joek6 fong4 hai2 bin1 dou6?', cmn: '药店在哪里？', py: 'yàodiàn zài nǎlǐ?' },
     { ar: 'اتصل بالشرطة!', en: 'Call the police!', yue: '快啲报警！', jy: 'faai3 di1 bou3 ging2!', cmn: '快报警！', py: 'kuài bàojǐng!' },
+    { ar: 'خذني للمستشفى لو سمحت', en: 'Please take me to the hospital.', yue: '唔该送我去医院。', jy: 'm4 goi1 sung3 ngo5 heoi3 ji1 jyun2.', cmn: '请送我去医院。', py: 'qǐng sòng wǒ qù yīyuàn.' },
+    { ar: 'ضاع جوازي', en: 'I lost my passport.', yue: '我唔见咗本护照。', jy: 'ngo5 m4 gin3 zo2 bun2 wu6 ziu3.', cmn: '我的护照丢了。', py: 'wǒ de hùzhào diū le.' },
     { ar: 'أقدر أشحن جوالي هنا؟', en: 'Can I charge my phone here?', yue: '呢度可唔可以叉电？', jy: 'ni1 dou6 ho2 m4 ho2 ji5 caa1 din6?', cmn: '这里可以充电吗？', py: 'zhèlǐ kěyǐ chōngdiàn ma?' }
   ] },
   { id: 'basic', items: [
@@ -2709,7 +2899,7 @@ function toast(msg, tone, action) {
 }
 
 /* ================= tabs & header ================= */
-const TABS = ['talk', 'camera', 'phrases', 'tools', 'usage'];
+const TABS = ['talk', 'camera', 'phrases', 'guide', 'tools', 'usage'];
 function setTab(name) {
   if (rec.on && name !== 'talk') stopConvo('manual');
   if (ptt.active && name !== 'talk') pttCancel();
@@ -2723,6 +2913,7 @@ function setTab(name) {
   if (name === 'tools') renderTools();
   if (name === 'camera') renderCamUI();
   if (name === 'usage') renderUsageTab();
+  if (name === 'guide') renderGuideTab();
 }
 function renderHeader() {
   const sub = $('#subTitle');
@@ -2757,7 +2948,8 @@ function hlNums(s) {
   while ((m = re.exec(s))) { out += esc(s.slice(last, m.index)) + '<b class="num">' + esc(m[0]) + '</b>'; last = re.lastIndex; }
   return out + esc(s.slice(last));
 }
-function fxChips(x) {
+function fxChips(x) { const r = homePerLocal(); return fxVals(x).map(v => locSym() + smartN(v) + ' ≈ ' + money(v * r, S.cur)); }
+function fxVals(x) {
   if (!S.showFx) return [];
   const rate = homePerLocal();
   if (!rate || (!isCN() && locCur() === S.cur)) return [];
@@ -2775,7 +2967,7 @@ function fxChips(x) {
     : new RegExp('(?:' + escRe(lc.s) + ')\\s*' + NUM_RE + '\\s*(k)?', 'gi');
   while ((m = re1.exec(text))) add(m[1], m[2]);
   while ((m = re2.exec(text))) add(m[1], m[2]);
-  return vals.slice(0, 4).map(v => locSym() + smartN(v) + ' ≈ ' + money(v * rate, S.cur));
+  return vals.slice(0, 4);
 }
 function turnEl(x, example) {
   const el = document.createElement('article');
@@ -2796,7 +2988,7 @@ function fillTurn(el, x) {
   $('.chip', el).textContent = x.dir && x.lang ? t(x.dir === 'out' ? 'who_me' : 'who_them') + ' · ' + langLabel(x.lang) : x.failed ? t(x.who === 'them' || x.who === 'listen' ? 'who_them' : 'who_me') : chipText(x);
   $('time', el).textContent = fmtTime(x.t);
   const src = $('.src', el), tgt = $('.tgt', el), jp = $('.jp', el), fx = $('.fx', el);
-  if (x.pending) src.textContent = x.src || ''; else src.innerHTML = hlNums(x.src);
+  if (x.pending) src.textContent = x.who === 'listen' ? stripSpk(x.src) : (x.src || ''); else src.innerHTML = x.who === 'listen' ? spkHtml(x.src) : hlNums(x.src);
   src.hidden = !x.src;
   src.classList.toggle('zh', isOther(x.lang));
   const said = x.dir === 'out' && !!x.src && !x.pending;                // what you said, so you can check it was heard right
@@ -2804,13 +2996,13 @@ function fillTurn(el, x) {
   const bk = $('.back', el);
   if (bk) { const on = x.dir === 'out' && !!x.back && !x.pending; bk.hidden = !on; if (on) { bk.innerHTML = hlNums(x.back); bk.dataset.lbl = t('back_lbl'); } }
   tgt.classList.toggle('zh', x.dir === 'out');
-  if (x.tgt) { if (x.pending) tgt.textContent = x.tgt; else tgt.innerHTML = hlNums(x.tgt); }
+  if (x.tgt) { if (x.pending) tgt.textContent = x.who === 'listen' ? stripSpk(x.tgt) : x.tgt; else tgt.innerHTML = x.who === 'listen' ? spkHtml(x.tgt) : hlNums(x.tgt); }
   else if (x.failed) tgt.innerHTML = '<span class="fail-note">' + esc(t('n_wait')) + '</span><button class="btn sm ghost retry" type="button" data-act="retry">' + esc(t('n_retry')) + '</button>';
   else tgt.innerHTML = x.pending ? '<span class="dots" aria-label="' + esc(t('translating')) + '"><i></i><i></i><i></i></span>' + (x.slow ? '<span class="slow-note">' + esc(t('n_slow')) + '</span>' : '') : '';
   jp.hidden = !(x.jp && S.romanize); jp.textContent = x.jp || '';
-  const chips = x.pending ? [] : fxChips(x);
-  fx.hidden = !chips.length;
-  fx.innerHTML = chips.map(c => '<span>' + esc(c) + '</span>').join('');
+  const vals = x.pending ? [] : fxVals(x), rate = homePerLocal();
+  fx.hidden = !vals.length;
+  fx.innerHTML = vals.map(v => '<button type="button" class="fxb" data-act="spend" data-v="' + v + '" aria-label="' + esc(t('ex_add_aria')) + '"><span>' + esc(locSym() + smartN(v) + ' ≈ ' + money(v * rate, S.cur)) + '</span><i aria-hidden="true">+</i></button>').join('');
   $$('.mini', el).forEach(b => { b.disabled = !!x.pending; });
   const rb = $('.rep-btn', el);
   if (rb) { const can = x.dir === 'in' && !x.pending; rb.hidden = !can || !!(x.reps && x.reps.length); if (can && x.reps && x.reps.length && $('.reps', el).hidden) renderReps(el, x); }
@@ -2983,7 +3175,8 @@ function buildPrompt(history, who) {
     'Rules:',
     ...(who === 'listen' ? [
       '- The phone is in the visitor\'s pocket: voices may be muffled, quiet or a few metres away, with street noise. Transcribe and translate every voice you can make out, including partly heard sentences; write … for words you cannot hear instead of guessing.',
-      '- If several people speak, translate all of them in order on one line.',
+      '- If several people speak, translate all of them in order on one line, and start each person\'s words in BOTH SRC and TGT with a voice tag: M1: M2: for men, W1: W2: for women, C: for a child, ?: if unclear (numbered in the order they speak in this clip). Example: TGT: M1: How much? W1: Ten yuan.',
+      S.pkSense === 'near' ? '- Translate only the people close to the phone who are talking with or near the visitor; ignore distant background chatter, announcements and music.' : '- Distant voices count too.',
       '- Never invent words or reuse words from Background or earlier turns. Only if no speech at all can be understood, output LANG: none with empty SRC and TGT.'
     ] : [
       '- Transcribe only words clearly audible in THIS audio. Never guess, never complete sentences, never reuse words from Background or earlier turns.',
@@ -3425,6 +3618,7 @@ async function processTurn(input, opts) {
     fillTurn(el, x);
     renderF2F();
     renderHeader();
+    if (pocket.on && input.who === 'listen') { const w = alertWord(x); if (w) { x.alert = w; x.imp = true; saveConvs(); } }
     if (!spoke) autoSpeakTurn(x);
     markLastIn();
     if (pocket.on) renderPocket();
@@ -3639,7 +3833,7 @@ function onAudio(e) {
   const ms = d.length / rec.rate * 1000;
   setLevel(rms);
   if (ptt.active) { pttFrame(frame, rms, ms); return; }
-  const th = rec.pocket ? Math.min(0.05, Math.max(0.003, rec.noise * 1.8)) : Math.min(0.08, Math.max(0.014, rec.noise * 3.2));
+  const th = rec.pocket ? (S.pkSense === 'near' ? Math.min(0.06, Math.max(0.006, rec.noise * 3)) : Math.min(0.05, Math.max(0.003, rec.noise * 1.8))) : Math.min(0.08, Math.max(0.014, rec.noise * 3.2));
   const loud = rms > th;
   if (!rec.inSpeech) {
     rec.pre.push(frame); if (rec.pre.length > 5) rec.pre.shift();          // ~0.4 s pre-roll
@@ -3975,6 +4169,8 @@ function pocketChip() {
 }
 function renderPocketOpts() {
   $('#pk-' + (S.pocketOut === 'ear' ? 'ear' : 'text')).checked = true;
+  $('#pks-' + (S.pkSense === 'near' ? 'near' : 'far')).checked = true;
+  $('#pkWords').value = S.pkWords || '';
   $('#pkEarAll').checked = !!S.pkEarAll;
   const tm = $('#pkt-' + ([0, 15, 30, 60].includes(+S.pkTimer) ? +S.pkTimer : 30)); if (tm) tm.checked = true;
   $('#pkEarRow').hidden = S.pocketOut !== 'ear';
@@ -3987,7 +4183,7 @@ async function startPocket() {
   clearSpeakQ(); try { speechSynthesis.cancel(); } catch (e) {}
   if (f2fOpen) closeF2F();
   setTab('talk');
-  pocket.on = true; pocket.start = Date.now(); pocket.sent = 0; pocket.err = ''; pocket.reveal = false; pocket.timedOut = false; rec.pocket = true;
+  pocket.on = true; pocket.start = Date.now(); pocket.sent = 0; pocket.err = ''; pocket.reveal = false; pocket.timedOut = false; pocket.marks = []; pocket.taps2 = 0; rec.pocket = true;
   pocket.endAt = S.pkTimer ? Date.now() + S.pkTimer * 60000 : 0;
   $('#pocketOv').dataset.intro = '1'; clearTimeout(pocket.introT); pocket.introT = setTimeout(() => { delete $('#pocketOv').dataset.intro; }, 7000);
   keepAwake(true);
@@ -4013,23 +4209,45 @@ function stopPocket() {
   clearSpeakQ();
   $('#pocketOv').hidden = true;
   refreshStatus(); renderFeed();
-  if (n >= 2) pocketSummary(turns); else toast(t('pk_done', { n }));
+  if (n >= 2) pocketSummary(turns, (pocket.marks || []).slice()); else toast(t('pk_done', { n }));
 }
 // short summary of what people said around you, shown when you leave pocket mode
-async function pocketSummary(turns) {
+// the session as a timeline: mood, key moments with times, prices, anything about you, your marked moments
+async function pocketSummary(turns, marks) {
   const seq = openAI(t('pk_sum_t'));
+  const cost = pocketCostText(turns), mins = Math.max(1, Math.round((turns[turns.length - 1].t - turns[0].t) / 60000));
   try {
     const lang = uiLangName();
-    const sys = ['Below are translations of what people around a traveller in ' + DST().en + ' said while his phone was in his pocket, in order. Lines marked [important] matter most.',
-      'In ' + lang + ', write at most 3 short lines: the main points, any prices (keep the ¥ amounts), and anything said about the traveller himself. Start a line with ⚠ if they talk about charging him more, misleading him or a problem. No title, no bullets. If nothing useful was said, say so in one line.'].map(P).join('\n');
-    const txt = await callText(sys, turns.slice(-80).map(x => (x.imp ? '[important] ' : '') + String(x.tgt).slice(0, 240)).join('\n'), 300);
+    const near = (x, m) => x.t >= m - 25000 && x.t <= m + 8000;
+    const sys = ['Below are translations of what people around a traveller in ' + DST().en + ' said while his phone was in his pocket, in order, each with its time. Tags: [important] matters most, [marked] = the traveller marked this moment himself, [alert] = one of his alert words. M1/W1… = voices.',
+      'In ' + lang + ', write only these lines:',
+      'MOOD: <one line: the tone around him (friendly, neutral, bargaining, tense…) and whether anything seemed aimed at him>',
+      'Then at most 8 timeline lines, each exactly "HH:MM — <key point>", oldest first. Start the key point with ⚠ if they talk about charging him more, misleading him or a problem, and with 📌 for a [marked] moment.',
+      'PRICES: <every price mentioned with its ¥ amount, or leave this line out>',
+      'No title, no bullets, no other text. If nothing useful was said, write only MOOD and one timeline line saying so.'].map(P).join('\n');
+    const lines = turns.slice(-80).map(x => '[' + fmtTime(x.t) + '] ' + (x.imp ? '[important] ' : '') + (x.alert ? '[alert] ' : '') + ((marks || []).some(m => near(x, m)) ? '[marked] ' : '') + String(x.tgt).slice(0, 240));
+    const txt = await callText(sys, lines.join('\n'), 500);
     if (aiStale(seq)) return;
     if (!txt) throw { code: 'empty' };
     aiCtx = { sum: txt, c: current() };
-    $('#aiOut').innerHTML = '<div class="sum">' + summaryHtml(txt) + '</div>';
+    $('#aiOut').innerHTML = pkSummaryHtml(txt);
     $('#aiActs').innerHTML = aiBtn('sum-copy', 'i-copy', t('sum_copy')) + aiBtn('sum-share', 'i-share', t('sum_share'), true);
-    $('#aiNote').textContent = t('pk_done', { n: turns.length });
+    $('#aiNote').textContent = t('pk_sum_note', { n: turns.length, m: mins, c: cost });
   } catch (e) { aiFail(seq, e); }
+}
+function pkSummaryHtml(txt) {
+  let mood = '', prices = '';
+  const rows = [];
+  String(txt).split(/\n+/).map(l => l.replace(/\*\*/g, '').trim()).filter(Boolean).forEach(l => {
+    let m;
+    if ((m = l.match(/^(MOOD|الجو|المزاج)\s*[:：]\s*(.+)$/i))) mood = m[2];
+    else if ((m = l.match(/^(PRICES|الأسعار)\s*[:：]\s*(.+)$/i))) prices = m[2];
+    else if ((m = l.match(/^\[?(\d{1,2}[:：.]\d{2})\]?\s*[—–\-:]\s*(.+)$/))) rows.push([m[1].replace('：', ':'), m[2]]);
+    else rows.push(['', l]);
+  });
+  return '<div class="pk-sum">' + (mood ? '<p class="pk-mood">' + esc(mood) + '</p>' : '') +
+    '<ol class="pk-tl">' + rows.map(r => '<li class="' + (/^⚠/.test(r[1]) ? 'warn' : /^📌/.test(r[1]) ? 'mark' : '') + '"><time dir="ltr">' + esc(r[0]) + '</time><span dir="auto">' + fxInline(r[1]) + '</span></li>').join('') + '</ol>' +
+    (prices ? '<p class="pk-prices"><b>' + esc(t('pk_prices')) + '</b> <span dir="auto">' + fxInline(prices) + '</span></p>' : '') + '</div>';
 }
 function pocketTurns() { const c = current(); return c ? c.turns.filter(x => x.t >= pocket.start && x.dir === 'in' && !x.pending) : []; }
 function renderPocket() {
@@ -4047,9 +4265,9 @@ function renderPocket() {
 }
 function pkItem(x, old) {
   const fx = fxChips(x);
-  return '<div class="pk-item' + (old ? ' old' : '') + (x.imp ? ' imp' : '') + '">' + (x.imp ? '<span class="pk-imp">⚠ ' + esc(t('pk_imp')) + '</span>' : '') +
-    '<p class="t" dir="auto">' + hlNums(x.tgt) + '</p>' + (fx.length ? '<p class="pk-fx">' + fx.map(f => '<bdi dir="ltr">' + esc(f) + '</bdi>').join('') + '</p>' : '') +
-    '<p class="s zh" dir="auto">' + esc(x.src) + '</p></div>';
+  return '<div class="pk-item' + (old ? ' old' : '') + (x.imp ? ' imp' : '') + '">' + (x.alert ? '<span class="pk-imp">🔔 ' + esc(x.alert) + '</span>' : x.imp ? '<span class="pk-imp">⚠ ' + esc(t('pk_imp')) + '</span>' : '') +
+    '<p class="t" dir="auto">' + spkHtml(x.tgt) + '</p>' + (fx.length ? '<p class="pk-fx">' + fx.map(f => '<bdi dir="ltr">' + esc(f) + '</bdi>').join('') + '</p>' : '') +
+    '<p class="s zh" dir="auto">' + esc(stripSpk(x.src)) + '</p></div>';
 }
 function pocketStatus() {
   if (!pocket.on) return;
@@ -4060,7 +4278,7 @@ function pocketStatus() {
   $('#pkStatus').textContent = t('pk_' + st);
   $('#pkPaused').hidden = on;
   $('#pkPausedTxt').textContent = t(pocket.timedOut ? 'pk_timer_done' : 'pk_paused');
-  $('#pkCount').textContent = t('pk_count', { s: pocket.sent, n: pocketTurns().length });
+  $('#pkCount').textContent = t('pk_count', { s: pocket.sent, n: pocketTurns().length }) + ' · ' + pocketCostText() + (pocket.marks && pocket.marks.length ? ' · ' + t('pk_marks', { n: pocket.marks.length }) : '');
   const er = $('#pkErr'); er.textContent = pocket.err; er.hidden = !pocket.err;
 }
 function revealPocket(on) {
@@ -4147,11 +4365,14 @@ function speak(text, kind, rate, queued) {
     speechSynthesis.speak(u);
   } catch (e) { finish(); }
 }
-function speakTurn(x) { if (x) speak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang)); }
+function speakTurn(x) { if (x) speak(x.who === 'listen' ? stripSpk(x.tgt) : x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang)); }
 const voiceFor = dir => S.voice && (dir === 'out' ? S.voiceZh : S.voiceMine);
 function autoSpeakTurn(x) {
   if (!x) return;
-  if (rec.pocket) { if (S.pocketOut === 'ear' && x.dir === 'in' && (S.pkEarAll || x.imp)) queueSpeak(x.tgt, x.to || S.myLang); return; }   // pocket: silent, or earphones (important lines only unless asked)
+  if (rec.pocket) {                                       // pocket: silent, or earphones (important lines and your alert words, unless asked for all)
+    if (S.pocketOut === 'ear' && x.dir === 'in' && (S.pkEarAll || x.imp || x.alert)) { if (x.alert) chime(); queueSpeak((x.alert ? t('pk_alert_say', { w: x.alert }) + ' ' : '') + stripSpk(x.tgt), x.to || S.myLang); }
+    return;
+  }   // pocket: silent, or earphones (important lines only unless asked)
   if (voiceFor(x.dir)) queueSpeak(x.tgt, x.to || (x.dir === 'out' ? ZH() : S.myLang));
 }
 function renderVoiceInfo() {
@@ -4299,6 +4520,7 @@ function openSheet(name) {
   if (name === 'history') renderHistory();
   if (name === 'guide') renderGuide();
   if (name === 'dest') renderDestSheet();
+  if (name === 'pkopts') renderPocketOpts();
 }
 function closeSheets() { $('#scrim').hidden = true; $$('.sheet').forEach(s => { s.hidden = true; }); }
 
@@ -4392,7 +4614,7 @@ const norm = s => String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replac
 function renderPhrases() {
   const mine = myPhrases().filter(p => isCN() ? (!p.kind || isZh(p.kind)) : p.kind === ZH());
   const ready = isCN() || !!phrasePack();
-  if (!ready && !packBusy && hasKey() && Date.now() - packFail > 60000) setTimeout(() => ensurePack(), 0);
+  if (!isCN() && !packBusy && hasKey() && Date.now() - packFail > 60000) setTimeout(() => ensurePack(), 0);
   const cats = [{ id: 'all', name: t('ph_all') }].concat(mine.length ? [{ id: 'mine', name: t('ph_mine') }] : [], PHRASES.map(g => ({ id: g.id, name: t('cat_' + g.id) })));
   if (!cats.some(c => c.id === phraseCat)) phraseCat = 'all';
   $('#phraseCats').innerHTML = cats.map(c => '<button class="cat" type="button" data-cat="' + c.id + '" aria-pressed="' + (c.id === phraseCat) + '">' + esc(c.name) + '</button>').join('');
@@ -4441,9 +4663,10 @@ function renderPhrases() {
 
 /* ================= tools tab ================= */
 function renderTools() {
-  const tool = ['calc', 'fx', 'taxi'].includes(S.tool) ? S.tool : 'calc';
+  const tool = ['calc', 'fx', 'taxi', 'exp'].includes(S.tool) ? S.tool : 'calc';
   $$('#toolSeg button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tool === tool)));
-  ['calc', 'fx', 'taxi'].forEach(k => { $('#tool-' + k).hidden = k !== tool; });
+  ['calc', 'fx', 'taxi', 'exp'].forEach(k => { $('#tool-' + k).hidden = k !== tool; });
+  if (tool === 'exp') renderExpenses();
   if (tool === 'calc') renderCalc();
   if (tool === 'fx') { renderFx(); maybeAutoRefresh(); }
   if (tool === 'taxi') renderPlaces();
@@ -5344,10 +5567,13 @@ function parseKeys(raw, keys) {
   });
   return out;
 }
-async function callText(sys, user, maxOut, main) {
+let lastGround = [];
+async function callText(sys, user, maxOut, main, opts) {
   if (!hasKey()) throw { code: 'nokey' };
   const model = taskModel(main);
   const base = { systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: 'user', parts: [{ text: user }] }], generationConfig: { maxOutputTokens: maxOut || 400 } };
+  if (opts && opts.search) base.tools = [{ google_search: {} }];
+  lastGround = [];
   if (/gemini-2\./.test(model)) base.generationConfig.temperature = 0.3;
   let lastErr;
   for (const tc of thinkVariants(model)) {
@@ -5358,11 +5584,13 @@ async function callText(sys, user, maxOut, main) {
       store.set('think.' + model, tc);
       addUsage(j.usageMetadata, model, null, free);
       const cand = (j.candidates || [])[0];
+      lastGround = ((cand && cand.groundingMetadata && cand.groundingMetadata.groundingChunks) || []).map(c => c.web).filter(w => w && w.uri).slice(0, 3);
       return ((cand && cand.content && cand.content.parts) || []).filter(p => p.text && !p.thought).map(p => p.text).join('').trim();
     } catch (e) {
       lastErr = e;
       if (e && e.status === 400 && /think/i.test(e.message || '')) continue;
-      if (e && e.status === 404 && !main && model !== taskModel(true)) return callText(sys, user, maxOut, true);
+      if (e && e.status === 400 && opts && opts.search) return callText(sys, user, maxOut, main);    // search not available for this key/model: answer without it
+      if (e && e.status === 404 && !main && model !== taskModel(true)) return callText(sys, user, maxOut, true, opts);
       if (e && e.status === 404 && !S.modelManual) { try { await refreshModels(); } catch (x) {} }
       throw e;
     }
@@ -5490,6 +5718,7 @@ async function aiAction(ev) {
   if (!b || !aiCtx) return;
   const a = b.dataset.ai, k = aiCtx;
   if (a === 'speak') { unlockAudio(); speak(k.zh, k.kind); }
+  else if (a === 'map') { window.open(mapUrl(k.map), '_blank', 'noopener'); }
   else if (a === 'big') { closeSheets(); unlockAudio(); showCard({ big: k.zh, zh: true, small: k.my || (k.x && k.x.src) || '', speak: { text: k.zh, kind: k.kind } }); }
   else if (a === 'use') {
     const x = k.x; closeSheets();
@@ -5541,6 +5770,7 @@ function setDest(id) {
   applyI18n(); renderTalkLabels(); renderZhBtn(); renderFeed(); renderF2F(); renderDestBar(); refreshStatus();
   if (tab === 'phrases') renderPhrases();
   if (tab === 'tools') renderTools();
+  if (tab === 'guide') renderGuideTab();
   if (!isCN() && !(S.rates && S.rates[locCur()])) refreshRates(true);
   ensurePack();
   toast(t('dest_set', { c: destName(DST()) + ' ' + DST().f, l: localName() }));
@@ -5558,14 +5788,19 @@ const phraseOK = p => isCN() || !/WeChat|Alipay/.test(p.en);
 const packKey = () => 'pack.' + DST().lang;
 const phrasePack = () => { if (isCN()) return null; const p = store.get(packKey(), null); return p && p.v === 1 && p.items ? p : null; };
 let packBusy = false, packFail = 0;
+const packAsked = new Set();                                // each missing phrase is asked for at most once per session
 async function ensurePack(force) {
-  if (isCN() || packBusy || !hasKey() || (!force && phrasePack())) return;
+  const have = phrasePack();
+  const missing = [];
+  PHRASES.forEach(g => g.items.forEach(p => { if (phraseOK(p) && !(have && have.items[p.en]) && (force || !have || !packAsked.has(DST().lang + p.en))) missing.push(p.en); }));
+  if (isCN() || packBusy || !hasKey() || (!force && have && !missing.length)) return;
+  missing.forEach(en => packAsked.add(DST().lang + en));
   packBusy = true;
   if (tab === 'phrases') renderPhrases();
   const lang = DST().lang;
   try {
-    const items = [];
-    PHRASES.forEach(g => g.items.forEach(p => { if (phraseOK(p)) items.push(p.en); }));
+    const items = missing.length ? missing : [];
+    if (!items.length) PHRASES.forEach(g => g.items.forEach(p => { if (phraseOK(p)) items.push(p.en); }));
     const n = LANG[lang].en, rom = NONLATIN.has(lang);
     const sys = ['Translate these short phrases for a traveller in ' + DST().en + ' into ' + otherDesc(lang) + ', the way a friendly visitor says them to a local. Keep them short and natural.',
       'Answer with one line per phrase, in the same order and numbered like the input: "<n>. <' + n + ' translation>' + (rom ? ' || <pronunciation in simple Latin letters>' : '') + '". Nothing else.'].join('\n');
@@ -5578,11 +5813,12 @@ async function ensurePack(force) {
       if (parts[0].trim()) out[en] = [parts[0].trim(), (parts[1] || '').trim()];
     });
     if (Object.keys(out).length < items.length * 0.7) throw { code: 'empty' };
-    if (DST().lang === lang) store.set(packKey(), { v: 1, at: Date.now(), items: out });
+    if (DST().lang === lang) store.set(packKey(), { v: 1, at: Date.now(), items: Object.assign({}, have ? have.items : {}, out) });
   } catch (e) { packFail = Date.now(); if (force) showError(e); }
   finally {
     packBusy = false;
     if (tab === 'phrases') renderPhrases();
+    if (tab === 'guide') renderGuideTab();
     if (tab === 'talk' && !current()) renderFeed();
   }
 }
@@ -5624,6 +5860,195 @@ function useReply(x, i) {
   feed.append(turnEl(y)); scrollEnd(); markLastIn();
   renderF2F(); renderHeader();
   autoSpeakTurn(y);
+}
+
+/* ================= the guide: emergency, country guide, ask the guide ================= */
+const guideKey = () => 'guide.' + DST().id + '.' + S.ui;
+const guideData = () => { const g = store.get(guideKey(), null); return g && g.v === 1 && g.d ? g : null; };
+let guideBusy = false, guideFail = 0, askBusy = false;
+const jsonIn = s => { const m = String(s || '').replace(/```json|```/g, '').match(/\{[\s\S]*\}/); if (!m) return null; try { return JSON.parse(m[0]); } catch (e) { return null; } };
+async function ensureGuide(force) {
+  if (guideBusy || !hasKey() || (!force && guideData())) return;
+  guideBusy = true; if (tab === 'guide') renderGuideTab();
+  const key = guideKey();
+  try {
+    const d = DST(), lang = uiLangName(), LN = isCN() ? 'Chinese' : LANG[d.lang].en;
+    const sys = ['You are an expert travel guide for ' + d.en + '. Write a compact, practical guide for a traveller from the Gulf (Arab, Muslim, eats halal) visiting ' + d.en + ' for the first time.',
+      'Write everything in ' + lang + ', except "l" which is the local name in ' + LN + ' script. Be accurate and practical; no long history.',
+      'Return JSON only, exactly this shape:',
+      '{"intro":"2 short sentences","landmarks":[{"n":"name","l":"local name","c":"city","w":"why go, 1 sentence","b":"best time to go","t":"one insider tip"}],"etiquette":["…"],"tipping":"1-2 sentences","scams":["…"],"transport":["…"],"payment":["…"],"power":"plug type and voltage in 1 sentence","sim":"internet / SIM advice in 1 sentence","halal":["…"],"apps":["app name: what for"]}',
+      'Counts: 8 landmarks across the main cities, 5 etiquette, 5 scams, 4 transport, 3 payment, 3 halal, 4 apps. Keep every item short (max 20 words).'].join('\n');
+    const txt = await callText(sys, 'Guide for ' + d.en, 3000);
+    const j = jsonIn(txt);
+    if (!j || !Array.isArray(j.landmarks) || !j.landmarks.length) throw { code: 'empty' };
+    store.set(key, { v: 1, at: Date.now(), d: j });
+  } catch (e) { guideFail = Date.now(); if (force) showError(e); }
+  finally { guideBusy = false; if (tab === 'guide') renderGuideTab(); }
+}
+const helpPhrase = en => { for (const g of PHRASES) for (const p of g.items) if (p.en === en) return p; return null; };
+const SOS_PHRASES = ['Please help me.', 'Call the police!', 'Please take me to the hospital.', 'I need a doctor.', 'I lost my passport.', 'I am lost.'];
+function renderGuideTab() {
+  const d = DST();
+  $('#gdFlag').textContent = d.f; $('#gdName').textContent = destName(d);
+  // emergency: always there, works offline
+  const nums = EMERG[d.id] || [['all', '112']];
+  $('#sosNums').innerHTML = nums.map(n => '<a class="sos-num" href="tel:' + n[1] + '"><b dir="ltr">' + n[1] + '</b><small>' + esc(t('sos_' + n[0])) + '</small></a>').join('');
+  const ready = isCN() || !!phrasePack();
+  $('#sosPhr').innerHTML = ready ? SOS_PHRASES.map(en => { const p = helpPhrase(en); const z = p && builtinZh(p); return p && z && !z.missing ? '<button type="button" class="sos-ph" data-sos="' + esc(en) + '">' + esc(phraseLabel(p)) + '</button>' : ''; }).join('')
+    : '<p class="note">' + esc(t(hasKey() ? 'sos_prep' : 'pk_prep_key', { l: localName() })) + '</p>';
+  if (!isCN() && hasKey() && !packBusy && Date.now() - packFail > 60000) setTimeout(() => ensurePack(), 0);
+  const hc = HOME_COUNTRY[S.cur];
+  const emb = $('#sosEmb'); emb.hidden = !hc;
+  if (hc) { emb.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Embassy of ' + hc[0] + ' in ' + d.en); $('#sosEmbTxt').textContent = t('sos_emb', { h: S.ui === 'ar' ? hc[1] : hc[0] }); }
+  $$('[data-ask-k]').forEach(b => { b.textContent = t(b.dataset.askK); b.dataset.ask = t(b.dataset.askK); });
+  renderAnswers();
+  // country guide: made once per country, kept on the phone
+  const box = $('#gdBody'), g = guideData();
+  if (!g) {
+    box.innerHTML = guideBusy ? '<div class="pack-wait"><span class="spin"></span><span>' + esc(t('gd_prep', { c: destName(d) })) + '</span></div>'
+      : '<div class="pack-wait"><span>' + esc(t(hasKey() ? 'gd_prep_q' : 'gd_key', { c: destName(d) })) + '</span>' + (hasKey() ? '<button class="btn sm" type="button" data-gd="make">' + esc(t('gd_prep_btn')) + '</button>' : '') + '</div>';
+    if (!guideBusy && hasKey() && Date.now() - guideFail > 60000) setTimeout(() => ensureGuide(), 0);
+    return;
+  }
+  const j = g.d, li = a => (Array.isArray(a) ? a : []).filter(Boolean).map(s => '<li>' + esc(s) + '</li>').join('');
+  const sec = (ic, title, html) => html ? '<section class="gd-sec"><h3><span aria-hidden="true">' + ic + '</span>' + esc(title) + '</h3>' + html + '</section>' : '';
+  box.innerHTML = (j.intro ? '<p class="gd-intro">' + esc(j.intro) + '</p>' : '') +
+    sec('📍', t('gd_land'), '<div class="gd-cards">' + j.landmarks.map((m, i) => '<article class="gd-card"><div class="gd-ch"><b>' + esc(m.n) + '</b>' + (m.c ? '<small>' + esc(m.c) + '</small>' : '') + '</div>' + (m.l ? '<p class="gd-l zh" dir="auto">' + esc(m.l) + '</p>' : '') + '<p>' + esc(m.w || '') + '</p>' + (m.b ? '<p class="gd-m">🕒 ' + esc(m.b) + '</p>' : '') + (m.t ? '<p class="gd-m">💡 ' + esc(m.t) + '</p>' : '') +
+      '<div class="gd-acts"><a class="btn sm ghost" href="' + esc(mapUrl((m.l || m.n) + (m.c ? ' ' + m.c : ''))) + '" target="_blank" rel="noopener">' + esc(t('gd_map')) + '</a>' + (m.l ? '<button class="btn sm ghost" type="button" data-gd="show" data-i="' + i + '">' + esc(t('gd_show')) + '</button>' : '') + '</div></article>').join('') + '</div>') +
+    sec('🤝', t('gd_etq'), '<ul>' + li(j.etiquette) + '</ul>') +
+    sec('💵', t('gd_tip'), j.tipping ? '<p>' + esc(j.tipping) + '</p>' : '') +
+    sec('⚠️', t('gd_scam'), '<ul class="warn">' + li(j.scams) + '</ul>') +
+    sec('🚕', t('gd_move'), '<ul>' + li(j.transport) + '</ul>') +
+    sec('💳', t('gd_pay'), '<ul>' + li(j.payment) + '</ul>') +
+    sec('🍽️', t('gd_halal'), '<ul>' + li(j.halal) + '</ul>') +
+    sec('🔌', t('gd_power'), (j.power ? '<p>' + esc(j.power) + '</p>' : '') + (j.sim ? '<p>📶 ' + esc(j.sim) + '</p>' : '')) +
+    sec('📱', t('gd_apps'), '<ul>' + li(j.apps) + '</ul>') +
+    '<p class="note gd-foot">' + esc(t('gd_foot', { d: fmtDate(g.at) })) + ' <button class="linkbtn" type="button" data-gd="make">' + esc(t('gd_refresh')) + '</button></p>';
+}
+const askKey = () => 'ask.' + DST().id;
+function renderAnswers() {
+  const l = store.get(askKey(), []) || [];
+  $('#gdAns').innerHTML = (askBusy ? '<div class="gd-ans busy"><span class="spin"></span><span>' + esc(t('gd_thinking')) + '</span></div>' : '') +
+    l.slice(0, 6).map(a => '<div class="gd-ans"><p class="gd-q" dir="auto">' + esc(a.q) + '</p><p class="gd-a" dir="auto">' + esc(a.a).replace(/\n/g, '<br>') + '</p>' +
+      (a.src && a.src.length ? '<p class="gd-src">' + a.src.map(s => '<a href="' + esc(s.uri) + '" target="_blank" rel="noopener">' + esc(s.title || s.uri) + '</a>').join(' · ') + '</p>' : '') + '</div>').join('');
+}
+async function askGuide(q) {
+  q = String(q || $('#gdQ').value || '').trim();
+  if (!q || askBusy) return;
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
+  askBusy = true; renderAnswers(); $('#gdQ').blur();
+  try {
+    const search = $('#gdSearch').checked;
+    const sys = ['You are an expert local guide for ' + DST().en + ' helping a traveller from the Gulf (Arab, Muslim, eats halal).',
+      'Answer in ' + uiLangName() + ', practical and short: at most 6 short lines, no title, no bold. Give place names in ' + uiLangName() + ' and in the local language.',
+      'If prices or opening hours may have changed, say they should be checked. If you do not know, say so.'].join('\n');
+    const a = await callText(sys, q, 450, false, { search });
+    if (!a) throw { code: 'empty' };
+    const l = store.get(askKey(), []) || [];
+    l.unshift({ q, a, t: Date.now(), src: search ? lastGround : [] });
+    store.set(askKey(), l.slice(0, 20));
+    $('#gdQ').value = '';
+  } catch (e) { showError(e); }
+  finally { askBusy = false; renderAnswers(); }
+}
+
+/* ================= «what is this?»: one photo of a place, a dish or a product ================= */
+async function whatIsThis(file) {
+  if (!file) return;
+  if (!hasKey()) { showError({ code: 'nokey' }); return; }
+  let img;
+  try { img = await loadImage(file); } catch (e) { toast(t('shot_bad'), 'err'); return; }
+  const k = Math.min(1, 768 / Math.max(img.naturalWidth, img.naturalHeight));
+  const cv = document.createElement('canvas'); cv.width = Math.max(1, Math.round(img.naturalWidth * k)); cv.height = Math.max(1, Math.round(img.naturalHeight * k));
+  const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); g.drawImage(img, 0, 0, cv.width, cv.height);
+  const b64 = cv.toDataURL('image/jpeg', 0.72).split(',')[1];
+  const seq = openAI(t('what_t'));
+  try {
+    const d = DST(), lang = uiLangName(), LN = isCN() ? 'Chinese' : LANG[d.lang].en;
+    const prompt = ['A traveller in ' + d.en + ' took this photo. Identify what it is: a landmark or building, a dish or drink, a product or package, a sign, or something else.',
+      'Return JSON only: {"k":"landmark|food|product|sign|other","n":"name in ' + lang + '","l":"local name in ' + LN + ' script, or empty","w":"what it is, 1-2 short sentences in ' + lang + '","t":"one practical tip in ' + lang + '","h":"food or products only: ok, pork, alcohol, unsure; otherwise empty"}',
+      'If you are not sure, say so in "w". Never invent a famous name for an ordinary place.'].join('\n');
+    const r = await callVision(b64, { prompt, ask: 'What is this?', mr: 'MEDIA_RESOLUTION_LOW', maxOut: 600, parse: jsonIn });
+    if (aiStale(seq)) return;
+    if (!r || !r.n) throw { code: 'empty' };
+    const halal = r.h === 'pork' ? '⚠ ' + t('what_pork') : r.h === 'alcohol' ? '⚠ ' + t('what_alc') : r.h === 'unsure' ? t('what_unsure') : r.h === 'ok' ? '✓ ' + t('what_ok') : '';
+    aiCtx = { zh: r.l || '', kind: ZH(), my: r.n, map: r.k === 'landmark' ? (r.l || r.n) : '' };
+    $('#aiOut').innerHTML = '<h3 class="what-n" dir="auto">' + esc(r.n) + '</h3>' + (r.l ? '<p class="ai-zh zh" dir="auto">' + esc(r.l) + '</p>' : '') + '<p class="ai-ex" dir="auto">' + esc(r.w || '') + '</p>' +
+      (r.t ? '<p class="ai-ex" dir="auto">💡 ' + esc(r.t) + '</p>' : '') + (halal ? '<p class="what-h' + (/^⚠/.test(halal) ? ' bad' : r.h === 'unsure' ? ' unsure' : '') + '">' + esc(halal) + '</p>' : '');
+    $('#aiActs').innerHTML = (r.l ? aiBtn('speak', 'i-speak', t('card_speak')) + aiBtn('big', 'i-expand', t('act_big'), true) : '') + (aiCtx.map ? aiBtn('map', 'i-pin', t('gd_map'), true) : '');
+    $('#aiNote').textContent = t('ai_note');
+  } catch (e) { aiFail(seq, e); }
+}
+
+/* ================= trip expenses: tap a price to log it ================= */
+const expenses = () => { const a = store.get('expenses', []); return Array.isArray(a) ? a : []; };
+function toHome(v, cur) { const h = rateOf(S.cur), l = cur === 'CNY' ? 1 : rateOf(cur); return h && l ? v / l * h : null; }
+function addExpense(v, x, note) {
+  if (!(v > 0)) return;
+  const e = { id: uid(), t: Date.now(), v, cur: locCur(), sym: locSym(), note: String(note || (x ? stripSpk(x.dir === 'out' ? x.src : x.tgt) : '')).slice(0, 90), dest: S.dest };
+  const l = expenses(); l.push(e); store.set('expenses', l.slice(-500));
+  const h = toHome(v, e.cur);
+  toast(t('ex_added', { a: e.sym + smartN(v) + (h != null && e.cur !== S.cur ? ' ≈ ' + money(h, S.cur) : '') }), '', { label: t('undo'), fn: () => { store.set('expenses', expenses().filter(y => y.id !== e.id)); if (tab === 'tools') renderTools(); } });
+  if (tab === 'tools') renderTools();
+}
+function renderExpenses() {
+  const l = expenses().slice().reverse();
+  const total = l.reduce((s, e) => s + (toHome(e.v, e.cur) || 0), 0);
+  $('#exTotal').textContent = money(total, S.cur);
+  $('#exCount').textContent = t('ex_count', { n: l.length });
+  $('#exSym').textContent = locSym();
+  let day = '';
+  $('#exList').innerHTML = l.length ? l.map(e => {
+    const d = fmtDay(e.t), head = d !== day ? '<h3 class="ex-day">' + esc(d) + '</h3>' : ''; day = d;
+    const h = toHome(e.v, e.cur);
+    return head + '<div class="ex-row"><span class="ex-f">' + ((DESTS[e.dest] || {}).f || '') + '</span><span class="ex-n" dir="auto">' + esc(e.note || t('ex_noname')) + '<small>' + esc(fmtTime(e.t)) + '</small></span><span class="ex-v"><b dir="ltr">' + esc(e.sym + smartN(e.v)) + '</b>' + (h != null && e.cur !== S.cur ? '<small>' + esc(money(h, S.cur)) + '</small>' : '') + '</span><button class="mini" type="button" data-ex-del="' + e.id + '" aria-label="' + esc(t('ex_del')) + '"><svg class="ic"><use href="#i-trash"/></svg></button></div>';
+  }).join('') : '<p class="muted">' + esc(t('ex_empty')) + '</p>';
+}
+
+/* ================= pocket mode helpers ================= */
+const SPK_RE = /(?:^|\s)(M\d?|W\d?|C\d?|\?)\s*[:：]\s*/g;
+function spkParts(s) {
+  s = String(s || ''); const marks = []; let m;
+  SPK_RE.lastIndex = 0;
+  while ((m = SPK_RE.exec(s))) marks.push({ tag: m[1], start: m.index, end: SPK_RE.lastIndex });
+  if (!marks.length) return null;
+  const out = [];
+  marks.forEach((mk, i) => { const txt = s.slice(mk.end, i + 1 < marks.length ? marks[i + 1].start : s.length).trim(); if (txt) out.push({ tag: mk.tag, text: txt }); });
+  return out.length ? out : null;
+}
+const stripSpk = s => String(s || '').replace(SPK_RE, ' ').replace(/\s+/g, ' ').trim();
+function spkLabel(tag) { const k = tag[0], n = tag.slice(1); return t(k === 'M' ? 'spk_m' : k === 'W' ? 'spk_w' : k === 'C' ? 'spk_c' : 'spk_u') + (n ? ' ' + n : ''); }
+function spkHtml(s) { const p = spkParts(s); return p ? p.map(x => '<span class="spk"><b>' + esc(spkLabel(x.tag)) + '</b>' + hlNums(x.text) + '</span>').join('') : hlNums(s); }
+const normW = s => String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+function alertWord(x) {
+  const words = String(S.pkWords || '').split(/[,،\n]+/).map(w => w.trim()).filter(w => w.length >= 2);
+  if (!words.length) return '';
+  const hay = normW(x.tgt + ' ' + x.src);
+  return words.find(w => hay.includes(normW(w))) || '';
+}
+function chime() {                                          // two soft notes in the earphones: one of your words was said
+  try {
+    const ctx = rec.ctx; if (!ctx || ctx.state !== 'running') return;
+    [[660, 0], [990, 0.16]].forEach(([f, d]) => {
+      const o = ctx.createOscillator(), g = ctx.createGain(), at = ctx.currentTime + d;
+      o.frequency.value = f; g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(0.12, at + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, at + 0.14);
+      o.connect(g); g.connect(ctx.destination); o.start(at); o.stop(at + 0.16);
+    });
+  } catch (e) {}
+}
+function markMoment() {
+  if (!pocket.on) return;
+  pocket.marks = pocket.marks || []; pocket.marks.push(Date.now());
+  if (S.pocketOut === 'ear') tick('start');
+  const ov = $('#pocketOv'); ov.dataset.marked = '1'; setTimeout(() => { delete ov.dataset.marked; }, 600);
+  pocketStatus();
+}
+function pocketCostText(turns) {
+  const list = turns || pocketTurns();
+  const usd = list.reduce((s, x) => s + ((x.usage && x.usage.cost) || 0), 0);
+  if (!usd) return t('pk_cost_free');
+  const h = usdToHome(usd);
+  return t('pk_cost', { c: h != null ? money(h, S.cur) : fmtUSD(usd) });
 }
 
 /* ================= outdoor mode: light colours and strong contrast for bright sun ================= */
@@ -5799,6 +6224,36 @@ function bind() {
   $('#pkEarAll').addEventListener('change', e => { S.pkEarAll = e.target.checked; saveSettings(); });
   $$('input[name="pkTimer"]').forEach(r => r.addEventListener('change', () => { if (r.checked) { S.pkTimer = +r.value; saveSettings(); } }));
   $('#goTools').addEventListener('click', () => { closeSheets(); setTab('tools'); });
+  $$('input[name="pkSense"]').forEach(r => r.addEventListener('change', () => { if (r.checked) { S.pkSense = r.value; saveSettings(); } }));
+  $('#pkWords').addEventListener('change', e => { S.pkWords = e.target.value.trim(); saveSettings(); });
+  $('#panel-guide').addEventListener('click', e => {
+    const b = e.target.closest('[data-gd],[data-sos],[data-ask],#gdDest');
+    if (!b) return;
+    if (b.id === 'gdDest') { openSheet('dest'); return; }
+    if (b.dataset.sos) { const p = helpPhrase(b.dataset.sos); if (p) openPhrase(p); return; }
+    if (b.dataset.ask) { askGuide(b.dataset.ask); return; }
+    if (b.dataset.gd === 'make') { ensureGuide(true); return; }
+    if (b.dataset.gd === 'show') { const g = guideData(), m = g && g.d.landmarks[+b.dataset.i]; if (m) { unlockAudio(); showCard({ top: driverLine(), big: m.l, zh: true, small: m.n, speak: { text: (isCN() ? '' : CUE().drive + ' ') + m.l, kind: ZH() }, autoSpeak: autoZh() }); } }
+  });
+  $('#gdForm').addEventListener('submit', e => { e.preventDefault(); askGuide(); });
+  $('#whatGo').addEventListener('click', () => { const f = $('#whatFile'); f.value = ''; f.click(); });
+  $('#whatFile').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; if (f) whatIsThis(f); });
+  $('#exForm').addEventListener('submit', e => { e.preventDefault(); const v = numVal('#exAmt'); if (!v) { toast(t('ex_need'), 'warn'); return; } addExpense(v, null, $('#exNote').value.trim()); $('#exAmt').value = ''; $('#exNote').value = ''; });
+  $('#exList').addEventListener('click', e => { const b = e.target.closest('[data-ex-del]'); if (!b) return; store.set('expenses', expenses().filter(x => x.id !== b.dataset.exDel)); renderExpenses(); });
+  $('#exClear').addEventListener('click', e => {
+    const b = e.currentTarget; if (!expenses().length) return;
+    if (!b.dataset.confirm) { b.dataset.confirm = '1'; b.textContent = t('h_clear_c'); setTimeout(() => { delete b.dataset.confirm; b.textContent = t('ex_clear'); }, 3500); return; }
+    delete b.dataset.confirm; b.textContent = t('ex_clear');
+    const saved = expenses(); store.set('expenses', []); renderExpenses();
+    toast(t('ex_cleared'), '', { label: t('undo'), fn: () => { store.set('expenses', saved); renderExpenses(); } });
+  });
+  $('#exShare').addEventListener('click', async () => {
+    const l = expenses(); if (!l.length) return;
+    const total = l.reduce((s, e) => s + (toHome(e.v, e.cur) || 0), 0);
+    const text = 'ترجمان السفر · ' + t('ex_title') + '\n' + l.map(e => fmtDay(e.t) + ' · ' + e.sym + smartN(e.v) + ' · ' + (e.note || '')).join('\n') + '\n= ' + money(total, S.cur);
+    try { if (navigator.share) { await navigator.share({ text }); return; } } catch (x) { return; }
+    toast(await copyText(text) ? t('t_copied') : t('t_copy_fail'));
+  });
   $('#destPick').addEventListener('click', () => openSheet('dest'));
   $('#destGrid').addEventListener('click', e => { const b = e.target.closest('[data-dest]'); if (b) setDest(b.dataset.dest); });
   $('#destYes').addEventListener('click', () => { const id = $('#destBar').dataset.dest; if (id) setDest(id); });
@@ -5820,6 +6275,12 @@ function bind() {
   ['touchmove', 'gesturestart', 'contextmenu'].forEach(n => pov.addEventListener(n, e => e.preventDefault(), { passive: false }));
   pov.addEventListener('click', e => { if (!e.target.closest('#pkPaused')) e.preventDefault(); });
   pov.addEventListener('dblclick', e => e.preventDefault());
+  pov.addEventListener('pointerdown', e => {
+    if (!pocket.on || e.target.closest('#pkEye, #pkHold, #pkPaused, #pkList')) return;
+    const now = Date.now();
+    pocket.taps2 = now - (pocket.tap2T || 0) < 450 ? (pocket.taps2 || 0) + 1 : 1; pocket.tap2T = now;
+    if (pocket.taps2 >= 2) { pocket.taps2 = 0; markMoment(); }
+  });
   $('#scrim').addEventListener('click', closeSheets);
   $$('[data-close]').forEach(b => b.addEventListener('click', closeSheets));
 
@@ -5861,6 +6322,7 @@ function bind() {
     else if (act === 'big') showTurnCard(x);
     else if (act === 'more') openTurnMenu(x);
     else if (act === 'retry') retryOne(x);
+    else if (act === 'spend') addExpense(+b.dataset.v, x);
     else if (act === 'replies') suggestReplies(x, art);
     else if (act === 'rep-use') { useReply(x, +b.dataset.i); }
   });
@@ -6061,7 +6523,7 @@ function init() {
   if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch (e) { speechSynthesis.onvoiceschanged = loadVoices; } }
 }
 
-window.__yb = { applyTheme, lastPerfLog: () => store.get('perfLog', []), pttLock, DST, tzDest, setDest, phrasePack, ensurePack, homePerLocal, parseNum, net, failedQ, checkNet, hold, pocket, rec, ptt, trimSilence, speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
+window.__yb = { spkParts, stripSpk, alertWord, pkSummaryHtml, guideData, ensureGuide, expenses, addExpense, markMoment, applyTheme, lastPerfLog: () => store.get('perfLog', []), pttLock, DST, tzDest, setDest, phrasePack, ensurePack, homePerLocal, parseNum, net, failedQ, checkNet, hold, pocket, rec, ptt, trimSilence, speakQ, queueSpeak, freeFailKind, withKey, taskModel, freeUsable, laDay, parseShot, shotPrompt, shot, openShotFile, hlNums, parseKeys, summaryHtml, ZH, fxInline, rec, encodeMulawWavB64, linToMulaw, parseItems, visionPrompt, cam, parseOut, encodeWavB64, resolveTier, buildPrompt, fxChips, checkPin, priceOf, per1000USD, S };
 init();
 })();
 
